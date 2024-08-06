@@ -18,20 +18,34 @@
 		<nav class="container">
 			<ul>
 				<li>
-					<strong>Police</strong>
+					<a href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>Police</strong>
+					</a>
 				</li>
 			</ul>
 			<ul>
 				<li></li>
-				<li>
-					<a href="{{path('app_login')}}">Login</a>
-				</li>
-				<li>
-					<a href="{{path('app_logout')}}">Logout</a>
-				</li>
-				<li>
-					<a href="{{path('app_register')}}">Register</a>
-				</li>
+				{% if app.user %}
+					<li>
+						{% if app.user %}
+							{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
+							{{ app.user.email}}
+						{% endif %}
+					</li>
+					<li>
+						<a href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
+					</li>
+
+				{% else %}
+
+					<li>
+						<a href="{{path('app_login')}}">
+							{{ ux_icon('tabler:login-2', {height:'24px', width:'24px'}) }}Login</a>
+					</li>
+					<li>
+						<a href="{{path('app_register')}}">{{ ux_icon('bi:alipay', {height:'24px', width:'24px'}) }}Register</a>
+					</li>
+				{% endif %}
+
 			</ul>
 		</nav>
 		<main class="container"> {% block body %}{% endblock %}
