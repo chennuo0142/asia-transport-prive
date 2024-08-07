@@ -48,6 +48,36 @@
 
 			</ul>
 		</nav>
+		{% if app.user %}
+			<article>
+				<nav class="container">
+					<ul></ul>
+					<ul>
+						<li></li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Driver</a>
+						</li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Client</a>
+						</li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Societe</a>
+						</li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Article</a>
+						</li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Facture</a>
+						</li>
+						<li>
+							<a href="{{ path('app_driver_index')}}">Reservation</a>
+						</li>
+					</ul>
+				</nav>
+			</article>
+
+		{% endif %}
+
 		<main class="container"> {% block body %}{% endblock %}
 			</main>
 		</body>

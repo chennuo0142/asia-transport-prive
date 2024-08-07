@@ -15,4 +15,11 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    #[Route('/elle', name: 'app_elle')]
+    public function elle(): Response
+    {
+        return $this->render('home/elle.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }

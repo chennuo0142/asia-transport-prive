@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Driver
+{% endblock %}
+
+{% block body %}
+	<h1>Driver</h1>
+	<article>
+		<header>{{ driver.name }}
+			{{ driver.firstName }}
+		</header>
+		<div>{{ ux_icon('tabler:cake', {height:'24px', width:'24px'}) }}:
+			{{ driver.birthDay ? driver.birthDay|date('d-m-Y') : '' }}</div>
+		<div>{{ ux_icon('tabler:mail', {height:'24px', width:'24px'}) }}:
+			{{ driver.email }}</div>
+		<div>{{ ux_icon('tabler:phone', {height:'24px', width:'24px'}) }}:
+			{{ driver.telephone }}</div>
+		<p>
+			<div>Date de creation:{{ driver.createAt ? driver.createAt|date('Y-m-d H:i:s') : '' }}</div>
+			<div>Dernier modification:{{ driver.updateAt ? driver.updateAt|date('Y-m-d H:i:s') : '' }}</div>
+		</p>
+		<footer>Adresse:
+			{{ driver.adress }},
+			{{ driver.city }}
+			{{ driver.zipCode }},
+			{{ driver.country }}</footer>
+
+	</article>
+
+	<a href="{{ path('app_driver_index') }}">back to list</a>
+
+	<a href="{{ path('app_driver_edit', {'slug': driver.slug}) }}">edit</a>
+
+	{{ include('driver/_delete_form.html.twig') }}
+{% endblock %}
