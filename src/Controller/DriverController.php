@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/driver')]
+#[Route('/gestion/driver')]
 class DriverController extends AbstractController
 {
     private $driverRepository;

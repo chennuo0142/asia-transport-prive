@@ -36,7 +36,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/setting, roles: ROLE_ADMIN }
-        - { path: ^/gestion, roles: ROLE_DISPATCH }
+        - { path: ^/gestion, roles: ROLE_USER }
 
 when@test:
     security:
