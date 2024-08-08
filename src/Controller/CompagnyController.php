@@ -83,13 +83,6 @@ class CompagnyController extends AbstractController
         ]);
     }
 
-    #[Route('/show', name: 'app_compagny_show', methods: ['GET'])]
-    public function show(CompagnyRepository $compagnyRepository): Response
-    {
-        return $this->render('compagny/show.html.twig', [
-            'compagny' => $compagnyRepository->findOneBy(['user' => $this->getUser()]),
-        ]);
-    }
 
     #[Route('/edit', name: 'app_compagny_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request,  EntityManagerInterface $entityManager, CompagnyRepository $compagnyRepository): Response
@@ -110,17 +103,4 @@ class CompagnyController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-
-    // #[Route('/{id}', name: 'app_compagny_delete', methods: ['POST'])]
-    // public function delete(Request $request, Compagny $compagny, EntityManagerInterface $entityManager): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete' . $compagny->getId(), $request->getPayload()->getString('_token'))) {
-    //         $entityManager->remove($compagny);
-    //         $entityManager->flush();
-    //     }
-
-    //     return $this->redirectToRoute('app_compagny_index', [], Response::HTTP_SEE_OTHER);
-    // }
 }
