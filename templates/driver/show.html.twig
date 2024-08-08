@@ -6,8 +6,13 @@
 {% block body %}
 	<h1>Driver</h1>
 	<article>
-		<header>{{ driver.name }}
-			{{ driver.firstName }}
+		<header>
+			<div class="driver_show_card_title">
+				<span>{{ driver.name }}
+					{{ driver.firstName }}</span>
+				<span>Visible home page:
+					{{ visibility }}</span>
+			</div>
 		</header>
 		<div>{{ ux_icon('tabler:cake', {height:'24px', width:'24px'}) }}:
 			{{ driver.birthDay ? driver.birthDay|date('d-m-Y') : '' }}</div>
@@ -18,6 +23,13 @@
 		<p>
 			<div>Date de creation:{{ driver.createAt ? driver.createAt|date('Y-m-d H:i:s') : '' }}</div>
 			<div>Dernier modification:{{ driver.updateAt ? driver.updateAt|date('Y-m-d H:i:s') : '' }}</div>
+		</p>
+		<p>
+			<div>
+				Langues Parler:
+				{{ driver.language ? driver.language|join(', ') : '' }}
+			</div>
+
 		</p>
 		<footer>Adresse:
 			{{ driver.adress }},

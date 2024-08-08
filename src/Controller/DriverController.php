@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Driver;
 use DateTimeImmutable;
 use App\Form\DriverType;
-
 use App\Repository\DriverRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,10 +23,10 @@ class DriverController extends AbstractController
     }
 
     #[Route('/', name: 'app_driver_index', methods: ['GET'])]
-    public function index(DriverRepository $driverRepository): Response
+    public function index(): Response
     {
         return $this->render('driver/index.html.twig', [
-            'drivers' => $driverRepository->findAll(),
+            'drivers' => $this->driverRepository->findBy(['user' => $this->getUser()]),
         ]);
     }
 
@@ -61,19 +60,26 @@ class DriverController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_driver_show', methods: ['GET'])]
-    public function show($slug, DriverRepository $driverRepository): Response
+    public function show($slug): Response
     {
-        $driver =  $driverRepository->findOneBy(['slug' => $slug]);
+        $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
+        //twig affichage
+        $visibility = "NON";
+
+        if ($driver->isVisible()) {
+            $visibility = "YES";
+        }
 
         return $this->render('driver/show.html.twig', [
             'driver' => $driver,
+            'visibility' => $visibility
         ]);
     }
 
     #[Route('/{slug}/edit', name: 'app_driver_edit', methods: ['GET', 'POST'])]
     public function edit($slug, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $driver = $this->driverRepository->findOneBy(['slug' => $slug]);
+        $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
 
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
@@ -83,7 +89,7 @@ class DriverController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_driver_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_driver_show', ['slug' => $driver->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('driver/edit.html.twig', [

@@ -59,6 +59,10 @@ class Driver
     #[ORM\Column]
     private ?bool $isVisible = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $language = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +244,18 @@ class Driver
     public function setVisible(bool $isVisible): static
     {
         $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    public function getLanguage(): ?array
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?array $language): static
+    {
+        $this->language = $language;
 
         return $this;
     }

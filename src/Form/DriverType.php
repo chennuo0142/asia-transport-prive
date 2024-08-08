@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Driver;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Driver;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class DriverType extends AbstractType
 {
@@ -34,6 +35,20 @@ class DriverType extends AbstractType
             ->add('country')
             ->add('telephone')
             ->add('email')
+            ->add('language', ChoiceType::class, [
+                'choices' => [
+                    'Français' => 'Français',
+                    'Anglais' => 'Anglais',
+                    'Italien' => 'Italien',
+                    'Espagnole' => 'Espagnole',
+                    'Allemand' => 'Allemand',
+                    'Mandarin' => 'Mandarin',
+                    'Arabe' => 'Arabe'
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => 'Langue parler:'
+            ])
 
             // ->add('user', EntityType::class, [
             //     'class' => User::class,
