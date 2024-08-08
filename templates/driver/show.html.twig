@@ -5,6 +5,8 @@
 
 {% block body %}
 	<h1>Driver</h1>
+	<img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt="">
+
 	<article>
 		<header>
 			<div class="driver_show_card_title">

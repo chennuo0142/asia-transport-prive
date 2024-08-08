@@ -62,6 +62,9 @@ class Driver
     #[ORM\Column(nullable: true)]
     private ?array $language = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
 
     public function getId(): ?int
     {
@@ -256,6 +259,18 @@ class Driver
     public function setLanguage(?array $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): static
+    {
+        $this->photo = $photo;
 
         return $this;
     }

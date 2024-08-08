@@ -6,6 +6,7 @@ use App\Entity\Driver;
 use DateTimeImmutable;
 use App\Form\DriverType;
 use App\Repository\DriverRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,13 +32,21 @@ class DriverController extends AbstractController
     }
 
     #[Route('/new', name: 'app_driver_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
+    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
     {
         $driver = new Driver();
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            //si image est envoyé, on traite l'enregistrement
+            if ($form->get('photoImage')->getData()) {
+                //on recupere le nom image une fois enregister
+                $filename = $pictureService->add($form, $driver);
+                $driver->setPhoto($filename);
+            }
+
 
             $slug = strtolower($sluggerInterface->slug($driver->getName() . uniqid()));
             $driver->setSlug($slug)
@@ -45,7 +54,8 @@ class DriverController extends AbstractController
                 ->setCreateAt(new DateTimeImmutable())
                 ->setUpdateAt(new DateTimeImmutable())
                 ->setUser($this->getUser())
-                ->setUserId($this->getUser()->getId());
+                ->setUserId($this->getUser()->getId())
+            ;
 
             $entityManager->persist($driver);
             $entityManager->flush();
@@ -77,7 +87,7 @@ class DriverController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'app_driver_edit', methods: ['GET', 'POST'])]
-    public function edit($slug, Request $request, EntityManagerInterface $entityManager): Response
+    public function edit($slug, Request $request, PictureService $pictureService, EntityManagerInterface $entityManager): Response
     {
         $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
 
@@ -85,6 +95,13 @@ class DriverController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //si image est envoyé, on traite l'enregistrement
+            if ($form->get('photoImage')->getData()) {
+                //on recupere le nom image une fois enregister
+                $filename = $pictureService->add($form, $driver);
+                $driver->setPhoto($filename);
+            }
+
             $driver->setUpdateAt(new DateTimeImmutable());
 
             $entityManager->flush();
