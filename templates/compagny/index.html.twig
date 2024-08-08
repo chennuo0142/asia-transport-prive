@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compagny index
+{% endblock %}
+
+{% block body %}
+	<h1>Compagny index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+
+				<th>Status</th>
+				<th>Name</th>
+				<th>Adress</th>
+				<th>ZipCode</th>
+				<th>City</th>
+				<th>Country</th>
+				<th>Telephone</th>
+				<th>Email</th>
+
+
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% if compagny %}
+				<tr>
+
+					<td>{{ compagny.status }}</td>
+					<td>{{ compagny.name }}</td>
+					<td>{{ compagny.adress }}</td>
+					<td>{{ compagny.zipCode }}</td>
+					<td>{{ compagny.city }}</td>
+					<td>{{ compagny.country }}</td>
+					<td>{{ compagny.telephone }}</td>
+					<td>{{ compagny.email }}</td>
+
+					<td>
+						<a href="{{ path('app_compagny_show', {'id': compagny.id}) }}">show</a>
+						<a href="{{ path('app_compagny_edit', {'id': compagny.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="16">no records found</td>
+				</tr>
+			{% endif %}
+
+
+		</tbody>
+	</table>
+	{% if compagny == "" %}
+
+		<a href="{{ path('app_compagny_new') }}">Create new</a>
+	{% endif %}
+
+{% endblock %}

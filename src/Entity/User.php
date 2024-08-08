@@ -50,6 +50,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Client::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $clients;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Compagny $compagny = null;
+
+
     public function __construct()
     {
         $this->drivers = new ArrayCollection();
@@ -199,6 +203,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $client->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompagny(): ?Compagny
+    {
+        return $this->compagny;
+    }
+
+    public function setCompagny(Compagny $compagny): static
+    {
+        // set the owning side of the relation if necessary
+        if ($compagny->getUser() !== $this) {
+            $compagny->setUser($this);
+        }
+
+        $this->compagny = $compagny;
 
         return $this;
     }

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compagny
+{% endblock %}
+
+{% block body %}
+	<h1>Compagny</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ compagny.id }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ compagny.status }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ compagny.name }}</td>
+			</tr>
+			<tr>
+				<th>Adress</th>
+				<td>{{ compagny.adress }}</td>
+			</tr>
+			<tr>
+				<th>ZipCode</th>
+				<td>{{ compagny.zipCode }}</td>
+			</tr>
+			<tr>
+				<th>City</th>
+				<td>{{ compagny.city }}</td>
+			</tr>
+			<tr>
+				<th>Country</th>
+				<td>{{ compagny.country }}</td>
+			</tr>
+			<tr>
+				<th>Telephone</th>
+				<td>{{ compagny.telephone }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ compagny.email }}</td>
+			</tr>
+			<tr>
+				<th>CompagnyId</th>
+				<td>{{ compagny.compagnyId }}</td>
+			</tr>
+			<tr>
+				<th>TvaId</th>
+				<td>{{ compagny.tvaId }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ compagny.description }}</td>
+			</tr>
+			<tr>
+				<th>CreateAt</th>
+				<td>{{ compagny.createAt ? compagny.createAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>UpdateAt</th>
+				<td>{{ compagny.updateAt ? compagny.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Slug</th>
+				<td>{{ compagny.slug }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_compagny_index') }}">back to list</a>
+
+	<a href="{{ path('app_compagny_edit', {'id': compagny.id}) }}">edit</a>
+
+
+{% endblock %}
