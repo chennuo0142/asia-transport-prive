@@ -1,58 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Compagny index
+{% block title %}Compagny
 {% endblock %}
 
 {% block body %}
-	<h1>Compagny index</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-
-				<th>Status</th>
-				<th>Name</th>
-				<th>Adress</th>
-				<th>ZipCode</th>
-				<th>City</th>
-				<th>Country</th>
-				<th>Telephone</th>
-				<th>Email</th>
+	<h1>Compagny info</h1>
 
 
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% if compagny %}
-				<tr>
+	{% if compagny %}
+		<article>
+			<header>
+				{{ compagny.status }}
+				{{ compagny.name }}
+			</header>
+			<div>Adresse:
+				{{ compagny.adress }}</div>
+			<div>ZipCode:
+				{{ compagny.zipCode }}
+			</div>
+			<div>City:
+				{{ compagny.city }}</div>
+			<div>Country:
+				{{ compagny.country }}</div>
+			<div>Telephone:
+				{{ compagny.telephone }}</div>
+			<div>Email:
+				{{ compagny.email }}</div>
+			<div>Code TVA:
+				{{ compagny.tvaId }}
+			</div>
+			<div>Siret:{{ compagny.compagnyId }}</div>
+			<p>Description:
+				{{ compagny.description ? compagny.description : "Auteur de la fiche n'a rien laisser"  }}</p>
 
-					<td>{{ compagny.status }}</td>
-					<td>{{ compagny.name }}</td>
-					<td>{{ compagny.adress }}</td>
-					<td>{{ compagny.zipCode }}</td>
-					<td>{{ compagny.city }}</td>
-					<td>{{ compagny.country }}</td>
-					<td>{{ compagny.telephone }}</td>
-					<td>{{ compagny.email }}</td>
+			<footer>
+				<div></div>Fichier crée le:
+				{{ compagny.createAt ? compagny.createAt|date('d-m-Y') : ''  }}
+				<div>Dernier modification le:
+					{{ compagny.updateAt ? compagny.updateAt|date('d-m-Y') : ''  }}</div>
+			</footer>
+			{# <a href="{{ path('app_compagny_show', {'id': compagny.id}) }}">show</a> #}
 
-					<td>
-						<a href="{{ path('app_compagny_show', {'id': compagny.id}) }}">show</a>
-						<a href="{{ path('app_compagny_edit', {'id': compagny.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="16">no records found</td>
-				</tr>
-			{% endif %}
+		</article>
+		<a href="{{ path('app_compagny_edit', {'id': compagny.id}) }}">edit</a>
+	{% else %}
 
+		<div>no records found</div>
 
-		</tbody>
-	</table>
-	{% if compagny == "" %}
-
-		<a href="{{ path('app_compagny_new') }}">Create new</a>
 	{% endif %}
 
-{% endblock %}
+
+</tbody></table>{% if compagny == "" %}
+
+<a href="{{ path('app_compagny_new') }}">Create new</a>{% endif %}{% endblock %}

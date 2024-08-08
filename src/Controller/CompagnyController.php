@@ -16,6 +16,29 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/gestion/compagny')]
 class CompagnyController extends AbstractController
 {
+    public function calcul_numeros_tva_fr(string $data): string
+    {
+        //formule de calcule:  Clé TVA = (12 + 3 x (SIREN modulo 97)) modulo 97
+        //ex numeros siret ou siren : 844 922 369
+        //resultat : FR 76 844922369
+
+        //supprime les espaces
+        $data_sans_espace = str_replace(" ", "", $data);
+
+        //on selectionne les 9 premier lettres
+        $siren = substr($data_sans_espace, 0, 9);
+
+        //on convertie le string en int
+        $siret = intval($siren);
+
+        //formule francaise pour calculer la clé TVA à deux chiffre
+        $cle_tva = (12 + 3 * ($siret % 97)) % 97;
+        // code tva
+        $num_tva = "FR " . $cle_tva . $siret;
+
+        return $num_tva;
+    }
+
     #[Route('/', name: 'app_compagny_index', methods: ['GET'])]
     public function index(CompagnyRepository $compagnyRepository): Response
     {
@@ -24,17 +47,7 @@ class CompagnyController extends AbstractController
             'compagny' => $compagnyRepository->findOneBy(['user' => $this->getUser()]),
         ]);
     }
-    public function calcul_numeros_tva_fr(int $siret): string
-    {
-        //formule de calcule:  Clé TVA = [12 + 3 x (SIREB modulo 97)] modulo 97
-        //12 + 3 x (SIREN modulo 97 modulo 97) modulo 97
-        //siret asia transport prive : 844 922 369
-        // resultat : FR 76 844922369
-        $cle_tva = (12 + 3 * ($siret % 97)) % 97;
-        dd($cle_tva);
-        $num_tva = "FR " . $cle_tva . $siret;
-        return $num_tva;
-    }
+
 
     #[Route('/new', name: 'app_compagny_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
@@ -48,21 +61,10 @@ class CompagnyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = strtolower($sluggerInterface->slug($compagny->getName() . uniqid()));
 
-            $code = $request->get('compagny')['compagnyId'];
-            //supprime les espaces
-            $data = str_replace(" ", "", $code);
+            $data = $request->get('compagny')['compagnyId'];
 
-            //on selectionne les 9 premier lettres
-            $siren = substr($data, 0, 9);
+            $num_tva = $this->calcul_numeros_tva_fr($data);
 
-            //on convertie le sting en int
-            $siret = intval($siren);
-
-            if ($siret) {
-                $cle_tva = (12 + 3 * ($siret % 97)) % 97;
-
-                $num_tva = "FR " . $cle_tva . $siret;
-            }
 
             $compagny->setUser($this->getUser())
                 ->setTvaId($num_tva)
