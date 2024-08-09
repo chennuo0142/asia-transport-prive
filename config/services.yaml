@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     images_directory: '%kernel.project_dir%/public/images/uploads/'
+    thumb_images_directory: '%kernel.project_dir%/public/media/cache/my_thumb_filter/images/uploads/'
+    fixed_images_directory: '%kernel.project_dir%/public/media/cache/my_fixed_filter/images/uploads/'
 services:
     # default configuration for services in *this* file
     _defaults:

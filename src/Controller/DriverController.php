@@ -93,8 +93,9 @@ class DriverController extends AbstractController
 
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
-
+        dump($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             //si image est envoyé, on traite l'enregistrement
             if ($form->get('photoImage')->getData()) {
                 //on recupere le nom image une fois enregister
