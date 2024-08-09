@@ -117,9 +117,12 @@ class DriverController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_driver_delete', methods: ['POST'])]
-    public function delete(Request $request, Driver $driver, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Driver $driver, EntityManagerInterface $entityManager, PictureService $pictureService): Response
     {
         if ($this->isCsrfTokenValid('delete' . $driver->getId(), $request->getPayload()->getString('_token'))) {
+            //on supprime les photos
+            $pictureService->delete($driver->getPhoto());
+
             $entityManager->remove($driver);
             $entityManager->flush();
         }

@@ -25,12 +25,17 @@
 			<ul>
 				<li></li>
 				{% if app.user %}
+
+
 					<li>
-						{% if app.user %}
-							{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
-							{{ app.user.email}}
-						{% endif %}
+						{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
+						{{ app.user.email}}
 					</li>
+					<li>
+						<a href="#">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Compte</a>
+					</li>
+
+
 					<li>
 						<a href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
 					</li>

@@ -2,3 +2,9 @@
     display: flex;
     justify-content: space-between;
 }
+
+.check_valide_color {
+    color: green;
+    height: 24px;
+    width: 24px;
+}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<h1>Bienvenue</h1>
+
+	<article>
+		<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
+		<div>
+
+			{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
+			{{ driver.user.compagny.status }}
+			{{ driver.user.compagny.name}}</div>
+		{{ driver.name }}
+	</article>
+
+
+{% endblock %}

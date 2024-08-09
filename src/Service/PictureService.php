@@ -33,4 +33,21 @@ class PictureService extends AbstractController
 
         return $filename;
     }
+
+    public function delete($filename)
+    {
+        $path = $this->getParameter('images_directory');
+        $path_thumb = $this->getParameter('thumb_images_directory');
+        $path_fixed = $this->getParameter('fixed_images_directory');
+
+        if (file_exists($path . $filename)) {
+            unlink($path . $filename);
+        }
+        if (file_exists($path_thumb . $filename)) {
+            unlink($path_thumb . $filename);
+        }
+        if (file_exists($path_fixed . $filename)) {
+            unlink($path_fixed . $filename);
+        }
+    }
 }

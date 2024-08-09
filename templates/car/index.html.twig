@@ -41,6 +41,11 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	{% if app.user.compagny %}
+		<a href="{{ path('app_car_new') }}">Create new</a>
+	{% else %}
+		<P>les informations de votre societe sont requis pour ajouter un véhicule</P>
+	{% endif %}
 
-	<a href="{{ path('app_car_new') }}">Create new</a>
+
 {% endblock %}
