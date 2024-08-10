@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!
+{% endblock %}
+
+{% block body %}
+	<h1>User Edit</h1>
+	{{ form(form) }}
+		<a href="{{ path('app_admin_user_index') }}">Retour</a>
+	{% endblock %}

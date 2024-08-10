@@ -31,6 +31,16 @@
 						{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
 						{{ app.user.email}}
 					</li>
+					{% if 'ROLE_ADMIN' in app.user.getroles() %}
+						<li>
+							<a href="{{ path('app_admin')}}">Admin</a>
+						</li>
+					{% endif %}
+					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
+						<li>
+							<a href="{{ path('app_moderator')}}">Moderation</a>
+						</li>
+					{% endif %}
 					<li>
 						<a href="#">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Compte</a>
 					</li>
@@ -53,6 +63,11 @@
 
 			</ul>
 		</nav>
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
 		{% if app.user %}
 			<article>
 				<nav class="container">

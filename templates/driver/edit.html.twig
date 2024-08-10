@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Edit Driver</h1>
-	<a href="{{ path('app_driver_setting',{'slug': driver.slug}) }}">
-		Parametre avancee
-	</a>
-
+	<div class="space-between">
+		<h1>Edit Driver</h1>
+		<span>Etat:
+			{{ status }}</span>
+	</div>
 	{{ include('driver/_form.html.twig', {'button_label': 'Update'}) }}
 
 	<a href="{{ path('app_driver_index') }}">back to list</a>

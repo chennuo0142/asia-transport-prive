@@ -44,18 +44,7 @@ class PictureService extends AbstractController
         $path_fixed = $this->getParameter('fixed_images_directory');
         //on deplace le fichier sous le nouvau nom
         $image->move($path, $filename);
-        //on supprime les anciens images si existe
-        // if ($entity->getGalery()) {
-        //     if (file_exists($path . $entity->getGalery())) {
-        //         unlink($path . $entity->getGalery());
-        //     }
-        //     if (file_exists($path_thumb . $entity->getGalery())) {
-        //         unlink($path_thumb . $entity->getGalery());
-        //     }
-        //     if (file_exists($path_fixed . $entity->getGalery())) {
-        //         unlink($path_fixed . $entity->getGalery());
-        //     }
-        // }
+
 
         return $filename;
     }

@@ -54,6 +54,7 @@ class DriverType extends AbstractType
             ])
             ->add('photoImage', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new ConstraintsImage()
                 ]

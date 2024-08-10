@@ -73,8 +73,9 @@ class DriverController extends AbstractController
     public function show($slug): Response
     {
         $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
+
         //twig affichage
-        $visibility = "NON";
+        $visibility = "En cour de validation";
 
         if ($driver->isVisible()) {
             $visibility = "YES";
@@ -90,6 +91,11 @@ class DriverController extends AbstractController
     public function edit($slug, Request $request, PictureService $pictureService, EntityManagerInterface $entityManager): Response
     {
         $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
+        //etat de validation dans twig
+        $status = "Encours de validation..";
+        if ($driver->isVisible()) {
+            $status = "Validé";
+        }
 
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
@@ -105,6 +111,10 @@ class DriverController extends AbstractController
 
             $driver->setUpdateAt(new DateTimeImmutable());
 
+            //demande de validation moderateur, car changement de donnees
+            $driver->setVisible(false);
+
+            $entityManager->persist($driver);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_driver_show', ['slug' => $driver->getSlug()], Response::HTTP_SEE_OTHER);
@@ -113,6 +123,7 @@ class DriverController extends AbstractController
         return $this->render('driver/edit.html.twig', [
             'driver' => $driver,
             'form' => $form,
+            'status' => $status
         ]);
     }
 

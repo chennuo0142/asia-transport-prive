@@ -57,7 +57,7 @@ class Driver
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?bool $isVisible = null;
+    private ?bool $isVisible = false;
 
     #[ORM\Column(nullable: true)]
     private ?array $language = null;

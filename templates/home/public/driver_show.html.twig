@@ -5,7 +5,7 @@
 
 {% block body %}
 	<h1>Bienvenue</h1>
-
+	<a href="{{ path('app_home')}}">Retour</a>
 	<article>
 		<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
 		<div>

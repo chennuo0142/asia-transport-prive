@@ -37,10 +37,11 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/setting, roles: ROLE_ADMIN }
         - { path: ^/gestion, roles: ROLE_USER }
+        - { path: ^/moderator, roles: ROLE_MODERATOR }
 
     role_hierarchy:
-        ROLE_DISPATCHER: ROLE_USER
-        ROLE_ADMIN: ROLE_DISPATCHER
+        ROLE_MODERATOR: ROLE_USER
+        ROLE_ADMIN: ROLE_MODERATOR
 
 when@test:
     security:
