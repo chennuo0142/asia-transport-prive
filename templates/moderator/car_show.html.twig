@@ -8,6 +8,13 @@
 		<h1>Car</h1>
 		<span>status:
 			{{ visible }}</span>
+		<span>
+			<span>
+				<a href="{{ path('app_moderator_car_validation',{id:car.id}) }}">
+					<button>Valider</button>
+				</a>
+			</span>
+		</span>
 	</div>
 
 	<img src="{{ asset('/images/uploads/' ~ car.photo ) | imagine_filter('my_fixed_filter')}} " alt="">
@@ -67,7 +74,5 @@
 
 	<a href="{{ path('app_car_index') }}">back to list</a>
 
-	<a href="{{ path('app_car_edit', {'slug': car.slug}) }}">edit</a>
-
-	{{ include('car/_delete_form.html.twig') }}
+	{# 	{{ include('car/_delete_form.html.twig') }} #}
 {% endblock %}

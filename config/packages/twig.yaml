@@ -1,5 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        moderation: '@App\Twig\ModeratorExtension'
 
 when@test:
     twig:

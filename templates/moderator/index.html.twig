@@ -5,36 +5,84 @@
 
 {% block body %}
 	<h1>Moderation Page</h1>
-
-	<table class="striped">
-		<thead>
-			<tr>
-				<th scope="col">Id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Telephone</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for driver in drivers %}
+	<article>
+		<table class="striped">
+			<thead>
 				<tr>
-					<th>{{driver.id}}</th>
-					<td>{{driver.name}}</td>
-					<td>{{driver.email}}</td>
-					<td>{{driver.telephone}}</td>
-					<td>
-						<a href="{{ path('app_moderator_driver_show',{'slug':driver.slug})}}">Voir</a>
-					</td>
+					<div class="space-between">
+						<h2>Driver</h2>
+						<div class="bulle-info-cercle">{{ nbr_drivers }}</div>
+					</div>
+
 				</tr>
-			{% else %}
 				<tr>
-					<td colspan="15">Pas de demande de validation</td>
+					<th scope="col">Id</th>
+					<th scope="col">Name</th>
+					<th scope="col">Email</th>
+					<th scope="col">Telephone</th>
+					<th>Action</th>
 				</tr>
-			{% endfor %}
+			</thead>
+			<tbody>
+				{% for driver in drivers %}
+					<tr>
+						<th>{{driver.id}}</th>
+						<td>{{driver.name}}</td>
+						<td>{{driver.email}}</td>
+						<td>{{driver.telephone}}</td>
+						<td>
+							<a href="{{ path('app_moderator_driver_show',{'slug':driver.slug})}}">Voir</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="15">Pas de demande de validation</td>
+					</tr>
+				{% endfor %}
 
 
-		</tbody>
+			</tbody>
 
-	</table>
+		</table>
+	</article>
+	<article>
+		<table class="striped">
+			<thead>
+				<tr>
+					<div class="space-between">
+						<h2>Car</h2>
+						<div class="bulle-info-cercle">{{ nbr_cars }}</div>
+					</div>
+				</tr>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Brand</th>
+					<th scope="col">Model</th>
+					<th scope="col">Immatriculation</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for car in cars %}
+					<tr>
+						<th>{{car.id}}</th>
+						<td>{{car.brand}}</td>
+						<td>{{car.model}}</td>
+						<td>{{car.licensePlate}}</td>
+						<td>
+							<a href="{{ path('app_moderator_car_show',{'slug':car.slug})}}">Voir</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="15">Pas de demande de validation</td>
+					</tr>
+				{% endfor %}
+
+
+			</tbody>
+
+		</table>
+	</article>
+
 {% endblock %}

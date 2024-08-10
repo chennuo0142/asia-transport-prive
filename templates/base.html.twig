@@ -38,7 +38,10 @@
 					{% endif %}
 					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
 						<li>
-							<a href="{{ path('app_moderator')}}">Moderation</a>
+							<a href="{{ path('app_moderator')}}">Moderation
+								{# {{ moderation.getTotalModeration }} extension personnaliser twig,  une variable globals#}
+								<div class="bulle-info-cercle">{{ moderation.getTotalModeration }}</div>
+							</a>
 						</li>
 					{% endif %}
 					<li>
@@ -63,11 +66,14 @@
 
 			</ul>
 		</nav>
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
+		<div class="container">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
+
 		{% if app.user %}
 			<article>
 				<nav class="container">
@@ -94,6 +100,7 @@
 						</li>
 					</ul>
 				</nav>
+
 			</article>
 
 		{% endif %}

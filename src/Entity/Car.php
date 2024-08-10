@@ -57,6 +57,9 @@ class Car
     #[ORM\Column(nullable: true)]
     private ?array $galery = null;
 
+    #[ORM\Column]
+    private ?bool $visible = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -226,6 +229,18 @@ class Car
     public function setGalery(?array $galery): static
     {
         $this->galery = $galery;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
 
         return $this;
     }

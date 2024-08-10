@@ -69,9 +69,16 @@ class CarController extends AbstractController
     #[Route('/{slug}', name: 'app_car_show', methods: ['GET'])]
     public function show($slug): Response
     {
+        $car = $this->carRepository->findOneBy(['slug' => $slug]);
+        //twig affichage
+        $visible = "En cour de validation";
 
+        if ($car->isVisible()) {
+            $visible = "YES";
+        }
         return $this->render('car/show.html.twig', [
-            'car' => $this->carRepository->findOneBy(['slug' => $slug]),
+            'car' => $car,
+            'visible' => $visible
         ]);
     }
 
@@ -85,9 +92,9 @@ class CarController extends AbstractController
         if ($galery == null) {
             $galery = [];
         }
-        dump($galery);
+
         $nbr_images_in_galery = count($galery);
-        dump($nbr_images_in_galery);
+
         $place_libre = $maxImagesGalery - $nbr_images_in_galery;
 
 
@@ -135,7 +142,9 @@ class CarController extends AbstractController
                 $car->setPhoto($filename);
             }
 
-            $car->setUpdateAt(new DateTimeImmutable());
+            $car->setUpdateAt(new DateTimeImmutable())
+                ->setVisible(false);
+            $entityManager->persist($car);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_car_index', [], Response::HTTP_SEE_OTHER);

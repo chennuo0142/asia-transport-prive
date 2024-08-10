@@ -13,3 +13,29 @@
     display: flex;
     justify-content: space-between;
 }
+
+.alert {
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+
+}
+
+.alert-success {
+    background-color: green;
+}
+
+.title_bulle_info_cercle {
+
+    padding-right: 30px;
+}
+
+.bulle-info-cercle {
+    width: 30px;
+    height: 30px;
+    background-color: orange;
+    clip-path: ellipse(50% 50%);
+    text-align: center;
+    color: beige;
+
+}
