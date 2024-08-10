@@ -9,7 +9,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th></th>
 				<th>Brand</th>
 				<th>Model</th>
 				<th>Color</th>
@@ -22,7 +22,7 @@
 		<tbody>
 			{% for car in cars %}
 				<tr>
-					<td>{{ car.id }}</td>
+					<td><img src="{{ asset('/images/uploads/' ~ car.photo ) | imagine_filter('my_thumb_filter')}} " alt=""></td>
 					<td>{{ car.brand }}</td>
 					<td>{{ car.model }}</td>
 					<td>{{ car.color }}</td>

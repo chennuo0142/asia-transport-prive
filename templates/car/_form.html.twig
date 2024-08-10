@@ -7,5 +7,23 @@
 {{ form_row(form.energy) }}
 {{ form_row(form.maxBagage) }}
 {{ form_row(form.licensePlate) }}
+<article>
+	<header>Image principale</header>
+	{% if app.request.attributes.get('_route' ) == 'app_car_edit'%}
+		<img src="{{ asset('/images/uploads/' ~ car.photo ) | imagine_filter('my_thumb_filter')}} " alt="">
+	{% endif %}
+	{{ form_row(form.photoImage) }}
+</article>
+<article>
+	<header>Galery (4 images Max)</header>
+	{% if app.request.attributes.get('_route' ) == 'app_car_edit'%}
+		{% for image in car.galery %}
+			<img src="{{ asset('/images/uploads/' ~ image ) | imagine_filter('my_thumb_filter')}} " alt="">
+			<a href="{{ path('app_car_galery_delete', {item:image, slug:car.slug})}}">Supprimer</a>
+		{% endfor %}
+	{% endif %}
+	{{ form_row(form.galery) }}
+</article>
+
 <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

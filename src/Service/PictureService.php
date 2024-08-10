@@ -11,7 +11,7 @@ class PictureService extends AbstractController
         //on recupere la photo image
         $file = $form->get('photoImage')->getData();
         //on cree un nom unique 
-        $filename = ($entity->getName() . uniqid() . ".webp");
+        $filename = ($entity->getId() . uniqid() . ".webp");
         //on recupere le chemin du des dossiers de destination
         $path = $this->getParameter('images_directory');
         $path_thumb = $this->getParameter('thumb_images_directory');
@@ -33,6 +33,33 @@ class PictureService extends AbstractController
 
         return $filename;
     }
+
+    public function add_galery($image, $entity): string
+    {
+        //on cree un nom unique 
+        $filename = ($entity->getId() . uniqid() . ".webp");
+        //on recupere le chemin du des dossiers de destination
+        $path = $this->getParameter('images_directory');
+        $path_thumb = $this->getParameter('thumb_images_directory');
+        $path_fixed = $this->getParameter('fixed_images_directory');
+        //on deplace le fichier sous le nouvau nom
+        $image->move($path, $filename);
+        //on supprime les anciens images si existe
+        // if ($entity->getGalery()) {
+        //     if (file_exists($path . $entity->getGalery())) {
+        //         unlink($path . $entity->getGalery());
+        //     }
+        //     if (file_exists($path_thumb . $entity->getGalery())) {
+        //         unlink($path_thumb . $entity->getGalery());
+        //     }
+        //     if (file_exists($path_fixed . $entity->getGalery())) {
+        //         unlink($path_fixed . $entity->getGalery());
+        //     }
+        // }
+
+        return $filename;
+    }
+
 
     public function delete($filename)
     {

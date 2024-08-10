@@ -5,6 +5,7 @@
 
 {% block body %}
 	<h1>Car</h1>
+	<img src="{{ asset('/images/uploads/' ~ car.photo ) | imagine_filter('my_fixed_filter')}} " alt="">
 
 	<table class="table">
 		<tbody>
@@ -52,6 +53,12 @@
 			</tr>
 		</tbody>
 	</table>
+	<article>
+		{% for image in car.galery %}
+			<img src="{{ asset('/images/uploads/' ~ image ) | imagine_filter('my_thumb_filter')}} " alt="">
+		{% endfor %}
+
+	</article>
 
 	<a href="{{ path('app_car_index') }}">back to list</a>
 
