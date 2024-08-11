@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ServiceListe{% endblock %}
+
+{% block body %}
+    <h1>Edit ServiceListe</h1>
+
+    {{ include('service_liste/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_service_liste_index') }}">back to list</a>
+
+    {{ include('service_liste/_delete_form.html.twig') }}
+{% endblock %}
