@@ -1,0 +1,29 @@
+.info-solde {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+
+    span {
+        width: 300px;
+        text-align: center;
+        // border: 1px solid rgb(65, 134, 225);
+        padding: 1rem;
+        background-color: rgb(198, 231, 231);
+        color: rgb(72, 101, 249);
+    }
+}
+
+.chart-canvas {
+    width: auto;
+}
+
+.chart-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    h1 {
+        display: block;
+    }
+}

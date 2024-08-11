@@ -1,0 +1,209 @@
+nav {
+    background-color: $primary;
+
+
+}
+
+.nav-logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+    margin-left: 10px;
+
+}
+
+.nav-wrapper {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+
+
+}
+
+.btn-to-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 100px;
+    right: 10px;
+    visibility: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: rgba(69, 52, 224, 0.7);
+    animation: 3s;
+
+    svg {
+        fill: whitesmoke;
+    }
+}
+
+.btn-to-top-visible {
+    visibility: visible;
+}
+
+.nav-menu {
+    ul {
+
+        right: 0;
+        list-style-type: none;
+
+    }
+
+    li {
+        display: inline-block;
+        position: relative;
+
+    }
+
+    a {
+
+        display: inline-block;
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+
+        &:active {
+            text-decoration: none;
+        }
+    }
+
+    .nav-ico {
+        // position: absolute;
+        fill: white;
+    }
+
+    @include mobile {}
+
+
+}
+
+.nav-link {
+    color: rgb(196, 36, 36);
+
+}
+
+.color-white {
+    color: white;
+}
+
+.hambourger {
+    height: 100px;
+    right: 40px;
+    display: none;
+}
+
+.nav-item {
+    display: inline-block;
+
+    a {
+        display: block;
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: whitesmoke;
+            color: red;
+        }
+    }
+
+}
+
+
+.barre {
+    width: 16px;
+    height: 1px;
+    background-color: yellow;
+    margin-bottom: 4px;
+
+
+}
+
+.btn-login {
+    @include mobile {
+        display: initial;
+    }
+}
+
+footer {
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    background-color: $primary;
+    width: 100%;
+    min-height: 3rem;
+}
+
+.footer-container {
+
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    span {
+        padding: 5px;
+        width: 100%;
+    }
+}
+
+.sub-nav-bg {
+    background-color: rgb(82, 79, 245);
+}
+
+.inscription-button {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+
+}
+
+.valid-button {
+    padding: .5rem;
+    background-color: rgb(28, 155, 45);
+    border: none;
+}
+
+.nav-sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.footer-sticky {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.nav-logo-flex-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    p {
+        font-size: 0.8rem;
+        color: white;
+    }
+
+    svg {
+        fill: whitesmoke;
+    }
+}
+
+.nav-filtre-task {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(119, 203, 248);
+    padding: 1rem;
+
+
+}
