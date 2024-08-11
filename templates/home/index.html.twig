@@ -5,15 +5,22 @@
 
 {% block body %}
 	<h1>Bienvenue</h1>
-	{% for driver in drivers %}
-		<article>
-			<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
-			<div>
-				{{ driver.name }}</div>
-			{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
-			{{ driver.user.compagny.name}}
-			<a href="{{ path('app_public_driver_show',{slug:driver.slug})}}">Voir</a>
-		</article>
-	{% endfor %}
+
+	<div class="home-driver-container-flex">
+		{% for driver in drivers %}
+			<div class="driver-card">
+				<article>
+					<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
+					<div>
+						{{ driver.name }}</div>
+					{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
+					{{ driver.user.compagny.name}}
+					<a href="{{ path('app_public_driver_show',{slug:driver.slug})}}">Voir</a>
+				</article>
+
+			</div>
+		{% endfor %}
+	</div>
+
 
 {% endblock %}
