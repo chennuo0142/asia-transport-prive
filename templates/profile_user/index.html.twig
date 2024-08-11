@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProfileUser index{% endblock %}
+
+{% block body %}
+    <h1>ProfileUser index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>FirstName</th>
+                <th>Pseudo</th>
+                <th>Photo</th>
+                <th>Birthday</th>
+                <th>Adress</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for profile_user in profile_users %}
+            <tr>
+                <td>{{ profile_user.id }}</td>
+                <td>{{ profile_user.name }}</td>
+                <td>{{ profile_user.firstName }}</td>
+                <td>{{ profile_user.pseudo }}</td>
+                <td>{{ profile_user.photo }}</td>
+                <td>{{ profile_user.birthday ? profile_user.birthday|date('Y-m-d') : '' }}</td>
+                <td>{{ profile_user.adress }}</td>
+                <td>{{ profile_user.city }}</td>
+                <td>{{ profile_user.country }}</td>
+                <td>{{ profile_user.email }}</td>
+                <td>{{ profile_user.telephone }}</td>
+                <td>{{ profile_user.slug }}</td>
+                <td>
+                    <a href="{{ path('app_profile_user_show', {'id': profile_user.id}) }}">show</a>
+                    <a href="{{ path('app_profile_user_edit', {'id': profile_user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_profile_user_new') }}">Create new</a>
+{% endblock %}

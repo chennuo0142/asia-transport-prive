@@ -21,13 +21,19 @@ class PictureService extends AbstractController
         //on supprime les anciens images si existe
         if ($entity->getPhoto()) {
             if (file_exists($path . $entity->getPhoto())) {
-                unlink($path . $entity->getPhoto());
+                if ($entity->getPhoto() != "driver_default.webp" && $entity->getPhoto() != "car_default.webp" && $entity->getPhoto() != "profile_default.webp") {
+                    unlink($path . $entity->getPhoto());
+                }
             }
             if (file_exists($path_thumb . $entity->getPhoto())) {
-                unlink($path_thumb . $entity->getPhoto());
+                if ($entity->getPhoto() != "driver_default.webp" && $entity->getPhoto() != "car_default.webp" && $entity->getPhoto() != "profile_default.webp") {
+                    unlink($path_thumb . $entity->getPhoto());
+                }
             }
             if (file_exists($path_fixed . $entity->getPhoto())) {
-                unlink($path_fixed . $entity->getPhoto());
+                if ($entity->getPhoto() != "driver_default.webp" && $entity->getPhoto() != "car_default.webp" && $entity->getPhoto() != "profile_default.webp") {
+                    unlink($path_fixed . $entity->getPhoto());
+                }
             }
         }
 

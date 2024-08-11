@@ -45,6 +45,8 @@ class DriverController extends AbstractController
                 //on recupere le nom image une fois enregister
                 $filename = $pictureService->add($form, $driver);
                 $driver->setPhoto($filename);
+            } else {
+                $driver->setPhoto('driver_default.webp');
             }
 
 

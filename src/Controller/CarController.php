@@ -46,6 +46,8 @@ class CarController extends AbstractController
                 //on recupere le nom image une fois enregister
                 $filename = $pictureService->add($form, $car);
                 $car->setPhoto($filename);
+            } else {
+                $car->setPhoto('car_default.webp');
             }
 
             $slug = strtolower($sluggerInterface->slug($car->getLicensePlate() . uniqid()));

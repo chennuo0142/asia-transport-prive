@@ -65,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $cars;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?ProfileUser $profileUser = null;
+
 
     public function __construct()
     {
@@ -294,6 +297,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $car->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfileUser(): ?ProfileUser
+    {
+        return $this->profileUser;
+    }
+
+    public function setProfileUser(?ProfileUser $profileUser): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($profileUser === null && $this->profileUser !== null) {
+            $this->profileUser->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($profileUser !== null && $profileUser->getUser() !== $this) {
+            $profileUser->setUser($this);
+        }
+
+        $this->profileUser = $profileUser;
 
         return $this;
     }
