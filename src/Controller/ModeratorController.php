@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Car;
 use App\Entity\Driver;
+use App\Entity\Message;
+use App\Form\RefuseValidationType;
 use App\Repository\CarRepository;
 use App\Repository\DriverRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/moderator')]
 class ModeratorController extends AbstractController
@@ -67,21 +72,48 @@ class ModeratorController extends AbstractController
     }
 
     #[Route('/car/show/{slug}', name: 'app_moderator_car_show')]
-    public function car_show($slug, CarRepository $carRepository): Response
+    public function car_show($slug, CarRepository $carRepository, Request $request, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
     {
+        $message = new Message;
         //on recupere tous les drivers avec visibility false
         $car = $carRepository->findOneBy(['slug' => $slug]);
-
+        dump($car);
+        dump($message);
+        $form = $this->createForm(RefuseValidationType::class);
         //twig affichage
         $visible = "NON";
 
         if ($car->isVisible()) {
             $visible = "YES";
         }
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $slug = strtolower($sluggerInterface->slug($request->get('refuse_validation')['motif'] . uniqid()));
+            dump($car->getUser()->getId());
+            //validation refuser, on envoi un message interne à driver et un email
 
+            $message->setUser($car->getUser()->getId())
+                ->setObjet($request->get('refuse_validation')['motif'])
+                ->setMessage($request->get('refuse_validation')['message'])
+                ->setSlug($slug)
+                ->setCategory('Gestion')
+                ->setCreateAt(new DateTimeImmutable());
+
+
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            //on envoi un email
+
+
+
+
+            return $this->redirectToRoute('app_moderator', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('moderator/car_show.html.twig', [
             'car' => $car,
-            'visible' => $visible
+            'visible' => $visible,
+            'form' => $form
         ]);
     }
 

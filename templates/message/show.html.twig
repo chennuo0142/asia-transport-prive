@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+
+{% block body %}
+    <h1>Message</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ message.id }}</td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ message.user }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ message.category }}</td>
+            </tr>
+            <tr>
+                <th>Driver</th>
+                <td>{{ message.driver }}</td>
+            </tr>
+            <tr>
+                <th>Compagny</th>
+                <td>{{ message.compagny }}</td>
+            </tr>
+            <tr>
+                <th>Objet</th>
+                <td>{{ message.objet }}</td>
+            </tr>
+            <tr>
+                <th>Motif</th>
+                <td>{{ message.motif }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ message.message }}</td>
+            </tr>
+            <tr>
+                <th>CreateAt</th>
+                <td>{{ message.createAt ? message.createAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ message.slug }}</td>
+            </tr>
+            <tr>
+                <th>IsRead</th>
+                <td>{{ message.isRead ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Car</th>
+                <td>{{ message.car }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_message_index') }}">back to list</a>
+
+    <a href="{{ path('app_message_edit', {'id': message.id}) }}">edit</a>
+
+    {{ include('message/_delete_form.html.twig') }}
+{% endblock %}

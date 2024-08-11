@@ -2,6 +2,7 @@ twig:
     file_name_pattern: '*.twig'
     globals:
         moderation: '@App\Twig\ModeratorExtension'
+        nbrMessage: '@App\Twig\MessageExtension'
 
 when@test:
     twig:

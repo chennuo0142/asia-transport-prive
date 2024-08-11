@@ -60,6 +60,10 @@ class Car
     #[ORM\Column]
     private ?bool $visible = false;
 
+    #[ORM\ManyToOne(inversedBy: 'cars')]
+    private ?CarCategory $category = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -241,6 +245,18 @@ class Car
     public function setVisible(bool $visible): static
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getCategory(): ?CarCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?CarCategory $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

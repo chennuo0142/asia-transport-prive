@@ -19,6 +19,7 @@ class ModeratorExtension extends AbstractExtension
 
     public function getFunctions(): array
     {
+        //on cree l'extension twig, 'moderation est le nom du variable, getTotalModeration est la fonction appeler'
         return [new TwigFunction('moderation', [$this, 'getTotalModeration'])];
     }
 

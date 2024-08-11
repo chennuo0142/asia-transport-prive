@@ -16,11 +16,22 @@
 			</span>
 		</span>
 	</div>
+	{{ form_start(form) }}
+	{{ form_row(form.motif)}}
+	{{ form_row(form.message)}}
+
+
+	<button class="btn">{{ button_label|default('Refuser') }}</button>
+	{{ form_end(form) }}
 
 	<img src="{{ asset('/images/uploads/' ~ car.photo ) | imagine_filter('my_fixed_filter')}} " alt="">
 
 	<table class="table">
 		<tbody>
+			<tr>
+				<th>Category</th>
+				<td>{{ car.category.name }}</td>
+			</tr>
 			<tr>
 				<th>Brand</th>
 				<td>{{ car.brand }}</td>

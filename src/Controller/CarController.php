@@ -41,6 +41,7 @@ class CarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             if ($form->get('photoImage')->getData()) {
                 //on recupere le nom image une fois enregister
                 $filename = $pictureService->add($form, $car);

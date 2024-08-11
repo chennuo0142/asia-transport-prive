@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message index
+{% endblock %}
+
+{% block body %}
+	<h1>Message index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Recu le</th>
+				<th>Objet</th>
+
+				<th>Message</th>
+
+				<th>actions</th>
+				<th>Etat</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for message in messages %}
+				<tr>
+					<td>{{ message.createAt | date('d-m-Y H:i')}}</td>
+					<td>{{ message.objet }}</td>
+
+					<td>{{ message.message }}</td>
+
+
+					<td>
+						<a href="{{ path('app_message_show', {'id': message.id}) }}">show</a>
+						{# <a href="{{ path('app_message_edit', {'id': message.id}) }}">edit</a> #}
+					</td>
+					<td>
+						{% if message.isRead %}
+							{{ ux_icon('tabler:eye', {height:'24px', width:'24px'}) }}
+						{% else %}
+							{{ ux_icon('tabler:eye-closed', {height:'24px', width:'24px'}) }}
+						{% endif %}
+
+					</td>
+				</tr>
+
+			{% else %}
+				<tr>
+					<td colspan="13">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	{# <a href="{{ path('app_message_new') }}">Create new</a> #}
+{% endblock %}

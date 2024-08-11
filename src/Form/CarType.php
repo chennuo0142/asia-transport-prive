@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Car;
+use App\Entity\CarCategory;
 use App\Entity\User;
 use Imagine\Gd\Image;
 use Symfony\Component\Form\AbstractType;
@@ -21,6 +22,10 @@ class CarType extends AbstractType
             ->add('brand')
             ->add('model')
             ->add('color')
+            ->add('category', EntityType::class, [
+                'class' => CarCategory::class,
+                'choice_label' => 'name'
+            ])
             ->add('buyAt', null, [
                 'widget' => 'single_text',
             ])
