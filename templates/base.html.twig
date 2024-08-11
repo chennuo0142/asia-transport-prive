@@ -39,7 +39,7 @@
 					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
 						<li>
 							<a href="{{ path('app_moderator')}}">Moderation
-								{# {{ moderation.getTotalModeration }} extension personnaliser twig,  une variable globals#}
+
 								<div class="bulle-info-cercle">{{ moderation.getTotalModeration }}</div>
 							</a>
 						</li>
@@ -109,4 +109,3 @@
 			</main>
 		</body>
 	</html>
-</body></html>
