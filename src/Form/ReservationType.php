@@ -24,23 +24,20 @@ class ReservationType extends AbstractType
             ->add('email')
             ->add('telephone')
             ->add('service', EntityType::class, [
-                'mapped' => false,
                 'class' => ServiceListe::class,
                 'choice_label' => 'name',
-
             ])
             ->add('dateOperation')
             ->add('timeOperation')
             ->add('car', EntityType::class, [
-                'mapped' => false,
                 'class' => CarCategory::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
             ])
             ->add('departureAdress')
             ->add('ArrivalAdress')
             ->add('nbPassager')
             ->add('nbBagage')
-            ->add('accessory',  ChoiceType::class, [
+            ->add('accessory', ChoiceType::class, [
                 'choices' => [
                     'Bouteil d\'eau' => 'Bouteil d\'eau',
                     'Siège enfant' => 'Siège enfant',

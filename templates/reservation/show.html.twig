@@ -1,90 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservation{% endblock %}
+{% block title %}Reservation
+{% endblock %}
 
 {% block body %}
-    <h1>Reservation</h1>
+	<h1>Reservation</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ reservation.id }}</td>
-            </tr>
-            <tr>
-                <th>CreateAt</th>
-                <td>{{ reservation.createAt ? reservation.createAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ reservation.slug }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ reservation.name }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ reservation.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Compagny</th>
-                <td>{{ reservation.compagny }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ reservation.email }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ reservation.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Service</th>
-                <td>{{ reservation.service }}</td>
-            </tr>
-            <tr>
-                <th>Car</th>
-                <td>{{ reservation.car }}</td>
-            </tr>
-            <tr>
-                <th>DepartureAdress</th>
-                <td>{{ reservation.departureAdress }}</td>
-            </tr>
-            <tr>
-                <th>ArrivalAdress</th>
-                <td>{{ reservation.ArrivalAdress }}</td>
-            </tr>
-            <tr>
-                <th>NbPassager</th>
-                <td>{{ reservation.nbPassager }}</td>
-            </tr>
-            <tr>
-                <th>NbBagage</th>
-                <td>{{ reservation.nbBagage }}</td>
-            </tr>
-            <tr>
-                <th>NumTransport</th>
-                <td>{{ reservation.numTransport }}</td>
-            </tr>
-            <tr>
-                <th>DriverId</th>
-                <td>{{ reservation.driverId }}</td>
-            </tr>
-            <tr>
-                <th>UserId</th>
-                <td>{{ reservation.userId }}</td>
-            </tr>
-            <tr>
-                <th>Private</th>
-                <td>{{ reservation.private ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Reference:</th>
+				<td>{{ reservation.reference}}</td>
+			</tr>
+			<tr>
+				<th>CreateAt</th>
+				<td>{{ reservation.createAt ? reservation.createAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
 
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+			<tr>
+				<th>Name</th>
+				<td>{{ reservation.name }}</td>
+			</tr>
+			<tr>
+				<th>FirstName</th>
+				<td>{{ reservation.firstName }}</td>
+			</tr>
+			<tr>
+				<th>Compagny</th>
+				<td>{{ reservation.compagny }}</td>
+			</tr>
+			<tr>
+				<th>Email</th>
+				<td>{{ reservation.email }}</td>
+			</tr>
+			<tr>
+				<th>Telephone</th>
+				<td>{{ reservation.telephone }}</td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td>{{ reservation.dateOperation ? reservation.dateOperation|date('Y-m-d') : '' }}
+					à
+					{{ reservation.timeOperation ? reservation.timeOperation|date('H:i') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Service</th>
+				<td>{{ reservation.service.name }}</td>
+			</tr>
+			<tr>
+				<th>Car</th>
+				<td>{{ reservation.car.name }}</td>
+			</tr>
+			<tr>
+				<th>DepartureAdress</th>
+				<td>{{ reservation.departureAdress }}</td>
+			</tr>
+			<tr>
+				<th>ArrivalAdress</th>
+				<td>{{ reservation.ArrivalAdress }}</td>
+			</tr>
+			<tr>
+				<th>NbPassager</th>
+				<td>{{ reservation.nbPassager }}</td>
+			</tr>
+			<tr>
+				<th>NbBagage</th>
+				<td>{{ reservation.nbBagage }}</td>
+			</tr>
+			<tr>
+				<th>NumTransport</th>
+				<td>{{ reservation.numTransport }}</td>
+			</tr>
 
-    <a href="{{ path('app_reservation_edit', {'id': reservation.id}) }}">edit</a>
+		</tbody>
+	</table>
 
-    {{ include('reservation/_delete_form.html.twig') }}
+	{# <a href="{{ path('app_reservation_index') }}">back to list</a> #}
+	<div class="bottom-button-nav-position">
+		<span>
+			<a type="button" href="{{ path('app_reservation_edit', {'slug': reservation.slug}) }}">edit</a>
+		</span>
+		<span>
+			<a type="button" href="#">Envoyer la demande</a>
+		</span>
+		<span>{{ include('reservation/_delete_form.html.twig') }}</span>
+	</div>
 {% endblock %}

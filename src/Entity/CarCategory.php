@@ -24,9 +24,16 @@ class CarCategory
     #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'category')]
     private Collection $cars;
 
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'car')]
+    private Collection $reservations;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,6 +77,36 @@ class CarCategory
             // set the owning side to null (unless already changed)
             if ($car->getCategory() === $this) {
                 $car->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setCar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getCar() === $this) {
+                $reservation->setCar(null);
             }
         }
 

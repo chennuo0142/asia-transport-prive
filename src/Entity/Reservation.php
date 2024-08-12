@@ -35,12 +35,6 @@ class Reservation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $service = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $car = null;
-
     #[ORM\Column(length: 255)]
     private ?string $departureAdress = null;
 
@@ -76,6 +70,15 @@ class Reservation
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $timeOperation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?ServiceListe $service = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?CarCategory $car = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reference = null;
 
     public function getId(): ?int
     {
@@ -162,30 +165,6 @@ class Reservation
     public function setTelephone(?string $telephone): static
     {
         $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getService(): ?string
-    {
-        return $this->service;
-    }
-
-    public function setService(?string $service): static
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getCar(): ?string
-    {
-        return $this->car;
-    }
-
-    public function setCar(?string $car): static
-    {
-        $this->car = $car;
 
         return $this;
     }
@@ -330,6 +309,42 @@ class Reservation
     public function setTimeOperation(\DateTimeInterface $timeOperation): static
     {
         $this->timeOperation = $timeOperation;
+
+        return $this;
+    }
+
+    public function getService(): ?ServiceListe
+    {
+        return $this->service;
+    }
+
+    public function setService(?ServiceListe $service): static
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    public function getCar(): ?CarCategory
+    {
+        return $this->car;
+    }
+
+    public function setCar(?CarCategory $car): static
+    {
+        $this->car = $car;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): static
+    {
+        $this->reference = $reference;
 
         return $this;
     }

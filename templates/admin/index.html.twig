@@ -5,8 +5,19 @@
 
 {% block body %}
 	<h1>Admin</h1>
-	<a href="{{ path('app_admin_user_index') }}">Edition User</a>
-	<a href="{{ path('app_car_category_index')}}">Car Category</a>
-	<a href="{{ path('app_accessory_liste_index')}}">Accessory Liste</a>
-	<a href="{{ path('app_service_liste_index')}}">Service Liste</a>
+	<a href="{{ path('app_admin_user_index') }}">
+		<button>Edition User</button>
+	</a>
+
+	<a href="{{ path('app_car_category_index')}}">
+		<button>Car Category</button>
+	</a>
+
+
+	<a href="{{ path('app_accessory_liste_index')}}">
+		<button>Accessory Liste</button>
+	</a>
+	<a href="{{ path('app_service_liste_index')}}">
+		<button>Service Liste</button>
+	</a>
 {% endblock %}
