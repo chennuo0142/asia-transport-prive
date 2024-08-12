@@ -5,10 +5,47 @@
 
 {% block body %}
 	<h1>Confirmation de votre reservation</h1>
-
 	<p>Nous avons bien recu votre reservation</p>
-	Réference:
-	{{ archive.reference }}
-	Nom:
-	{{archive.reservation.name }}
+	<h3>Réference:
+		{{ reservation.reference }}</h3>
+	<div class="reservation_confirmation_wraper">
+
+
+		<div class="confirmation-card">
+			<header>Votre demande</header>
+
+			<ul>
+
+				<li>
+					Service:
+					{{reservation.service.name}}
+				</li>
+				<li>Adresse de départ:
+					{{reservation.departureAdress}}</li>
+				<li>Adresse d'arriver:
+					{{reservation.arrivalAdress}}</li>
+				<li>Véhicule:
+					{{reservation.car.name}}</li>
+			</ul>
+		</div>
+		<div class="confirmation-card">
+			<header>Vos information personnelle</header>
+			<ul>
+				<li>Nom:
+					{{reservation.name}}</li>
+				<li>Prenom:
+					{{reservation.firstname}}</li>
+				<li>Societe:
+					{{reservation.compagny}}</li>
+				<li>Email:
+					{{reservation.email}}</li>
+				<li>Téléphone:
+					{{reservation.telephone}}</li>
+
+			</ul>
+
+
+		</div>
+
+	</div>
 {% endblock %}

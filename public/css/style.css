@@ -9,6 +9,16 @@ html {
   height: 100%;
 }
 
+li {
+  list-style: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 nav {
   background-color: rgb(24, 23, 46);
 }
@@ -180,6 +190,24 @@ footer {
   justify-content: space-between;
   background-color: rgb(119, 203, 248);
   padding: 1rem;
+}
+
+.reservation_confirmation_wraper {
+  border: 1px solid yellow;
+  border-radius: 10px;
+  padding: 10px;
+}
+.reservation_confirmation_wraper header {
+  background-color: antiquewhite;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  color: red;
+}
+
+.cconfirmation-card {
+  background-color: white;
+  box-shadow: 10px 10px 10px 10px rgb(234, 236, 237);
 }
 
 .driver_show_card_title {

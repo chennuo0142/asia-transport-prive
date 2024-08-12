@@ -113,30 +113,19 @@ class ReservationController extends AbstractController
     public function confirm($slug, Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
         $reservation =  $reservationRepository->findOneBy(['slug' => $slug]);
+
         //1-on cree le fichier de commande
         //2-on informe l'admin, dispatcher
         //3-on envoi une confirmation au client
-
-        $archive = new ReservationArchive;
-
-        $data_reservation_json = array(
-            "test" => "bonjour",
-            "reference" => $reservation->getReference(),
-            "name" => $reservation->getName()
-        );
+        dump($reservation);
 
 
-        $archive->setReference($reservation->getReference())
-            ->setReservation($data_reservation_json);
-
-
-        $entityManager->persist($archive);
-        $entityManager->flush();
+        // $entityManager->persist();
+        // $entityManager->flush();
 
 
         return $this->render('reservation/confirmation.html.twig', [
             'reservation' => $reservation,
-            'archive' => $archive
 
         ]);
     }
