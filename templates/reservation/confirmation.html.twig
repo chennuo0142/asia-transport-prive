@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reservation
+{% endblock %}
+
+{% block body %}
+	<h1>Confirmation de votre reservation</h1>
+
+	<p>Nous avons bien recu votre reservation</p>
+	Réference:
+	{{ archive.reference }}
+	Nom:
+	{{archive.reservation.name }}
+{% endblock %}

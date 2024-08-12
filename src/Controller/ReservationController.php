@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
+use App\Entity\ReservationArchive;
 use App\Form\ReservationType;
 use App\Repository\CarCategoryRepository;
 use App\Repository\ReservationRepository;
@@ -76,20 +77,14 @@ class ReservationController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         ReservationRepository $reservationRepository,
-        ServiceListeRepository $serviceListeRepository,
-        CarCategoryRepository $carCategoryRepository
+
     ): Response {
         $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $service_id = $request->get('reservation')['service'];
-            // $car_id = $request->get('reservation')['car'];
-            // $service = $serviceListeRepository->find($service_id)->getName();
-            // $carType = $carCategoryRepository->find($car_id)->getName();
-            // $reservation->setCar($carType)
-            // ->setService($service);
+
 
             $entityManager->persist($reservation);
             $entityManager->flush();
@@ -114,7 +109,7 @@ class ReservationController extends AbstractController
         return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{slug}/confirm', name: 'app_reservation_delete', methods: ['POST'])]
+    #[Route('/confirm/{slug}', name: 'app_reservation_confirm', methods: ['GET'])]
     public function confirm($slug, Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
     {
         $reservation =  $reservationRepository->findOneBy(['slug' => $slug]);
@@ -122,13 +117,27 @@ class ReservationController extends AbstractController
         //2-on informe l'admin, dispatcher
         //3-on envoi une confirmation au client
 
+        $archive = new ReservationArchive;
+
+        $data_reservation_json = array(
+            "test" => "bonjour",
+            "reference" => $reservation->getReference(),
+            "name" => $reservation->getName()
+        );
 
 
+        $archive->setReference($reservation->getReference())
+            ->setReservation($data_reservation_json);
 
-        $entityManager->persist($reservation);
+
+        $entityManager->persist($archive);
         $entityManager->flush();
 
 
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->render('reservation/confirmation.html.twig', [
+            'reservation' => $reservation,
+            'archive' => $archive
+
+        ]);
     }
 }

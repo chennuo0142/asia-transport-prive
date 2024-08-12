@@ -81,7 +81,7 @@
 			<a type="button" href="{{ path('app_reservation_edit', {'slug': reservation.slug}) }}">edit</a>
 		</span>
 		<span>
-			<a type="button" href="#">Envoyer la demande</a>
+			<a type="button" href="{{ path('app_reservation_confirm', {'slug': reservation.slug}) }}">Envoyer la demande</a>
 		</span>
 		<span>{{ include('reservation/_delete_form.html.twig') }}</span>
 	</div>
