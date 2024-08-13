@@ -1,5 +1,5 @@
 // @import "bootstrap/scss/bootstrap.scss";
-@import "variables", "reset", "template", "nav", "reservation_confirmation";
+@import "variables", "reset", "template", "nav", "reservation_confirmation", "image";
 
 // @import "libs/chart";
 .driver_show_card_title {
@@ -27,27 +27,6 @@
 
 .alert-success {
     background-color: green;
-}
-
-.title_bulle_info_cercle {
-
-    padding-right: 30px;
-}
-
-.bulle-info-cercle {
-    width: 30px;
-    height: 30px;
-    background-color: orange;
-    clip-path: ellipse(50% 50%);
-    text-align: center;
-    color: beige;
-
-}
-
-.profile_photo {
-    width: 200px;
-    height: 200px;
-    clip-path: ellipse(50% 50%);
 }
 
 .home-driver-container-flex {

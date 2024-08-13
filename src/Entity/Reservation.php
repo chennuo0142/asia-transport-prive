@@ -80,6 +80,9 @@ class Reservation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reference = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $valide = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -345,6 +348,18 @@ class Reservation
     public function setReference(?string $reference): static
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function isValide(): ?bool
+    {
+        return $this->valide;
+    }
+
+    public function setValide(?bool $valide): static
+    {
+        $this->valide = $valide;
 
         return $this;
     }

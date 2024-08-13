@@ -80,6 +80,10 @@ class ReservationController extends AbstractController
 
     ): Response {
         $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
+        //si la reservation est deja valider par public user, edition non possible
+        if ($reservation->isValide()) {
+            return $this->redirectToRoute('app_home');
+        }
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
@@ -120,8 +124,14 @@ class ReservationController extends AbstractController
         dump($reservation);
 
 
-        // $entityManager->persist();
-        // $entityManager->flush();
+
+        if ($reservation->isValide()) {
+            $this->addFlash('success', 'Votre reservation a déja été envoyer!');
+            return $this->redirectToRoute('app_home');
+        }
+        $reservation->setValide(true);
+        $entityManager->persist($reservation);
+        $entityManager->flush();
 
 
         return $this->render('reservation/confirmation.html.twig', [

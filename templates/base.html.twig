@@ -26,11 +26,10 @@
 			<ul>
 				<li></li>
 				{% if app.user %}
-
-
 					<li>
 						{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
-						{{ app.user.email}}
+						<img class="user_avatar" src="{{ asset('/images/uploads/' ~ app.user.profileUser.photo ) | imagine_filter('my_thumb_filter')}} " alt="">
+						<span class="user_email_nav">{{ app.user.email}}</span>
 					</li>
 					{% if 'ROLE_ADMIN' in app.user.getroles() %}
 						<li>
@@ -40,19 +39,23 @@
 					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
 						<li>
 							<a href="{{ path('app_moderator')}}">Moderation
-
-								<div class="bulle-info-cercle">{{ moderation.getTotalModeration }}</div>
+								{% if moderation.getTotalModeration > 0 %}
+									<div class="bulle-info-cercle">{{ moderation.getTotalModeration }}</div>
+								{% endif %}
 							</a>
 						</li>
 					{% endif %}
+					<li>
+						<a href="">Gestion</a>
+					</li>
 					<li>
 						<a href="{{ path('app_profile_user_index')}}">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Profile</a>
 					</li>
 					<li>
 						<a href="{{ path('app_message_index')}}">Message</a>
-
-						<div class="bulle-info-cercle">{{ nbrMessage.getTotalMessagesUser }}</div>
-
+						{% if nbrMessage.getTotalMessagesUser > 0 %}
+							<div class="bulle-info-cercle">{{ nbrMessage.getTotalMessagesUser }}</div>
+						{% endif %}
 					</li>
 
 					<li>
