@@ -26,6 +26,7 @@ class DriverController extends AbstractController
     #[Route('/', name: 'app_driver_index', methods: ['GET'])]
     public function index(): Response
     {
+
         return $this->render('driver/index.html.twig', [
             'drivers' => $this->driverRepository->findBy(['user' => $this->getUser()]),
         ]);

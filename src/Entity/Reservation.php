@@ -83,6 +83,9 @@ class Reservation
     #[ORM\Column(nullable: true)]
     private ?bool $valide = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $stage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -360,6 +363,18 @@ class Reservation
     public function setValide(?bool $valide): static
     {
         $this->valide = $valide;
+
+        return $this;
+    }
+
+    public function getStage(): ?int
+    {
+        return $this->stage;
+    }
+
+    public function setStage(?int $stage): static
+    {
+        $this->stage = $stage;
 
         return $this;
     }

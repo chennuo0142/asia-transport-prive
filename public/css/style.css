@@ -9,14 +9,13 @@ html {
   height: 100%;
 }
 
-li {
-  list-style: none;
-}
-
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+ul li {
+  list-style: none;
 }
 
 .user_email_nav {
@@ -34,6 +33,11 @@ ul {
   clip-path: ellipse(50% 50%);
   text-align: center;
   color: beige;
+}
+
+.gestion_reservation_nav {
+  display: flex;
+  justify-content: space-between;
 }
 
 .reservation_confirmation_wraper {
@@ -106,6 +110,24 @@ ul {
 }
 
 .bottom-button-nav-position {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gestion-reservation-info-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gestion-reservation-card {
+  padding: 10px;
+  border: 1px solid pink;
+}
+.gestion-reservation-card h5 {
+  background-color: bisque;
+}
+
+.gestion-reservation-header-wrapper {
   display: flex;
   justify-content: space-between;
 }

@@ -65,6 +65,9 @@ class Driver
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $car = null;
+
 
     public function getId(): ?int
     {
@@ -271,6 +274,18 @@ class Driver
     public function setPhoto(?string $photo): static
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getCar(): ?int
+    {
+        return $this->car;
+    }
+
+    public function setCar(?int $car): static
+    {
+        $this->car = $car;
 
         return $this;
     }

@@ -46,3 +46,23 @@
     display: flex;
     justify-content: space-between;
 }
+
+.gestion-reservation-info-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gestion-reservation-card {
+    padding: 10px;
+    border: 1px solid pink;
+
+    h5 {
+        background-color: bisque;
+    }
+
+}
+
+.gestion-reservation-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+}

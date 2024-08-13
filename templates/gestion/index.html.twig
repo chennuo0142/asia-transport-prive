@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion
+{% endblock %}
+
+{% block body %}
+	<h1>Gestion</h1>
+	<h3>Reservation Public
+		<strong>Etape
+			{{ stage }}</strong>
+	</h3>
+	<div class="gestion_reservation_nav">
+		<span>
+			Reservation en attente de chauffeur:
+			{{ total_reservation }}
+		</span>
+		<span>
+			<nav>
+				<ul>
+					<li></li>
+					<li>
+						<a href="{{path('app_gestion',{stage:1})}}">Etape-1</a>
+					</li>
+					<li>
+						<a href="{{path('app_gestion',{stage:2})}}">Etape-2</a>
+					</li>
+					<li>
+						<a href="{{path('app_gestion',{stage:3})}}">Etape-3</a>
+					</li>
+				</ul>
+			</nav>
+
+
+		</span>
+
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>Date</th>
+
+				<th>Name</th>
+
+
+				<th>Service</th>
+				<th>Status</th>
+
+
+				<th>actions</th>
+			</tr>
+		</thead>
+
+		{% for reservation in reservations %}
+			<tr>
+				<td>{{reservation.id}}</td>
+				<td>{{reservation.dateOperation|date('d-m-Y')}}</td>
+				<td>{{reservation.name}}</td>
+				<td>{{reservation.service.name}}</td>
+				<td>AD</td>
+				<td>
+					<a href="{{ path('app_gestion_reservation_show',{slug:reservation.slug})}}">Voir</a>
+				</td>
+
+			</tr>
+
+		{% endfor %}
+	</table>
+{% endblock %}
