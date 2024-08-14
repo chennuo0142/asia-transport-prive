@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class GestionController extends AbstractController
 {
     #[Route('/{stage}', name: 'app_gestion')]
-    public function index($stage = 1, ReservationRepository $reservationRepository): Response
+    public function index($stage, ReservationRepository $reservationRepository): Response
     {
 
         //stage 1 return reservation en attente de driver
