@@ -69,19 +69,27 @@
 			{{ form_end(form) }}
 
 		</div>
-	{% else %}
+	{% endif %}
+	{% if reservation.provider %}
+
 		<div class="gestion-reservation-card">
 			<h5>Prestataire</h5>
 			<ul>
-				<li>Societe:{{ compagny.status}}
-					{{compagny.name}}</li>
+				<li>Societe:
+					{{reservation.provider.compagny}}</li>
 				<li>Driver:
-					{{ driver.name }}</li>
+					{{ reservation.provider.driverName }}
+					{{ reservation.provider.driverFirstName}}</li>
+				<li>Véhicule:
+					{{reservation.provider.car.brand}}
+					{{reservation.provider.car.model}}
+					{{reservation.provider.car.licensePlate}}</li>
 
 			</ul>
 
 		</div>
 	{% endif %}
+
 
 	<div></div>
 

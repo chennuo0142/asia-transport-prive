@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('gestion/article')]
+#[Route('user/article')]
 class ArticleController extends AbstractController
 {
     private $articleRepository;

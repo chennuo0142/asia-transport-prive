@@ -36,8 +36,9 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/setting, roles: ROLE_ADMIN }
-        - { path: ^/gestion, roles: ROLE_MODERATOR }
+        - { path: ^/gestion, roles: ROLE_USER }
         - { path: ^/moderator, roles: ROLE_MODERATOR }
+        - { path: ^/gestion/reservation, roles: ROLE_MODERATOR }
 
     role_hierarchy:
         ROLE_MODERATOR: ROLE_USER

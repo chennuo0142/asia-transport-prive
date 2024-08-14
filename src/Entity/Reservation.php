@@ -86,6 +86,9 @@ class Reservation
     #[ORM\Column(nullable: true)]
     private ?int $stage = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $provider = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -375,6 +378,18 @@ class Reservation
     public function setStage(?int $stage): static
     {
         $this->stage = $stage;
+
+        return $this;
+    }
+
+    public function getProvider(): ?array
+    {
+        return $this->provider;
+    }
+
+    public function setProvider(?array $provider): static
+    {
+        $this->provider = $provider;
 
         return $this;
     }

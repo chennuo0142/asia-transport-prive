@@ -11,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/gestion')]
 class GestionController extends AbstractController
 {
-    #[Route('/gestion/{stage}', name: 'app_gestion')]
+    #[Route('/{stage}', name: 'app_gestion')]
     public function index($stage = 1, ReservationRepository $reservationRepository): Response
     {
 
@@ -50,7 +51,7 @@ class GestionController extends AbstractController
         ]);
     }
 
-    #[Route('/gestion/reservation/{slug}/show', name: 'app_gestion_reservation_show')]
+    #[Route('/reservation/{slug}/show', name: 'app_gestion_reservation_show')]
     public function reservation_show($slug, ReservationRepository $reservationRepository, Request $request, EntityManagerInterface $entityManager, DriverRepository $driverRepository): Response
     {
         $driver = null;
@@ -66,29 +67,31 @@ class GestionController extends AbstractController
             dump($request->get('driver'));
             $driver = $driverRepository->find($request->get('driver'));
             $userId = $driver->getUserId();
-            dump($userId);
-            dump($driver);
+
+            //recuperer array contenant tous les informations necessaure du chauffeur dans un tableau
+            //evitant les bug si user supprime les elements
+            //$provider contient le user, la societe et la voiture du chauffeur
+            $provider = $driver->getArray();
+
+
 
             //demande de validation moderateur, car changement de donnees
-            $reservation->setUserId($userId)->setDriverId($request->get('driver'))->setStage(2);
+            $reservation->setUserId($userId)->setDriverId($request->get('driver'))->setStage(2)->setProvider($provider);
 
             $entityManager->persist($reservation);
             $entityManager->flush();
 
+
             return $this->redirectToRoute('app_gestion', ['stage' => 1], Response::HTTP_SEE_OTHER);
         }
-        dump($reservation);
-        if ($reservation->getDriverId()) {
-            $driver = $driverRepository->find($reservation->getDriverId());
-            $compagny = $driver->getUser()->getCompagny();
-        };
+
+
 
         return $this->render('gestion/reservation/show.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
             'drivers' => $drivers,
-            'driver' => $driver,
-            'compagny' => $compagny
+
         ]);
     }
 }

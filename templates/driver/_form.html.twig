@@ -16,6 +16,16 @@
 
 	{{ form_row(form.photoImage)}}
 </article>
+<label for="car">Véhicule Utiliser:</label>
+<select name="car" id="">
+	{% for car in cars %}
+		<option value="{{ car.id }}">{{ car.brand }}
+			{{ car.model }}
+			{{ car.licensePlate }}</option>
+	{% endfor %}
+
+
+</select>
 
 <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

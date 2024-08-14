@@ -40,6 +40,13 @@
 			{{ driver.country }}</footer>
 
 	</article>
+	<article>
+		Véhicule associé:
+		{{ driver.car.brand}}
+		{{ driver.car.model }}
+		{{ driver.car.licensePlate }}
+	</article>
+
 
 	<a href="{{ path('app_driver_index') }}">back to list</a>
 

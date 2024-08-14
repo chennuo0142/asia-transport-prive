@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/gestion/compagny')]
+#[Route('/user/compagny')]
 class CompagnyController extends AbstractController
 {
     public function calcul_numeros_tva_fr(string $data): string

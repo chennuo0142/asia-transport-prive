@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Driver;
 use DateTimeImmutable;
 use App\Form\DriverType;
+use App\Repository\CarRepository;
 use App\Repository\DriverRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/gestion/driver')]
+#[Route('/user/driver')]
 class DriverController extends AbstractController
 {
     private $driverRepository;
@@ -33,14 +34,21 @@ class DriverController extends AbstractController
     }
 
     #[Route('/new', name: 'app_driver_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
+    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, CarRepository $carRepository): Response
     {
+        $cars = $carRepository->findBy(['user' => $this->getUser()]);
+        dump($cars);
+
         $driver = new Driver();
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($request->get('car')) {
+                $car = $carRepository->find($request->get('car'));
+            }
             //si image est envoyé, on traite l'enregistrement
             if ($form->get('photoImage')->getData()) {
                 //on recupere le nom image une fois enregister
@@ -49,7 +57,12 @@ class DriverController extends AbstractController
             } else {
                 $driver->setPhoto('driver_default.webp');
             }
-
+            //on stock les information de car, ca evite que user change d'infos en cours utilisation
+            $car_array = [
+                'brand' => $car->getBrand(),
+                'model' => $car->getModel(),
+                'licensePlate' => $car->getLicensePlate()
+            ];
 
             $slug = strtolower($sluggerInterface->slug($driver->getName() . uniqid()));
             $driver->setSlug($slug)
@@ -58,6 +71,7 @@ class DriverController extends AbstractController
                 ->setUpdateAt(new DateTimeImmutable())
                 ->setUser($this->getUser())
                 ->setUserId($this->getUser()->getId())
+                ->setCar($car_array)
             ;
 
             $entityManager->persist($driver);
@@ -69,6 +83,7 @@ class DriverController extends AbstractController
         return $this->render('driver/new.html.twig', [
             'driver' => $driver,
             'form' => $form,
+            'cars' => $cars
         ]);
     }
 
@@ -91,8 +106,9 @@ class DriverController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'app_driver_edit', methods: ['GET', 'POST'])]
-    public function edit($slug, Request $request, PictureService $pictureService, EntityManagerInterface $entityManager): Response
+    public function edit($slug, Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, CarRepository $carRepository): Response
     {
+        $cars = $carRepository->findBy(['user' => $this->getUser()]);
         $driver = $this->driverRepository->findOneBy(['slug' => $slug, 'user' => $this->getUser()]);
         //etat de validation dans twig
         $status = "Encours de validation..";
@@ -105,12 +121,23 @@ class DriverController extends AbstractController
         dump($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if ($request->get('car')) {
+                $car = $carRepository->find($request->get('car'));
+                //on stock les information de car, ca evite que user change d'infos en cours utilisation
+
+                $driver->setCar([
+                    'brand' => $car->getBrand(),
+                    'model' => $car->getModel(),
+                    'licensePlate' => $car->getLicensePlate()
+                ]);
+            }
             //si image est envoyé, on traite l'enregistrement
             if ($form->get('photoImage')->getData()) {
                 //on recupere le nom image une fois enregister
                 $filename = $pictureService->add($form, $driver);
                 $driver->setPhoto($filename);
             }
+
 
             $driver->setUpdateAt(new DateTimeImmutable());
 
@@ -126,7 +153,8 @@ class DriverController extends AbstractController
         return $this->render('driver/edit.html.twig', [
             'driver' => $driver,
             'form' => $form,
-            'status' => $status
+            'status' => $status,
+            'cars' => $cars
         ]);
     }
 

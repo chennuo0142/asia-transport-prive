@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/gestion/client')]
+#[Route('/user/client')]
 class ClientController extends AbstractController
 {
     private $clientRepository;

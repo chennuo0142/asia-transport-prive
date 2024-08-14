@@ -66,7 +66,8 @@ class Driver
     private ?string $photo = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $car = null;
+    private ?array $car = null;
+
 
 
     public function getId(): ?int
@@ -278,15 +279,25 @@ class Driver
         return $this;
     }
 
-    public function getCar(): ?int
+    public function getCar(): ?array
     {
         return $this->car;
     }
 
-    public function setCar(?int $car): static
+    public function setCar(?array $car): static
     {
         $this->car = $car;
 
         return $this;
+    }
+    public function getArray(): array
+    {
+        return [
+            "userId" => $this->userId,
+            "compagny" => $this->user->getCompagny()->getName(),
+            "driverName" => $this->name,
+            "driverFirstName" => $this->firstName,
+            "car" => $this->car
+        ];
     }
 }

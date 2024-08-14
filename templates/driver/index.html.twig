@@ -50,10 +50,10 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	{% if app.user.compagny %}
+	{% if app.user.compagny and app.user.cars %}
 		<a href="{{ path('app_driver_new') }}">Create new</a>
 	{% else %}
-		<p>Pour ajouter un chauffeur, vous devez avoir une societe enregistrer sur votre compte</p>
+		<p>Pour ajouter un chauffeur, vous devez avoir une societe enregistrer et possede au moin un véhicule sur votre compte</p>
 	{% endif %}
 
 

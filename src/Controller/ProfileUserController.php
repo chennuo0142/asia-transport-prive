@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/profile/user')]
+#[Route('/user/profile')]
 class ProfileUserController extends AbstractController
 {
     #[Route('/', name: 'app_profile_user_index', methods: ['GET'])]
