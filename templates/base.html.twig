@@ -40,9 +40,9 @@
 					{% endif %}
 					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
 						<li>
-							<a href="{{ path('app_moderator')}}">Moderation
+							<a class="item-with-badge" href="{{ path('app_moderator')}}">Moderation
 								{% if moderation.getTotalModeration > 0 %}
-									<div class="bulle-info-cercle">{{ moderation.getTotalModeration }}</div>
+									<div class="badge-info-cercle badge-position">{{ moderation.getTotalModeration }}</div>
 								{% endif %}
 							</a>
 						</li>
@@ -55,10 +55,11 @@
 						<a href="{{ path('app_profile_user_index')}}">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Profile</a>
 					</li>
 					<li>
-						<a href="{{ path('app_message_index')}}">Message</a>
-						{% if nbrMessage.getTotalMessagesUser > 0 %}
-							<div class="bulle-info-cercle">{{ nbrMessage.getTotalMessagesUser }}</div>
-						{% endif %}
+						<a class="item-with-badge" href="{{ path('app_message_index')}}">Message
+							{% if nbrMessage.getTotalMessagesUser > 0 %}
+								<div class="badge-info-cercle badge-position">{{ nbrMessage.getTotalMessagesUser }}</div>
+							{% endif %}
+						</a>
 					</li>
 
 					<li>
