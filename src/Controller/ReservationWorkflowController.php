@@ -19,4 +19,14 @@ class ReservationWorkflowController extends AbstractController
             'reservations' => $reservationRepository->findBy(['userId' => $this->getUser()]),
         ]);
     }
+
+    #[Route('/reservation/{slug}/show', name: 'app_reservation_workflow_show', methods: ['GET'])]
+    public function show($slug, ReservationRepository $reservationRepository): Response
+    {
+        $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
+        dump($reservation);
+        return $this->render('reservation_workflow/show.html.twig', [
+            'reservation' => $reservation,
+        ]);
+    }
 }

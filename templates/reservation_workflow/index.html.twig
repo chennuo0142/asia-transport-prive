@@ -31,7 +31,7 @@
 						<td>{{reservation.email}}</td>
 						<td>{{reservation.telephone}}</td>
 						<td>
-							<a href="{{ path('app_moderator_driver_show',{'slug':reservation.slug})}}">Voir</a>
+							<a href="{{ path('app_reservation_workflow_show',{'slug':reservation.slug})}}">Voir</a>
 						</td>
 					</tr>
 				{% else %}

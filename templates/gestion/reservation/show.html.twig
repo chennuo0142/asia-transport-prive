@@ -53,23 +53,6 @@
 			</ul>
 		</div>
 	</div>
-	{% if reservation.stage == 1 %}
-		<div>
-
-			{{ form_start(form) }}
-			{{form_widget(form)}}
-			<label for="driver">selection de driver</label>
-			<select name="driver" id="">
-				{% for driver in drivers %}
-					<option value="{{ driver.id }}">{{ driver.id}}-{{ driver.name }}-{{driver.firstName}}({{ driver.user.compagny.name  }})</option>
-				{% endfor %}
-
-			</select>
-			<button class="btn">{{ button_label|default('Save') }}</button>
-			{{ form_end(form) }}
-
-		</div>
-	{% endif %}
 	{% if reservation.provider %}
 
 		<div class="gestion-reservation-card">
@@ -84,9 +67,25 @@
 					{{reservation.provider.car.brand}}
 					{{reservation.provider.car.model}}
 					{{reservation.provider.car.licensePlate}}</li>
-
 			</ul>
 
+		</div>
+	{% endif %}
+	{% if reservation.stage != 3 %}
+		<div>
+
+			{{ form_start(form) }}
+			{{form_widget(form)}}
+			<label for="driver">selection de driver</label>
+			<select name="driver" id="">
+				{% for driver in drivers %}
+					<option value="{{ driver.id }}">{{ driver.id}}-{{ driver.name }}-{{driver.firstName}}({{ driver.user.compagny.name  }})</option>
+				{% endfor %}
+
+			</select>
+			<button class="btn">{{ button_label|default('Save') }}</button>
+			{{ form_end(form) }}
+			<a href="{{ path('app_gestion',{stage:reservation.stage})}}">Retour</a>
 		</div>
 	{% endif %}
 
