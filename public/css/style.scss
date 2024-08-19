@@ -1,0 +1,116 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  height: 100%; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+  ul li {
+    list-style: none; }
+
+.user_email_nav {
+  font-size: small; }
+
+.badge-info-cercle {
+  width: 25px;
+  height: 25px;
+  background-color: #f8de4f;
+  clip-path: ellipse(50% 50%);
+  text-align: center;
+  color: beige;
+  font-size: small; }
+
+.gestion_reservation_nav {
+  display: flex;
+  justify-content: space-between; }
+
+.item-with-badge {
+  position: relative; }
+
+.badge-position {
+  position: absolute;
+  top: 0;
+  right: -7px; }
+
+.reservation_confirmation_wraper {
+  border: 1px solid yellow;
+  border-radius: 10px;
+  padding: 10px; }
+  .reservation_confirmation_wraper header {
+    background-color: antiquewhite;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    color: red; }
+
+.cconfirmation-card {
+  background-color: white;
+  box-shadow: 10px 10px 10px 10px #eaeced; }
+
+.user_avatar {
+  width: 200px;
+  height: 200px;
+  clip-path: ellipse(20% 20%); }
+
+.profile_photo {
+  width: 200px;
+  height: 200px;
+  clip-path: ellipse(50% 50%); }
+
+.driver_show_card_title {
+  display: flex;
+  justify-content: space-between; }
+
+.check_valide_color {
+  color: green;
+  height: 24px;
+  width: 24px; }
+
+.space-between {
+  display: flex;
+  justify-content: space-between; }
+
+.alert {
+  width: 100%;
+  padding: 10px;
+  border-radius: 15px; }
+
+.alert-success {
+  background-color: green; }
+
+.home-driver-container-flex {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); }
+
+.driver-card {
+  /* width: 300px;
+  height: 450px; */
+  padding: 10px;
+  border: 1px solid grey;
+  margin: 10px; }
+
+.bottom-button-nav-position {
+  display: flex;
+  justify-content: space-between; }
+
+.gestion-reservation-info-wrapper {
+  display: flex;
+  justify-content: space-between; }
+
+.gestion-reservation-card {
+  padding: 10px;
+  border: 1px solid pink; }
+  .gestion-reservation-card h5 {
+    background-color: bisque; }
+
+.gestion-reservation-header-wrapper {
+  display: flex;
+  justify-content: space-between; }
+
+/*# sourceMappingURL=style.scss.map */

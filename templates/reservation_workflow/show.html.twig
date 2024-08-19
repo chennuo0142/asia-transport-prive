@@ -4,7 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Reservations</h1>
+	<nav class="space-between">
+		<span>
+			<h1>Reservation</h1>
+		</span>
+
+		<div>
+			<a role="button" href="{{ path('app_reservation_workflow_star', {slug:reservation.slug})}}">Commencer le service</a>
+		</div>
+	</nav>
 	<article>
 		<h2>Reference:
 			{{reservation.reference}}s</h2>

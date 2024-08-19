@@ -26,3 +26,9 @@
     top: 0;
     right: -7px;
 }
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}

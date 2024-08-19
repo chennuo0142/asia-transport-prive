@@ -5,45 +5,45 @@
 
 {% block body %}
 	<h1>Reservations</h1>
-	{% for reservation in reservations %}
-		<table>
-			<thead>
+
+	<table>
+		<thead>
+			<tr>
+
+
+				<h2>Mes Reservations</h2>
+
+
+			</tr>
+			<tr>
+
+				<th scope="col">Name</th>
+				<th scope="col">Email</th>
+				<th scope="col">Telephone</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for reservation in reservations %}
 				<tr>
 
-
-					<h2>Mes Reservations</h2>
-
-
+					<td>{{reservation.name}}</td>
+					<td>{{reservation.email}}</td>
+					<td>{{reservation.telephone}}</td>
+					<td>
+						<a href="{{ path('app_reservation_workflow_show',{'slug':reservation.slug})}}">Voir</a>
+					</td>
 				</tr>
+			{% else %}
 				<tr>
-
-					<th scope="col">Name</th>
-					<th scope="col">Email</th>
-					<th scope="col">Telephone</th>
-					<th>Action</th>
+					<td colspan="15">Pas de demande de validation</td>
 				</tr>
-			</thead>
-			<tbody>
-				{% for reservation in reservations %}
-					<tr>
-
-						<td>{{reservation.name}}</td>
-						<td>{{reservation.email}}</td>
-						<td>{{reservation.telephone}}</td>
-						<td>
-							<a href="{{ path('app_reservation_workflow_show',{'slug':reservation.slug})}}">Voir</a>
-						</td>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="15">Pas de demande de validation</td>
-					</tr>
-				{% endfor %}
+			{% endfor %}
 
 
-			</tbody>
+		</tbody>
 
-		</table>
-	{% endfor %}
+	</table>
+
 
 {% endblock %}
