@@ -5,14 +5,18 @@
 
 {% block body %}
 	<h1>Bienvenue</h1>
-	<a href="{{ path('app_home')}}">Retour</a>
+	<div class="display-flex item-space-betweend">
+		<a href="{{ path('app_home')}}">Retour</a>
+		<a href="{{ path('app_reservation_new',{slug:driver.slug}) }}">Reserver une course avec ce chaffeur</a>
+	</div>
+
 	<article>
 		<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
 		<div>
-
 			{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
 			{{ driver.user.compagny.status }}
-			{{ driver.user.compagny.name}}</div>
+			{{ driver.user.compagny.name}}
+		</div>
 		{{ driver.name }}
 	</article>
 

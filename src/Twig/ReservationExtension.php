@@ -46,7 +46,8 @@ class ReservationExtension extends AbstractExtension
         $gestions = $this->entityManager->getRepository(Reservation::class)->findBy([
 
             'stage' => 1,
-            'valide' => true
+            'valide' => true,
+            'private' => false
         ]);
 
 
