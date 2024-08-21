@@ -25,7 +25,7 @@ class ReservationExtension extends AbstractExtension
     public function getFunctions(): array
     {
         //on cree l'extension twig, 'moderation est le nom du variable, getTotalModeration est la fonction appeler'
-        return [new TwigFunction('nbrReservation', [$this, 'getTotalReservationsUser'])];
+        return [new TwigFunction('nbrReservation', [$this, 'getTotalReservationsUser', 'getTotalGestion'])];
     }
 
     public function getTotalReservationsUser(): int
@@ -38,5 +38,18 @@ class ReservationExtension extends AbstractExtension
 
 
         return count($reservations);
+    }
+
+    public function getTotalGestion(): int
+    {
+
+        $gestions = $this->entityManager->getRepository(Reservation::class)->findBy([
+
+            'stage' => 1,
+            'valide' => true
+        ]);
+
+
+        return count($gestions);
     }
 }

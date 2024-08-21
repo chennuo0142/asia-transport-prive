@@ -67,21 +67,21 @@ class ReservationWorkflowController extends AbstractController
             $reservation->setWorkflowStage(
                 array(
                     "stage" => 3,
-                    "status" => "client a bord"
+                    "status" => "Client à bord"
                 )
             );
         } elseif ($reservation->getWorkflowStage()['stage'] == 3) {
             $reservation->setWorkflowStage(
                 array(
                     "stage" => 4,
-                    "status" => "arriver a destination"
+                    "status" => "Arriver à destination"
                 )
             );
         } elseif ($reservation->getWorkflowStage()['stage'] == 4) {
             $reservation->setWorkflowStage(
                 array(
                     "stage" => 5,
-                    "status" => "fin de service"
+                    "status" => "Fin de service"
                 )
             )
                 ->setEndService(true);
@@ -94,6 +94,18 @@ class ReservationWorkflowController extends AbstractController
         return $this->render('reservation_workflow/workflow.html.twig', [
             'reservation' => $reservation,
 
+        ]);
+    }
+    #[Route('/reservation/show/end-service', name: 'app_reservation_workflow_show_end_service', methods: ['GET'])]
+    public function show_end_service(ReservationRepository $reservationRepository): Response
+    {
+        $reservations = $reservationRepository->findBy([
+            'userId' => $this->getUser(),
+            'endService' => true
+        ]);
+        dump($reservations);
+        return $this->render('reservation_workflow/show.endService.html.twig', [
+            'reservations' => $reservations,
         ]);
     }
 }

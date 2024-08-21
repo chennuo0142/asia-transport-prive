@@ -47,7 +47,11 @@
 							</a>
 						</li>
 						<li>
-							<a href="{{ path('app_gestion',{stage:1})}}">Gestion</a>
+							<a class="item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Gestion
+								{% if nbrReservation.getTotalGestion > 0 %}
+									<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
+								{% endif %}
+							</a>
 						</li>
 					{% endif %}
 
