@@ -48,7 +48,8 @@ class ReservationController extends AbstractController
             $reservation->setSlug($slug)
                 ->setCreateAt(new DateTimeImmutable())
                 ->setReference($reference)
-                ->setStage(1);
+                ->setStage(1)
+                ->setWorkflowStage(array("stage" => 0, "status" => "En attente"));
             // ->setCar($carType)
             // ->setService($service);
             $entityManager->persist($reservation);

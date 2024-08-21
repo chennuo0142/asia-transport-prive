@@ -3,6 +3,8 @@ twig:
     globals:
         moderation: '@App\Twig\ModeratorExtension'
         nbrMessage: '@App\Twig\MessageExtension'
+        nbrReservation: '@App\Twig\ReservationExtension'
+      
 
 when@test:
     twig:

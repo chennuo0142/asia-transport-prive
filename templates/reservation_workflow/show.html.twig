@@ -8,14 +8,19 @@
 		<span>
 			<h1>Reservation</h1>
 		</span>
-
 		<div>
-			<a role="button" href="{{ path('app_reservation_workflow_star', {slug:reservation.slug})}}">Commencer le service</a>
+			{% if reservation.workflowstage.stage != 5 %}
+				<a role="button" href="{{ path('app_reservation_workflow_star', {slug:reservation.slug})}}">Commencer le service</a>
+			{% else %}
+				<a role="button" href="{{ path('app_reservation_workflow')}}">Retour</a>
+			{% endif %}
 		</div>
 	</nav>
 	<article>
-		<h2>Reference:
-			{{reservation.reference}}s</h2>
+		<h2>Status:
+			{{ reservation.workflowstage.status }}</h2>
+		<h3>Reference:
+			{{reservation.reference}}s</h3>
 
 		<div>Nom client:
 			{{reservation.name}}</div>

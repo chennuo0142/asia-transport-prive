@@ -23,8 +23,10 @@ ul {
   background-color: #f8de4f;
   clip-path: ellipse(50% 50%);
   text-align: center;
-  color: beige;
-  font-size: small; }
+  vertical-align: baseline;
+  color: #181fef;
+  font-size: 15px;
+  font-weight: bold; }
 
 .gestion_reservation_nav {
   display: flex;
@@ -70,5 +72,14 @@ ul {
 
 h1 {
   color: #4d45e9; }
+
+.display-flex {
+  display: flex; }
+
+.item-flex-center {
+  justify-content: center; }
+
+.item-space-betweend {
+  justify-content: space-between; }
 
 /*# sourceMappingURL=style.css.map */

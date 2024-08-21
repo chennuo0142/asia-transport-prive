@@ -4,3 +4,15 @@
 h1 {
     color: $primary;
 }
+
+.display-flex {
+    display: flex;
+}
+
+.item-flex-center {
+    justify-content: center;
+}
+
+.item-space-betweend {
+    justify-content: space-between;
+}

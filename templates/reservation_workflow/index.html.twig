@@ -4,17 +4,20 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Reservations</h1>
+	<div class="display-flex item-space-betweend">
+
+
+		<h1>Reservations en cours</h1>
+
+
+		<a href="#">Cours terminer</a>
+
+	</div>
+
 
 	<table>
 		<thead>
-			<tr>
 
-
-				<h2>Mes Reservations</h2>
-
-
-			</tr>
 			<tr>
 
 				<th scope="col">Name</th>
@@ -36,12 +39,13 @@
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="15">Pas de demande de validation</td>
+					<td colspan="15">Pas de nouvelle reservation</td>
 				</tr>
 			{% endfor %}
 
 
 		</tbody>
+
 
 	</table>
 

@@ -39,7 +39,7 @@ class Reservation
     private ?string $departureAdress = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $ArrivalAdress = null;
+    private ?string $arrivalAdress = null;
 
     #[ORM\Column]
     private ?int $nbPassager = null;
@@ -88,6 +88,12 @@ class Reservation
 
     #[ORM\Column(nullable: true)]
     private ?array $provider = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $workflowStage = null;
+
+    #[ORM\Column]
+    private ?bool $endService = false;
 
     public function getId(): ?int
     {
@@ -192,12 +198,12 @@ class Reservation
 
     public function getArrivalAdress(): ?string
     {
-        return $this->ArrivalAdress;
+        return $this->arrivalAdress;
     }
 
     public function setArrivalAdress(string $ArrivalAdress): static
     {
-        $this->ArrivalAdress = $ArrivalAdress;
+        $this->arrivalAdress = $ArrivalAdress;
 
         return $this;
     }
@@ -390,6 +396,30 @@ class Reservation
     public function setProvider(?array $provider): static
     {
         $this->provider = $provider;
+
+        return $this;
+    }
+
+    public function getWorkflowStage(): ?array
+    {
+        return $this->workflowStage;
+    }
+
+    public function setWorkflowStage(?array $workflowStage): static
+    {
+        $this->workflowStage = $workflowStage;
+
+        return $this;
+    }
+
+    public function isEndService(): ?bool
+    {
+        return $this->endService;
+    }
+
+    public function setEndService(bool $endService): static
+    {
+        $this->endService = $endService;
 
         return $this;
     }

@@ -109,7 +109,17 @@
 							<a href="{{ path('app_car_index')}}">Véhicule</a>
 						</li>
 						<li>
-							<a href="{{ path('app_reservation_workflow')}}">Reservation</a>
+							<a class="item-with-badge" href="{{ path('app_reservation_workflow')}}">Reservation
+								{% if nbrReservation.getTotalReservationsUser > 0 %}
+									<div class="badge-info-cercle badge-position">
+										{{ nbrReservation.getTotalReservationsUser }}
+									</div>
+								{% endif %}
+
+
+							</a>
+
+
 						</li>
 					</ul>
 				</nav>
