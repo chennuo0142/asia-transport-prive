@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Entity\ReservationArchive;
 use App\Form\ReservationType;
 use App\Repository\CarCategoryRepository;
+use App\Repository\DriverRepository;
 use App\Repository\ReservationRepository;
 use App\Repository\ServiceListeRepository;
 use DateTimeImmutable;
@@ -28,14 +29,33 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{slug}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     public function new(
+        $slug = null,
         Request $request,
         EntityManagerInterface $entityManager,
         SluggerInterface $sluggerInterface,
+        DriverRepository $driverRepository
 
     ): Response {
         $reservation = new Reservation();
+        $compagny = null;
+        $driver = null;
+
+        if ($slug) {
+            $driver = $driverRepository->findOneBy(['slug' => $slug]);
+        }
+
+        if ($driver) {
+            $compagny = $driver->getUser()->getCompagny()->getName();
+            $reservation->setDriverId($driver->getId())
+                ->setPrivate(true);
+        }
+        dump($slug);
+        dump($driver);
+        dump($compagny);
+        dump($reservation);
+
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
@@ -61,6 +81,8 @@ class ReservationController extends AbstractController
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
+            'driver' => $driver,
+            'compagny' => $compagny
         ]);
     }
 
