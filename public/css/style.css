@@ -1,85 +1,104 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 100%; }
+  height: 100%;
+}
 
 ul {
   list-style: none;
   padding: 0;
-  margin: 0; }
-  ul li {
-    list-style: none; }
+  margin: 0;
+}
+ul li {
+  list-style: none;
+}
 
 .user_email_nav {
-  font-size: small; }
+  font-size: small;
+}
 
 .badge-info-cercle {
   width: 25px;
   height: 25px;
-  background-color: #f8de4f;
+  background-color: rgb(248, 222, 79);
   clip-path: ellipse(50% 50%);
   text-align: center;
   vertical-align: baseline;
-  color: #181fef;
+  color: rgb(24, 31, 239);
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+}
 
 .gestion_reservation_nav {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 .item-with-badge {
-  position: relative; }
+  position: relative;
+}
 
 .badge-position {
   position: absolute;
   top: 0;
-  right: -7px; }
+  right: -7px;
+}
 
 .space-between {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+}
 
 .reservation_confirmation_wraper {
   border: 1px solid yellow;
   border-radius: 10px;
-  padding: 10px; }
-  .reservation_confirmation_wraper header {
-    background-color: antiquewhite;
-    text-align: center;
-    padding: 5px;
-    border-radius: 10px;
-    color: red; }
+  padding: 10px;
+}
+.reservation_confirmation_wraper header {
+  background-color: antiquewhite;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  color: red;
+}
 
 .cconfirmation-card {
   background-color: white;
-  box-shadow: 10px 10px 10px 10px #eaeced; }
+  box-shadow: 10px 10px 10px 10px rgb(234, 236, 237);
+}
 
 .user_avatar {
   width: 200px;
   height: 200px;
-  clip-path: ellipse(20% 20%); }
+  clip-path: ellipse(20% 20%);
+}
 
 .profile_photo {
   width: 200px;
   height: 200px;
-  clip-path: ellipse(50% 50%); }
+  clip-path: ellipse(50% 50%);
+}
 
 h1 {
-  color: #4d45e9; }
+  color: rgb(77, 69, 233);
+}
 
 .display-flex {
-  display: flex; }
+  display: flex;
+}
 
 .item-flex-center {
-  justify-content: center; }
+  justify-content: center;
+}
 
 .item-space-betweend {
-  justify-content: space-between; }
+  justify-content: space-between;
+}
 
 /*# sourceMappingURL=style.css.map */
