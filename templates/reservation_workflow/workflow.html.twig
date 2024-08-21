@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation worklflow
+{% endblock %}
+
+{% block body %}
+	<nav>
+		<span>
+			<h1>Workflow</h1>
+		</span>
+
+
+	</nav>
+	<article>
+		<h2>Reference:
+			{{reservation.reference}}</h2>
+
+		<div>Nom client:
+			{{reservation.name}}</div>
+		<div>Email:
+			{{reservation.email}}</div>
+		<div>Telephone:
+			{{reservation.telephone}}</div>
+		<div>Adresse:
+			{{ reservation.departureAdress }}</div>
+		<div>Destination:
+			{{ reservation.arrivalAdress }}</div>
+
+
+		<a href="{{ path('app_reservation_workflow')}}">retour</a>
+	</article>
+	<p>Status:
+		{{ reservation.workflowstage.status }}
+	</p>
+	<div class="display-flex item-flex-center">
+		{% if reservation.workflowstage.stage == 5 %}
+			<a role="button" href="{{ path('app_reservation_workflow')}}">Fin de service</a>
+		{% else %}
+			<a role="button" href="{{ path('app_reservation_workflow_star', {slug:reservation.slug})}}">{{ reservation.workflowstage.status }}</a>
+		{% endif %}
+
+
+	</div>
+
+{% endblock %}

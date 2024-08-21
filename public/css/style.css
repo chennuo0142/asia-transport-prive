@@ -1,142 +1,85 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 100%;
-}
+  height: 100%; }
 
 ul {
   list-style: none;
   padding: 0;
-  margin: 0;
-}
-ul li {
-  list-style: none;
-}
+  margin: 0; }
+  ul li {
+    list-style: none; }
 
 .user_email_nav {
-  font-size: small;
-}
+  font-size: small; }
 
 .badge-info-cercle {
   width: 25px;
   height: 25px;
-  background-color: rgb(248, 222, 79);
+  background-color: #f8de4f;
   clip-path: ellipse(50% 50%);
   text-align: center;
-  color: beige;
-  font-size: small;
-}
+  vertical-align: baseline;
+  color: #181fef;
+  font-size: 15px;
+  font-weight: bold; }
 
 .gestion_reservation_nav {
   display: flex;
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .item-with-badge {
-  position: relative;
-}
+  position: relative; }
 
 .badge-position {
   position: absolute;
   top: 0;
-  right: -7px;
-}
-
-.reservation_confirmation_wraper {
-  border: 1px solid yellow;
-  border-radius: 10px;
-  padding: 10px;
-}
-.reservation_confirmation_wraper header {
-  background-color: antiquewhite;
-  text-align: center;
-  padding: 5px;
-  border-radius: 10px;
-  color: red;
-}
-
-.cconfirmation-card {
-  background-color: white;
-  box-shadow: 10px 10px 10px 10px rgb(234, 236, 237);
-}
-
-.user_avatar {
-  width: 200px;
-  height: 200px;
-  clip-path: ellipse(20% 20%);
-}
-
-.profile_photo {
-  width: 200px;
-  height: 200px;
-  clip-path: ellipse(50% 50%);
-}
-
-.driver_show_card_title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.check_valide_color {
-  color: green;
-  height: 24px;
-  width: 24px;
-}
+  right: -7px; }
 
 .space-between {
   display: flex;
   justify-content: space-between;
-}
+  margin-bottom: 10px; }
 
-.alert {
-  width: 100%;
-  padding: 10px;
-  border-radius: 15px;
-}
+.reservation_confirmation_wraper {
+  border: 1px solid yellow;
+  border-radius: 10px;
+  padding: 10px; }
+  .reservation_confirmation_wraper header {
+    background-color: antiquewhite;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    color: red; }
 
-.alert-success {
-  background-color: green;
-}
+.cconfirmation-card {
+  background-color: white;
+  box-shadow: 10px 10px 10px 10px #eaeced; }
 
-.home-driver-container-flex {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
+.user_avatar {
+  width: 200px;
+  height: 200px;
+  clip-path: ellipse(20% 20%); }
 
-.driver-card {
-  /* width: 300px;
-  height: 450px; */
-  padding: 10px;
-  border: 1px solid grey;
-  margin: 10px;
-}
+.profile_photo {
+  width: 200px;
+  height: 200px;
+  clip-path: ellipse(50% 50%); }
 
-.bottom-button-nav-position {
-  display: flex;
-  justify-content: space-between;
-}
+h1 {
+  color: #4d45e9; }
 
-.gestion-reservation-info-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
+.display-flex {
+  display: flex; }
 
-.gestion-reservation-card {
-  padding: 10px;
-  border: 1px solid pink;
-}
-.gestion-reservation-card h5 {
-  background-color: bisque;
-}
+.item-flex-center {
+  justify-content: center; }
 
-.gestion-reservation-header-wrapper {
-  display: flex;
-  justify-content: space-between;
-}
+.item-space-betweend {
+  justify-content: space-between; }
 
 /*# sourceMappingURL=style.css.map */
