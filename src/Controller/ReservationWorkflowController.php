@@ -43,7 +43,7 @@ class ReservationWorkflowController extends AbstractController
 
         $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
         dump($reservation);
-        if ($reservation->getStage() != 3) {
+        if ($reservation->getStage() == 2) {
             //on passe stage en etape 3
             $reservation->setStage(3)
                 ->setWorkflowStage(
@@ -53,9 +53,8 @@ class ReservationWorkflowController extends AbstractController
                     )
                 );
         }
-
         //on passe workflow en etape 2, status en Je suis arriver      
-        if ($reservation->getWorkflowStage()['stage'] == 1) {
+        elseif ($reservation->getWorkflowStage()['stage'] == 1) {
             $reservation->setWorkflowStage(
                 array(
                     "stage" => 2,

@@ -33,7 +33,8 @@ class ReservationExtension extends AbstractExtension
         $user = $this->tokenStorage->getToken()->getUser();
         $reservations = $this->entityManager->getRepository(Reservation::class)->findBy([
             'userId' => $user,
-            'endService' => false
+            'endService' => false,
+            'valide' => true
         ]);
 
 
