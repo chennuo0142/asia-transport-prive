@@ -95,6 +95,10 @@ class Reservation
     #[ORM\Column]
     private ?bool $endService = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $workflowTimeline = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -420,6 +424,18 @@ class Reservation
     public function setEndService(bool $endService): static
     {
         $this->endService = $endService;
+
+        return $this;
+    }
+
+    public function getWorkflowTimeline(): ?array
+    {
+        return $this->workflowTimeline;
+    }
+
+    public function setWorkflowTimeline(?array $workflowTimeline): static
+    {
+        $this->workflowTimeline = $workflowTimeline;
 
         return $this;
     }

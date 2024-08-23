@@ -51,7 +51,8 @@ class ReservationWorkflowController extends AbstractController
                         "stage" => 1,
                         "status" => "En route vers l'adresse de prise en charge"
                     )
-                );
+                )
+                ->setWorkflowTimeline(array('stage'));
         }
         //on passe workflow en etape 2, status en Je suis arriver      
         elseif ($reservation->getWorkflowStage()['stage'] == 1) {
