@@ -85,7 +85,7 @@ class GestionController extends AbstractController
             return $this->redirectToRoute('app_gestion', ['stage' => 1], Response::HTTP_SEE_OTHER);
         }
 
-
+        dump($reservation);
 
         return $this->render('gestion/reservation/show.html.twig', [
             'reservation' => $reservation,

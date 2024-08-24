@@ -101,4 +101,14 @@ h1 {
   justify-content: space-between;
 }
 
+.header-pictus {
+  width: 100%;
+  height: 500px;
+  background-color: aquamarine;
+}
+.header-pictus img {
+  width: 100%;
+  height: 500px;
+}
+
 /*# sourceMappingURL=style.css.map */
