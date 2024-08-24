@@ -27,4 +27,4 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
-/dart-sass/
+/dart-sass
