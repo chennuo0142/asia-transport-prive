@@ -7,16 +7,22 @@
 	<h1>Gestion-Reservation</h1>
 	<a href="{{ path('app_gestion',{stage:1})}}">
 		Retour</a>
-	<div class="gestion-reservation-header-wrapper">
+	<div class="display-flex item-space-betweend">
 		<span>
 			<h4>Referecne:{{reservation.reference }}</h4>
 		</span>
 
 		<span>Etat:
+			{{reservation.workflowStage.status}}
+
+		</span>
+		<span>
+			Recu le:
+			<i>{{ reservation.createAt|date('d/m/Y à H:i') }}</i>
 		</span>
 	</div>
 
-	<i>{{ reservation.createAt|date('d/m/Y à H:i') }}</i>
+
 	<div class="gestion-reservation-info-wrapper">
 		<div class="gestion-reservation-card">
 			<h5>Client</h5>
@@ -71,6 +77,34 @@
 
 		</div>
 	{% endif %}
+
+	{% if reservation.workflowTimeline %}
+
+
+		<article>
+			<h3>Time Line :</h3>
+			<table>
+				<tr>
+					<th>Etape</th>
+					<th>Date</th>
+					<th>Heurs</th>
+				</tr>
+
+
+				{% for stage in reservation.workflowTimeline  %}
+					<tr>
+						<td>{{ stage.status }}</td>
+						<td>{{ stage.date.date| date('d/m/Y')}}</td>
+						<td>{{ stage.date.date| date('H:i')}}</td>
+					</tr>
+
+
+				{% endfor %}
+			</table>
+		</article>
+
+	{% endif %}
+
 	{% if reservation.stage != 3 %}
 		<div>
 
