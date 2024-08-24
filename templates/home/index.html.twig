@@ -4,13 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1>Bienvenue</h1>
 
-	</div>
+	<h1>Bienvenue</h1>
 
 
-	<header class="container">
+	<header>
 		<div class="header-pictus">
 
 			<img src="{{ asset('/images/header/header.jpg') | imagine_filter('my_fixed_filter') }}" alt="">
@@ -19,35 +17,46 @@
 
 
 	</header>
-	<main class="container">
-		<a href="{{ path('app_reservation_new',{slug:"null"})}}">Effectuer une Reservation</a>
 
-		<section>
-			<h2>Service</h2>
+	<a href="{{ path('app_reservation_new',{slug:"null"})}}">Effectuer une Reservation</a>
+
+	<section>
+		<h2>Service</h2>
 
 
-		</section>
+	</section>
 
-		<section>
-			<h2>Driver</h2>
-			<div class="home-driver-container-flex">
-				{% for driver in drivers %}
-					<div class="driver-card">
-						<article>
-							<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
-							<div>
-								{{ driver.name }}</div>
-							{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
-							{{ driver.user.compagny.name}}
-							<a href="{{ path('app_public_driver_show',{slug:driver.slug})}}">Voir</a>
-						</article>
+	<section>
+		<h2>Driver</h2>
+		<div class="home-driver-wrapper-flex">
+			{% for driver in drivers %}
+				<span class="driver-card">
 
-					</div>
-				{% endfor %}
-			</div>
-		</section>
-		<footer>
-			<h3>footer</h3>
-		</footer>
-	</main>
+
+					<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
+
+					<body>
+						<h3>{{ driver.name }}</h3>
+						<h4>{{ driver.firstName}}</h4>
+						{{ ux_icon('tabler:building', {height:'18px', width:'18px'}) }}:
+						<i>{{ driver.user.compagny.name}}</i>
+					</body>
+
+					<footer>
+						<div class="show-button">
+							<a role="button" href="{{ path('app_public_driver_show',{slug:driver.slug} )}}">Voir</a>
+
+						</div>
+
+					</footer>
+
+
+				</span>
+			{% endfor %}
+		</div>
+	</section>
+	<footer>
+		<h3>footer</h3>
+	</footer>
+
 {% endblock %}

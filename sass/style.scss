@@ -1,5 +1,6 @@
-// @import "bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
 @import "variables", "reset", "template", "nav", "reservation_confirmation", "image";
+// @import "bootstrap/scss/forms", "bootstrap/scss/variables";
 
 h1 {
     color: $primary;
@@ -28,5 +29,51 @@ h1 {
     }
 
     ;
+
+}
+
+.home-driver-wrapper-flex {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+.driver-card {
+    position: relative;
+    width: 300px;
+    height: 450px;
+    border: 1px solid rgb(247, 229, 229);
+    margin: 10px;
+    padding: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    header {
+        border-bottom: 1px solid yellow;
+        padding: 5px;
+        background-color: rgb(212, 211, 211);
+    }
+
+    footer {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 5px;
+
+        .show-button {
+            width: 100px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+
+
+    }
 
 }

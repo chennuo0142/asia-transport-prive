@@ -15,85 +15,91 @@
 			{% endblock %}
 		{% endblock %}
 	</head>
+	<nav class="navbar bg-body-tertiary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">UNION</a>
+		</div>
+	</nav>
 	<body>
-		<nav class="container">
-			<ul>
-				<li>
-					<a href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>VTC Comunity</strong>
-					</a>
-				</li>
-			</ul>
-			<ul>
-				<li></li>
-				{% if app.user %}
+		<div class="container">
+			<nav>
+				<ul>
 					<li>
-						{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
-						{% if app.user.profileUser %}
-							<img class="user_avatar" src="{{ asset('/images/uploads/' ~ app.user.profileUser.photo ) | imagine_filter('my_thumb_filter')}} " alt="">
-						{% endif %}
-						<span class="user_email_nav">{{ app.user.email}}</span>
-					</li>
-					{% if 'ROLE_ADMIN' in app.user.getroles() %}
-						<li>
-							<a href="{{ path('app_admin')}}">Admin</a>
-						</li>
-					{% endif %}
-					{% if 'ROLE_MODERATOR' in app.user.getroles() %}
-						<li>
-							<a class="item-with-badge" href="{{ path('app_moderator')}}">Moderation
-								{% if moderation.getTotalModeration > 0 %}
-									<div class="badge-info-cercle badge-position">{{ moderation.getTotalModeration }}</div>
-								{% endif %}
-							</a>
-						</li>
-						<li>
-							<a class="item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Gestion
-								{% if nbrReservation.getTotalGestion > 0 %}
-									<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
-								{% endif %}
-							</a>
-						</li>
-					{% endif %}
-
-					<li>
-						<a href="{{ path('app_profile_user_index')}}">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Profile</a>
-					</li>
-					<li>
-						<a class="item-with-badge" href="{{ path('app_message_index')}}">Message
-							{% if nbrMessage.getTotalMessagesUser > 0 %}
-								<div class="badge-info-cercle badge-position">{{ nbrMessage.getTotalMessagesUser }}</div>
-							{% endif %}
+						<a href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>VTC Comunity</strong>
 						</a>
 					</li>
+				</ul>
+				<ul>
+					<li></li>
+					{% if app.user %}
+						<li>
+							{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
+							{% if app.user.profileUser %}
+								<img class="user_avatar" src="{{ asset('/images/uploads/' ~ app.user.profileUser.photo ) | imagine_filter('my_thumb_filter')}} " alt="">
+							{% endif %}
+							<span class="user_email_nav">{{ app.user.email}}</span>
+						</li>
+						{% if 'ROLE_ADMIN' in app.user.getroles() %}
+							<li>
+								<a href="{{ path('app_admin')}}">Admin</a>
+							</li>
+						{% endif %}
+						{% if 'ROLE_MODERATOR' in app.user.getroles() %}
+							<li>
+								<a class="item-with-badge" href="{{ path('app_moderator')}}">Moderation
+									{% if moderation.getTotalModeration > 0 %}
+										<div class="badge-info-cercle badge-position">{{ moderation.getTotalModeration }}</div>
+									{% endif %}
+								</a>
+							</li>
+							<li>
+								<a class="item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Gestion
+									{% if nbrReservation.getTotalGestion > 0 %}
+										<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
+									{% endif %}
+								</a>
+							</li>
+						{% endif %}
 
-					<li>
-						<a href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
-					</li>
+						<li>
+							<a href="{{ path('app_profile_user_index')}}">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Profile</a>
+						</li>
+						<li>
+							<a class="item-with-badge" href="{{ path('app_message_index')}}">Message
+								{% if nbrMessage.getTotalMessagesUser > 0 %}
+									<div class="badge-info-cercle badge-position">{{ nbrMessage.getTotalMessagesUser }}</div>
+								{% endif %}
+							</a>
+						</li>
 
-				{% else %}
+						<li>
+							<a href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
+						</li>
 
-					<li>
-						<a href="{{path('app_login')}}">
-							{{ ux_icon('tabler:login-2', {height:'24px', width:'24px'}) }}Login</a>
-					</li>
-					<li>
-						<a href="{{path('app_register')}}">{{ ux_icon('bi:alipay', {height:'24px', width:'24px'}) }}Register</a>
-					</li>
-				{% endif %}
+					{% else %}
 
-			</ul>
-		</nav>
-		<div class="container">
+						<li>
+							<a href="{{path('app_login')}}">
+								{{ ux_icon('tabler:login-2', {height:'24px', width:'24px'}) }}Login</a>
+						</li>
+						<li>
+							<a href="{{path('app_register')}}">{{ ux_icon('bi:alipay', {height:'24px', width:'24px'}) }}Register</a>
+						</li>
+					{% endif %}
+
+				</ul>
+			</nav>
+
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-success">
 					{{ message }}
 				</div>
 			{% endfor %}
-		</div>
 
-		{% if app.user %}
-			<article>
-				<nav class="container">
+
+			{% if app.user %}
+
+				<nav>
 					<ul></ul>
 					<ul>
 						<li></li>
@@ -128,11 +134,9 @@
 					</ul>
 				</nav>
 
-			</article>
 
-		{% endif %}
-
-		{% block body %}{% endblock %}
-
+			{% endif %}
+			{% block body %}{% endblock %}
+		</div>
 	</body>
 </html>
