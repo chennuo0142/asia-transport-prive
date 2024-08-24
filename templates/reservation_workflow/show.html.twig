@@ -30,8 +30,31 @@
 			{{reservation.telephone}}</div>
 
 
-		<a href="{{ path('app_reservation_workflow')}}">retour</a>
 	</article>
+	{% if reservation.workflowStage.stage == 5 %}
 
+		<article>
+			<h3>Time Line :</h3>
+			<table>
+				<tr>
+					<th>Etape</th>
+					<th>Date</th>
+					<th>Heurs</th>
+				</tr>
+
+
+				{% for stage in reservation.workflowTimeline  %}
+					<tr>
+						<td>{{ stage.status }}</td>
+						<td>{{ stage.date.date| date('d/m/Y')}}</td>
+						<td>{{ stage.date.date| date('H:i')}}</td>
+					</tr>
+
+
+				{% endfor %}
+			</table>
+		</article>
+	{% endif %}
+	<a href="{{ path('app_reservation_workflow')}}">retour</a>
 
 {% endblock %}

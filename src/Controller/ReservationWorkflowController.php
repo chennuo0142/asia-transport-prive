@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\WorkflowType;
 use App\Repository\ReservationRepository;
+use App\Service\ReservationService;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,61 +40,11 @@ class ReservationWorkflowController extends AbstractController
     }
 
     #[Route('/reservation/{slug}/star', name: 'app_reservation_workflow_star', methods: ['GET'])]
-    public function workflow($slug, ReservationRepository $reservationRepository, EntityManagerInterface $entityManager): Response
+    public function workflow($slug, ReservationService $reservationService): Response
     {
 
-        $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
-        dump($reservation);
-        if ($reservation->getStage() == 2) {
-            //on passe stage en etape 3
-            $reservation->setStage(3)
-                ->setWorkflowStage(
-                    array(
-                        "stage" => 1,
-                        "status" => "En route vers l'adresse de prise en charge"
-                    )
-                )
-                ->setWorkflowTimeline(array('stage'));
-        }
-        //on passe workflow en etape 2, status en Je suis arriver      
-        elseif ($reservation->getWorkflowStage()['stage'] == 1) {
-            $reservation->setWorkflowStage(
-                array(
-                    "stage" => 2,
-                    "status" => "Je suis arriver"
-                )
-            );
-        } elseif ($reservation->getWorkflowStage()['stage'] == 2) {
-
-            $reservation->setWorkflowStage(
-                array(
-                    "stage" => 3,
-                    "status" => "Client à bord"
-                )
-            );
-        } elseif ($reservation->getWorkflowStage()['stage'] == 3) {
-            $reservation->setWorkflowStage(
-                array(
-                    "stage" => 4,
-                    "status" => "Arriver à destination"
-                )
-            );
-        } elseif ($reservation->getWorkflowStage()['stage'] == 4) {
-            $reservation->setWorkflowStage(
-                array(
-                    "stage" => 5,
-                    "status" => "Fin de service"
-                )
-            )
-                ->setEndService(true);
-        }
-
-
-        $entityManager->persist($reservation);
-        $entityManager->flush();
-
         return $this->render('reservation_workflow/workflow.html.twig', [
-            'reservation' => $reservation,
+            'reservation' => $reservationService->workflow_star($slug),
 
         ]);
     }
