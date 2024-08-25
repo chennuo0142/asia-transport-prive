@@ -148,15 +148,15 @@ class ReservationController extends AbstractController
         //3-on envoi une confirmation au client
         dump($reservation);
 
-
-
         if ($reservation->isValide()) {
             $this->addFlash('success', 'Votre reservation a déja été envoyer!');
             return $this->redirectToRoute('app_home');
         }
         $reservation->setValide(true);
+
         $entityManager->persist($reservation);
         $entityManager->flush();
+        //on envoi un email a client et a admin
 
 
         return $this->render('reservation/confirmation.html.twig', [
