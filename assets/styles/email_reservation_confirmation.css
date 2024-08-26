@@ -1,0 +1,54 @@
+header {
+    background-color: black;
+    padding: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(194, 198, 201);
+}
+
+footer {
+    height: 50px;
+    text-align: center;
+    color: white;
+    background-color: black;
+}
+
+
+.brand {
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(60, 91, 204);
+}
+
+.label {
+    font-weight: bold;
+    color: rgb(75, 74, 74)
+}
+
+.corp-message {
+    margin: 0px;
+
+    width: 600px;
+    background-color: rgb(194, 198, 201);
+    padding: 5px;
+}
+
+.content {
+    width: auto;
+    background-color: white;
+    padding: 15px;
+}
+
+.corp-message {
+    padding: 5px;
+    margin: 0px;
+}

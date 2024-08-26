@@ -13,38 +13,38 @@
 				{{ reservation.name }}</p>
 			<p>
 				<span class="label">Téléphone:</span>
-				{{ reservation.phone }}</p>
+				{{ reservation.telephone }}</p>
 			<p>
 				<span class="label">Email:</span>
 				{{ reservation.email }}</p>
 			<p>
 				<span class="label">Date:</span>
-				{{ reservation.date | date('d/m/Y') }}
+				{{ reservation.dateOperation | date('d/m/Y') }}
 				à
-				{{ reservation.time | date('i:m') }}</p>
+				{{ reservation.timeOperation | date('i:m') }}</p>
 			<p>
 				<span class="label">
 					Nombre de passagers:</span>
-				{{ reservation.nbPassagers }}</p>
+				{{ reservation.nbPassager }}</p>
 			<p>
 				<span class="label">Nombre de bagages:</span>
-				{{ reservation.nbBagages }}</p>
+				{{ reservation.nbBagage }}</p>
 			<p>
 				<span class="label">Infos Vol/train:</span>
-				{{ reservation.numFlight }}</p>
+				{{ reservation.numTransport }}</p>
 			<p>
 				<span class="label">Adresse de départ:</span>
-				{{ reservation.starAdress }}</p>
+				{{ reservation.departureAdress }}</p>
 			<p>
 				<span class="label">Adresse d'arriver:</span>
-				{{ reservation.endAdress }}</p>
-			{% if driver %}
-				<p class="driver_name">Chauffeur:
-					{{ driver.name }}</p>
-
-				<p class="company_name">Societe prestaraire :
-					{{ company.name }}</p>
-			{% endif %}
+				{{ reservation.arrivalAdress }}</p>
+			{# {% if driver %}
+							<p class="driver_name">Chauffeur:
+								{{ driver.name }}</p>
+			
+							<p class="company_name">Societe prestaraire :
+								{{ company.name }}</p>
+						{% endif %} #}
 		</div>
 
 		<footer>
