@@ -12,6 +12,11 @@ body {
     background-color: rgb(194, 198, 201);
 }
 
+.image_header {
+    width: 300px;
+    height: 200px;
+}
+
 footer {
     height: 50px;
     text-align: center;

@@ -50,7 +50,7 @@ class ReservationController extends AbstractController
         if ($driver) {
             $compagny = $driver->getUser()->getCompagny()->getName();
             $reservation->setDriverId($driver->getId())
-                ->setUserId($this->getUser()->getId())
+                ->setUserId($driver->getUser()->getId())
                 ->setPrivate(true);
         }
         dump($slug);
