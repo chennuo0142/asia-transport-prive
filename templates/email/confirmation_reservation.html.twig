@@ -1,9 +1,11 @@
 {% apply inline_css(source('@styles/email_reservation_confirmation.css')) %}
+
 <body>
 	<div class="corp-message">
 		<header>
 			<h1 class="brand">Paris Presitge Transport</h1>
 		</header>
+		<img src="{{asset('images/email/confirmation_reservation-min.jpg')}}" alt="">
 
 		<div class="content">
 			<h1>Confirmation de votre reservation</h1>
@@ -39,12 +41,12 @@
 				<span class="label">Adresse d'arriver:</span>
 				{{ reservation.arrivalAdress }}</p>
 			{# {% if driver %}
-							<p class="driver_name">Chauffeur:
-								{{ driver.name }}</p>
-			
-							<p class="company_name">Societe prestaraire :
-								{{ company.name }}</p>
-						{% endif %} #}
+																												<p class="driver_name">Chauffeur:
+																													{{ driver.name }}</p>
+																								
+																												<p class="company_name">Societe prestaraire :
+																													{{ company.name }}</p>
+																											{% endif %} #}
 		</div>
 
 		<footer>

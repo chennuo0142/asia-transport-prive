@@ -6,8 +6,9 @@ twig:
         nbrReservation: '@App\Twig\ReservationExtension'
 
     paths:
-        # '%kernel.project_dir%/assets/images/email': email_images
+        '%kernel.project_dir%/assets/images/email': email_images
         '%kernel.project_dir%/assets/styles': styles
+        
       
 
 when@test:
