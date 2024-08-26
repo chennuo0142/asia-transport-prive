@@ -1,123 +1,17 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Error: Can't find stylesheet to import.
+ *   ,
+ * 1 | @import "bootstrap/scss/bootstrap.scss";
+ *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   sass/style.scss 1:9  root stylesheet */
 
-html {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  height: 100%;
-  background-color: white;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"bootstrap/scss/bootstrap.scss\";\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   sass/style.scss 1:9  root stylesheet";
 }
-
-body {
-  color: black;
-}
-
-h1 {
-  color: black;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-ul li {
-  list-style: none;
-}
-
-.user_email_nav {
-  font-size: small;
-}
-
-.badge-info-cercle {
-  width: 25px;
-  height: 25px;
-  background-color: rgb(248, 222, 79);
-  clip-path: ellipse(50% 50%);
-  text-align: center;
-  vertical-align: baseline;
-  color: rgb(24, 31, 239);
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.gestion_reservation_nav {
-  display: flex;
-  justify-content: space-between;
-}
-
-.item-with-badge {
-  position: relative;
-}
-
-.badge-position {
-  position: absolute;
-  top: 0;
-  right: -7px;
-}
-
-.space-between {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.reservation_confirmation_wraper {
-  border: 1px solid yellow;
-  border-radius: 10px;
-  padding: 10px;
-}
-.reservation_confirmation_wraper header {
-  background-color: antiquewhite;
-  text-align: center;
-  padding: 5px;
-  border-radius: 10px;
-  color: red;
-}
-
-.cconfirmation-card {
-  background-color: white;
-  box-shadow: 10px 10px 10px 10px rgb(234, 236, 237);
-}
-
-.user_avatar {
-  width: 200px;
-  height: 200px;
-  clip-path: ellipse(20% 20%);
-}
-
-.profile_photo {
-  width: 200px;
-  height: 200px;
-  clip-path: ellipse(50% 50%);
-}
-
-h1 {
-  color: rgb(77, 69, 233);
-}
-
-.display-flex {
-  display: flex;
-}
-
-.item-flex-center {
-  justify-content: center;
-}
-
-.item-space-betweend {
-  justify-content: space-between;
-}
-
-.header-pictus {
-  width: 100%;
-  height: 500px;
-  background-color: aquamarine;
-}
-.header-pictus img {
-  width: 100%;
-  height: 500px;
-}
-
-/*# sourceMappingURL=style.css.map */

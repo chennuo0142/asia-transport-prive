@@ -1,37 +1,27 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
 
-html {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    height: 100%;
-    background-color: white;
-}
+// html {
+//     font-family: Verdana, Geneva, Tahoma, sans-serif;
+//     height: 100%;
 
-body {
-    color: black;
-}
+// }
 
-h1 {
-    color: black;
-}
-
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-        list-style: none;
-    }
-}
 
 @mixin wide-screen {
     @media screen and (min-width: 1600px) {
-        @content;
+        .home-driver-wrapper-flex {
+            display: grid;
+            grid-template-columns: repeat(4, auto);
+            // grid-gap: 10px;
+            // grid-auto-rows: minmax(100px, auto);
+        }
+
+
+
     }
 }
 

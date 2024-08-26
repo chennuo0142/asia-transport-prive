@@ -1,6 +1,4 @@
-@import "bootstrap/scss/bootstrap.scss";
-@import "variables", "reset", "template", "nav", "reservation_confirmation", "image";
-// @import "bootstrap/scss/forms", "bootstrap/scss/variables";
+@use "index" as *;
 
 h1 {
     color: $primary;
@@ -34,17 +32,16 @@ h1 {
 
 .home-driver-wrapper-flex {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    grid-template-columns: repeat(3, auto);
+    // grid-gap: 10px;
+    // grid-auto-rows: minmax(100px, auto);
 }
 
 .driver-card {
     position: relative;
-    width: 300px;
+    width: 250px;
     height: 450px;
     border: 1px solid rgb(247, 229, 229);
-    margin: 10px;
     padding: 5px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
