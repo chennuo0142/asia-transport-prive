@@ -9,6 +9,7 @@ use App\Repository\CarCategoryRepository;
 use App\Repository\DriverRepository;
 use App\Repository\ReservationRepository;
 use App\Repository\ServiceListeRepository;
+use App\Service\MailerService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,7 +50,7 @@ class ReservationController extends AbstractController
         if ($driver) {
             $compagny = $driver->getUser()->getCompagny()->getName();
             $reservation->setDriverId($driver->getId())
-                ->setUserId($this->getUser()->getId())
+                ->setUserId($driver->getUser()->getId())
                 ->setPrivate(true);
         }
         dump($slug);
@@ -139,7 +140,7 @@ class ReservationController extends AbstractController
     }
 
     #[Route('/confirm/{slug}', name: 'app_reservation_confirm', methods: ['GET'])]
-    public function confirm($slug, Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository): Response
+    public function confirm($slug, Request $request, EntityManagerInterface $entityManager, ReservationRepository $reservationRepository, MailerService $mailerService): Response
     {
         $reservation =  $reservationRepository->findOneBy(['slug' => $slug]);
 
@@ -157,7 +158,16 @@ class ReservationController extends AbstractController
         $entityManager->persist($reservation);
         $entityManager->flush();
         //on envoi un email a client et a admin
+        $from = "booking@paris-prestige-transfert.fr";
+        //on recupere email du client
+        $to = $reservation->getEmail();
+        $subject = "Confirmation de votre demande de reservation";
+        $template = "confirmation_reservation";
+        $context = ([
+            'reservation' => $reservation
+        ]);
 
+        $mailerService->send($from, $to, $subject, $template, $context);
 
         return $this->render('reservation/confirmation.html.twig', [
             'reservation' => $reservation,
