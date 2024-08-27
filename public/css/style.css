@@ -2868,12 +2868,13 @@ h1 {
 
 .home-driver-wrapper-flex {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
 }
 
 .driver-card {
   position: relative;
-  width: 250px;
+  width: 350px;
   height: 450px;
   border: 1px solid rgb(247, 229, 229);
   padding: 5px;
