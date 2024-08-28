@@ -2,19 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\DriverRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(DriverRepository $driverRepository): Response
+    public function index(DriverRepository $driverRepository, EntityManagerInterface $entityManager): Response
     {
         //on recupere les driver visible
         $drivers = $driverRepository->findBy(['isVisible' => true]);
-        dump($drivers);
+        // $user_moderators = $entityManager->getRepository(User::class)->findAllUser('ROLE_MODERATOR');
+
+        // foreach ($user_moderators as $user) {
+        //     dump($user->getEmail());
+        // }
+        // dd($user_moderators);
+        // dump($drivers);
         return $this->render('home/index.html.twig', [
             'drivers' => $drivers,
         ]);

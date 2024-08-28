@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ReservationService
 {
+    private $mailerService;
     private $entityManager;
     private $status  = [
         1 => "En route vers l'adresse de prise en charge",
@@ -19,9 +20,10 @@ class ReservationService
         5 => "Fin de service"
     ];
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, MailerService $mailerService)
     {
         $this->entityManager = $entityManager;
+        $this->mailerService = $mailerService;
     }
 
     //return la reservation
@@ -32,16 +34,24 @@ class ReservationService
         //on recupere la reservation par son slug
         $reservation = $this->entityManager->getRepository(Reservation::class)->findOneBy(['slug' => $slug]);
 
+
         $time_line = $reservation->getWorkflowTimeline();
-        dump($time_line);
+
         if ($time_line == null) {
             $time_line = [];
         }
 
+        //on prepare l'envoi email
+        $to = $reservation->getEmail();
+        $subject = "Etape de votre reservation";
+        $template = "workflow_client";
+
+
+        ///////////////////////////////
         if ($reservation->getStage() != 3) {
 
             array_push($time_line, ['stage' => 1, 'status' => $this->status[1], "date" => new DateTimeImmutable('now')]);
-            //on passe stage en etape 3
+            //on passe stage en etape 3: driver star the service
             $reservation->setStage(3)
                 ->setWorkflowStage(
                     array(
@@ -60,6 +70,15 @@ class ReservationService
                     "status" => $this->status[2]
                 )
             )->setWorkflowTimeline($time_line);
+            ///////////////////////envoi email //////////////////////////////
+            //envoi email pour informer le client le status de la reservation 
+            $context = ([
+                'reservation' => $reservation,
+                'status' => $this->status["1"] //status-1: "En route vers l'adresse de prise en charge"
+            ]);
+
+            $this->mailerService->send($to, $subject, $template, $context);
+            //////////////////////////
         } elseif ($reservation->getWorkflowStage()['stage'] == 2) {
             array_push($time_line, ['stage' => 3, 'status' => $this->status[3], "date" => new DateTimeImmutable('now')]);
             $reservation->setWorkflowStage(
@@ -68,6 +87,14 @@ class ReservationService
                     "status" => $this->status[3]
                 )
             )->setWorkflowTimeline($time_line);
+            ///////////////////////Envoi email ////////////////////////////////////
+            //envoi email pour informer le client le status de la reservation : je suis en route
+            $context = ([
+                'reservation' => $reservation,
+                'status' => $this->status["2"] //status-2:"Je suis arriver",
+            ]);
+            //////////////////////////////////////////////////////////
+            $this->mailerService->send($to, $subject, $template, $context);
         } elseif ($reservation->getWorkflowStage()['stage'] == 3) {
             array_push($time_line, ['stage' => 4, 'status' => $this->status[4], "date" => new DateTimeImmutable('now')]);
             $reservation->setWorkflowStage(

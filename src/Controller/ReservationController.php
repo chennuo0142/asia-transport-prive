@@ -2,21 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use DateTimeImmutable;
 use App\Entity\Reservation;
-use App\Entity\ReservationArchive;
 use App\Form\ReservationType;
-use App\Repository\CarCategoryRepository;
+use App\Service\MailerService;
+use App\Entity\ReservationArchive;
 use App\Repository\DriverRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CarCategoryRepository;
 use App\Repository\ReservationRepository;
 use App\Repository\ServiceListeRepository;
-use App\Service\MailerService;
-use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/reservation')]
 class ReservationController extends AbstractController
@@ -39,6 +40,9 @@ class ReservationController extends AbstractController
         DriverRepository $driverRepository
 
     ): Response {
+        //on defini zone horaire
+        date_default_timezone_set('Europe/Paris');
+
         $reservation = new Reservation();
         $compagny = null;
         $driver = null;
@@ -157,17 +161,26 @@ class ReservationController extends AbstractController
 
         $entityManager->persist($reservation);
         $entityManager->flush();
+
         //on envoi un email a client et a admin
-        $from = "booking@paris-prestige-transfert.fr";
         //on recupere email du client
-        $to = $reservation->getEmail();
-        $subject = "Confirmation de votre demande de reservation";
+        $email_client = $reservation->getEmail();
+        //on recupere tout les user moderator afin de leur envoyer un mail
+        $user_moderators = $entityManager->getRepository(User::class)->findAllUser('ROLE_MODERATOR');
+        //
+        $subject_client = "Confirmation de votre demande de reservation";
+        $subject_moderator = "Une nouvelle demande de reservation";
         $template = "confirmation_reservation";
         $context = ([
             'reservation' => $reservation
         ]);
+        //envoi email de confirmation au client
+        $mailerService->send($email_client, $subject_client, $template, $context);
 
-        $mailerService->send($from, $to, $subject, $template, $context);
+        //envoi email aux moderators 
+        foreach ($user_moderators as $user) {
+            $mailerService->send($user->getEmail(), $subject_moderator, $template, $context);
+        }
 
         return $this->render('reservation/confirmation.html.twig', [
             'reservation' => $reservation,

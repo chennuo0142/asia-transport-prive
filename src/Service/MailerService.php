@@ -9,20 +9,20 @@ use Symfony\Component\Mailer\MailerInterface;
 class MailerService
 {
     private $mailer;
+    private $from = "booking@paris-prestige-transfert.fr";
 
     public function __construct(MailerInterface $mailerInterface)
     {
         $this->mailer = $mailerInterface;
     }
     public function send(
-        string $from,
         string $to,
         string $subject,
         string $template,
         array $context
     ) {
         $email = (new TemplatedEmail())
-            ->from($from)
+            ->from($this->from)
             ->to($to)
             ->subject($subject)
             ->htmlTemplate("email/$template.html.twig")
