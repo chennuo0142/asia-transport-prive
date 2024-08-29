@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show all driver
+{% endblock %}
+
+{% block body %}
+	<h1>Bienvenue</h1>
+	<section>
+		<form action="">
+			<label for="search">Recherche</label>
+			<input type="search" name="" id="" placeholder="Name, compagny">
+			<input type="submit" value="Recherche">
+
+
+		</form>
+	</section>
+
+	<a href="{{ path('app_home')}}">Retour</a>
+
+	<div class="home-driver-wrapper-flex">
+		{% for driver in drivers %}
+
+			<article>
+				<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
+				<div>
+					{{ ux_icon('tabler:building', {height:'24px', width:'24px'}) }}:
+					{{ driver.user.compagny.status }}
+					{{ driver.user.compagny.name}}
+				</div>
+				{{ driver.name }}
+
+				<footer>
+					<a href="{{ path('app_public_driver_show',{slug:driver.slug} )}}">
+						<button>Voir</button>
+					</a>
+				</footer>
+			</article>
+		{% endfor %}
+	</div>
+
+{% endblock %}
