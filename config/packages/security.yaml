@@ -39,6 +39,7 @@ security:
         - { path: ^/gestion, roles: ROLE_USER }
         - { path: ^/moderator, roles: ROLE_MODERATOR }
         - { path: ^/gestion/reservation, roles: ROLE_MODERATOR }
+        - { path: ^/workflow, roles: ROLE_USER }
 
     role_hierarchy:
         ROLE_MODERATOR: ROLE_USER

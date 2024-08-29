@@ -44,7 +44,7 @@ class ReservationService
         //on prepare l'envoi email
         $to = $reservation->getEmail();
         $subject = "Etape de votre reservation";
-        $template = "workflow_client";
+        $template = "workflow_client_status";
 
 
         ///////////////////////////////
