@@ -3,25 +3,26 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use DateTimeImmutable;
+use App\Entity\Compagny;
+use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
-use App\Security\EmailVerifier;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
-    }
+    public function __construct(private EmailVerifier $emailVerifier, private SluggerInterface $sluggerInterface, private EntityManagerInterface $entityManager) {}
 
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
@@ -89,7 +90,27 @@ class RegistrationController extends AbstractController
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
-
+        $this->data_init($user);
         return $this->redirectToRoute('app_login');
+    }
+
+    public function data_init($user)
+    {
+
+        $compagny = new Compagny();
+        $compagny->setStatus("SARL")
+            ->setUser($user)
+            ->setName("Transport prive")
+            ->setAdress("102 Rue de Paris")
+            ->setZipCode("75001")
+            ->setCity("Paris")
+            ->setCountry("Fance")
+            ->setTelephone(("01 42 45 78 90"))
+            ->setEmail("transportprive@gmail.com")
+            ->setCreateAt(new DateTimeImmutable())
+            ->setUpdateAt(new DateTimeImmutable())->setSlug(strtolower($this->sluggerInterface->slug("Transport-Prive" . uniqid())));
+
+        $this->entityManager->persist($compagny);
+        $this->entityManager->flush();
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Driver;
 use DateTimeImmutable;
 use App\Form\DriverType;
 use App\Repository\CarRepository;
+use App\Repository\CompagnyRepository;
 use App\Repository\DriverRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,10 +35,20 @@ class DriverController extends AbstractController
     }
 
     #[Route('/new', name: 'app_driver_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, CarRepository $carRepository): Response
+    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, CarRepository $carRepository, CompagnyRepository $compagnyRepository): Response
     {
+        $compagny = $compagnyRepository->findBy(['user' => $this->getUser()]);
+        dump($compagny);
         $cars = $carRepository->findBy(['user' => $this->getUser()]);
         dump($cars);
+        if (null == $cars) {
+            $this->addFlash('warning', 'Pas de vehicule dans la base de donnees!!');
+            return $this->redirectToRoute('app_driver_index');
+        }
+        if (null == $compagny) {
+            $this->addFlash('warning', 'Pas de compagny dans la base de donnees!!');
+            return $this->redirectToRoute('app_driver_index');
+        }
 
         $driver = new Driver();
         $form = $this->createForm(DriverType::class, $driver);
