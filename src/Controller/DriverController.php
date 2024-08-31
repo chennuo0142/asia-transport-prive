@@ -45,6 +45,7 @@ class DriverController extends AbstractController
             $this->addFlash('warning', 'Pas de vehicule dans la base de donnees!!');
             return $this->redirectToRoute('app_driver_index');
         }
+
         if (null == $compagny) {
             $this->addFlash('warning', 'Pas de compagny dans la base de donnees!!');
             return $this->redirectToRoute('app_driver_index');
