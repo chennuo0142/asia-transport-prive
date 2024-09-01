@@ -2840,6 +2840,50 @@ textarea,
   clip-path: ellipse(50% 50%);
 }
 
+.login-card-center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  width: 400px;
+  height: 600px;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: rgb(129, 231, 242);
+}
+.login-card h1 {
+  text-align: center;
+  margin-bottom: 10%;
+}
+.login-card .link-forgot-password {
+  position: relative;
+  width: 100%;
+  text-align: right;
+}
+.login-card button {
+  margin-top: 40px;
+  border-radius: 30px;
+}
+.login-card .reseaux-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-card .reseaux-social-wrapper {
+  height: 100px;
+  width: 180px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.login-card .reseaux-social-wrapper img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
 h1 {
   color: rgb(77, 69, 233);
 }
