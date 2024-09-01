@@ -1,0 +1,55 @@
+.login-card-center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.login-card {
+    width: 400px;
+    height: 600px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: rgb(129, 231, 242);
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10%;
+    }
+
+    .link-forgot-password {
+        position: relative;
+        width: 100%;
+        text-align: right;
+
+
+    }
+
+    button {
+        margin-top: 40px;
+        border-radius: 30px;
+    }
+
+    .reseaux-social {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .reseaux-social-wrapper {
+        height: 100px;
+        width: 180px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        img {
+
+
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+
+}
