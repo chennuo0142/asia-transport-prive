@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         // }
         // dd($user_moderators);
         // dump($drivers);
-        dump($request->attributes->get("_route"));
+
         return $this->render('home/index.html.twig', [
             'drivers' => $drivers,
             'main_route' => $request->attributes->get("_route"),
@@ -39,8 +39,7 @@ class HomeController extends AbstractController
             'isVisible' => true,
             'slug' => $slug
         ]);
-        dump($driver);
-        dump($request->attributes->get("_route"));
+
         return $this->render('home/public/driver_show.html.twig', [
             'driver' => $driver,
         ]);
@@ -54,8 +53,7 @@ class HomeController extends AbstractController
             'isVisible' => true,
 
         ]);
-        dump($drivers);
-        dump($request);
+
         return $this->render('home/public/all_drivers_show.html.twig', [
             'drivers' => $drivers,
         ]);

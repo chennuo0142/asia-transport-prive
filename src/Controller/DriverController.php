@@ -38,9 +38,9 @@ class DriverController extends AbstractController
     public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, CarRepository $carRepository, CompagnyRepository $compagnyRepository): Response
     {
         $compagny = $compagnyRepository->findBy(['user' => $this->getUser()]);
-        dump($compagny);
+
         $cars = $carRepository->findBy(['user' => $this->getUser()]);
-        dump($cars);
+
         if (null == $cars) {
             $this->addFlash('warning', 'Pas de vehicule dans la base de donnees!!');
             return $this->redirectToRoute('app_driver_index');
@@ -130,7 +130,7 @@ class DriverController extends AbstractController
 
         $form = $this->createForm(DriverType::class, $driver);
         $form->handleRequest($request);
-        dump($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             if ($request->get('car')) {

@@ -29,7 +29,6 @@ class ModeratorController extends AbstractController
         // on recupere tous les car avec visible false
         $cars = $carRepository->findBy(['visible' => false]);
 
-        dump(count($cars));
         return $this->render('moderator/index.html.twig', [
             'drivers' => $drivers,
             'cars' => $cars,
@@ -77,8 +76,7 @@ class ModeratorController extends AbstractController
         $message = new Message;
         //on recupere tous les drivers avec visibility false
         $car = $carRepository->findOneBy(['slug' => $slug]);
-        dump($car);
-        dump($message);
+
         $form = $this->createForm(RefuseValidationType::class);
         //twig affichage
         $visible = "NON";
@@ -89,7 +87,7 @@ class ModeratorController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = strtolower($sluggerInterface->slug($request->get('refuse_validation')['motif'] . uniqid()));
-            dump($car->getUser()->getId());
+
             //validation refuser, on envoi un message interne à driver et un email
 
             $message->setUser($car->getUser()->getId())

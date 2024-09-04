@@ -33,7 +33,7 @@ class ReservationWorkflowController extends AbstractController
     public function show($slug, ReservationRepository $reservationRepository): Response
     {
         $reservation = $reservationRepository->findOneBy(['slug' => $slug]);
-        dump($reservation);
+
         return $this->render('reservation_workflow/show.html.twig', [
             'reservation' => $reservation,
         ]);
@@ -55,7 +55,7 @@ class ReservationWorkflowController extends AbstractController
             'userId' => $this->getUser(),
             'endService' => true
         ]);
-        dump($reservations);
+
         return $this->render('reservation_workflow/show.endService.html.twig', [
             'reservations' => $reservations,
         ]);

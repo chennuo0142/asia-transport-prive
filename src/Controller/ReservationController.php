@@ -57,10 +57,6 @@ class ReservationController extends AbstractController
                 ->setUserId($driver->getUser()->getId())
                 ->setPrivate(true);
         }
-        dump($slug);
-        dump($driver);
-        dump($compagny);
-        dump($reservation);
 
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
@@ -151,7 +147,6 @@ class ReservationController extends AbstractController
         //1-on cree le fichier de commande
         //2-on informe l'admin, dispatcher
         //3-on envoi une confirmation au client
-        dump($reservation);
 
         if ($reservation->isValide()) {
             $this->addFlash('success', 'Votre reservation a déja été envoyer!');
