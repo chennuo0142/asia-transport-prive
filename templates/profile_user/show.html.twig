@@ -6,6 +6,8 @@
 {% block body %}
 	<h1>ProfileUser</h1>
 	<img class="profile_photo" src="{{ asset('/images/uploads/' ~ profile_user.photo ) | imagine_filter('my_fixed_filter')}} " alt="">
+
+
 	<table class="table">
 		<tbody>
 			<tr>
