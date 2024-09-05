@@ -2919,12 +2919,12 @@ h1 {
 
 .home-driver-wrapper-flex {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 1em;
 }
 
 .driver-card {
-  position: relative;
   width: 300px;
   height: 500px;
   border: 1px solid rgb(247, 229, 229);
@@ -2938,11 +2938,23 @@ h1 {
 }
 .driver-card footer {
   width: 100%;
-  position: absolute;
   bottom: 0;
   display: flex;
   justify-content: center;
   padding-bottom: 5px;
+  background-color: aquamarine;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media screen and (max-width: 800px) {
+  .home-driver-wrapper-flex {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
