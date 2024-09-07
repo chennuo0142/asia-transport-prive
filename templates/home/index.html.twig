@@ -31,29 +31,18 @@
 		<a role="button" href="{{ path('app_public_all_drivers_show')}}">Tous les drivers</a>
 		<div class="home-driver-wrapper-flex">
 			{% for driver in drivers %}
-				<span class="driver-card">
+				<div class="card" style="width: 18rem;">
+					<img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">{{ driver.name }}
+							{{ driver.firstName}}</h5>
+						<p class="card-text">{{ ux_icon('tabler:building', {height:'18px', width:'18px'}) }}:
+							<i>{{ driver.user.compagny.name}}</i>
+						</p>
+						<a href="{{ path('app_public_driver_show',{slug:driver.slug} )}}" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
 
-
-					<header><img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}} " alt=""></header>
-
-					<body>
-						<h3>{{ driver.name }}</h3>
-						<h4>{{ driver.firstName}}</h4>
-						{{ ux_icon('tabler:building', {height:'18px', width:'18px'}) }}:
-						<i>{{ driver.user.compagny.name}}</i>
-					</body>
-
-					<footer>
-
-						<a href="{{ path('app_public_driver_show',{slug:driver.slug} )}}">
-							<button>Voir</button>
-						</a>
-
-
-					</footer>
-
-
-				</span>
 			{% endfor %}
 		</div>
 	</section>
@@ -61,5 +50,4 @@
 	<footer>
 		<h3>footer</h3>
 	</footer>
-
 {% endblock %}

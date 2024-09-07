@@ -8,6 +8,8 @@ twig:
     paths:
         '%kernel.project_dir%/assets/images/email': email_images
         '%kernel.project_dir%/assets/styles': styles
+    
+    form_themes: ['bootstrap_5_layout.html.twig']
         
       
 
