@@ -7,9 +7,6 @@
 			{% endblock %}
 		</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{asset('/css/style.css')}}">
 		{% block javascripts %}
@@ -20,8 +17,9 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-lg bg-body-tertiary">
-			<div class="container-fluid">
+		<div class="container-fluid">
+			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+
 				<a class="navbar-brand" href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>UNION-VTC</strong>
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,141 +113,20 @@
 													{{ nbrReservation.getTotalReservationsUser }}
 												</div>
 											{% endif %}
-
-
 										</a>
-
-
 									</li>
 								</ul>
 							</li>
 						{% endif %}
 					</ul>
 				</div>
-			</div>
-		</nav>
-		{# <div class="container-fluid">
-											<nav>
-												<ul>
-													<li>
-														<a href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>UNION-VTC</strong>
-														</a>
-													</li>
-												</ul>
-												<ul>
-													<li></li>
-													{% if app.user %}
-														<li>
-															{{ ux_icon('tabler:user-shield', {height:'24px', width:'24px'}) }}
-															{% if app.user.profileUser %}
-																<img class="user_avatar" src="{{ asset('/images/uploads/' ~ app.user.profileUser.photo ) | imagine_filter('my_thumb_filter')}} " alt="">
-															{% endif %}
-															<span class="user_email_nav">{{ app.user.email}}</span>
-														</li>
-														{% if 'ROLE_ADMIN' in app.user.getroles() %}
-															<li>
-																<a href="{{ path('app_admin')}}">Admin</a>
-															</li>
-														{% endif %}
-														{% if 'ROLE_MODERATOR' in app.user.getroles() %}
-															<li>
-																<a class="item-with-badge" href="{{ path('app_moderator')}}">Moderation
-																	{% if moderation.getTotalModeration > 0 %}
-																		<div class="badge-info-cercle badge-position">{{ moderation.getTotalModeration }}</div>
-																	{% endif %}
-																</a>
-															</li>
-															<li>
-																<a class="item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Gestion
-																	{% if nbrReservation.getTotalGestion > 0 %}
-																		<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
-																	{% endif %}
-																</a>
-															</li>
-														{% endif %}
-								
-														<li>
-															<a href="{{ path('app_profile_user_index')}}">{{ ux_icon('tabler:adjustments-cog', {height:'24px', width:'24px'}) }}Profile</a>
-														</li>
-														<li>
-															<a class="item-with-badge" href="{{ path('app_message_index')}}">Message
-																{% if nbrMessage.getTotalMessagesUser > 0 %}
-																	<div class="badge-info-cercle badge-position">{{ nbrMessage.getTotalMessagesUser }}</div>
-																{% endif %}
-															</a>
-														</li>
-								
-														<li>
-															<a href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
-														</li>
-								
-													{% else %}
-								
-														<li>
-															<a href="{{path('app_login')}}">
-																{{ ux_icon('tabler:login-2', {height:'24px', width:'24px'}) }}Login</a>
-														</li>
-														<li>
-															<a href="{{path('app_register')}}">{{ ux_icon('bi:alipay', {height:'24px', width:'24px'}) }}Register</a>
-														</li>
-													{% endif %}
-								
-												</ul>
-											</nav>
-								
-											{% for label, messages in app.flashes %}
-												{% for message in messages %}
-													<div class="alert alert-{{ label }}">
-														{{ message }}
-													</div>
-												{% endfor %}
-								
-											{% endfor %}
-								
-								
-											{% if app.user %}
-								
-												<nav>
-													<ul></ul>
-													<ul>
-														<li></li>
-														<li>
-															<a href="{{ path('app_driver_index')}}">Driver</a>
-														</li>
-														<li>
-															<a href="{{ path('app_client_index')}}">Client</a>
-														</li>
-														<li>
-															<a href="{{ path('app_compagny_index')}}">Societe</a>
-														</li>
-														<li>
-															<a href="{{ path('app_article_index')}}">Article</a>
-														</li>
-														<li>
-															<a href="{{ path('app_car_index')}}">Véhicule</a>
-														</li>
-														<li>
-															<a class="item-with-badge" href="{{ path('app_reservation_workflow')}}">Reservation
-																{% if nbrReservation.getTotalReservationsUser > 0 %}
-																	<div class="badge-info-cercle badge-position">
-																		{{ nbrReservation.getTotalReservationsUser }}
-																	</div>
-																{% endif %}
-								
-								
-															</a>
-								
-								
-														</li>
-													</ul>
-												</nav>
-								
-								
-											{% endif %} #}
-		<div class="container-fluid"> {% block body %}{% endblock %}
-			</div>
-			{# </div> #}
-			<script src="js/main.js"></script>
 
-		</body>
-	</html>
+			</nav>
+			{% block body %}{% endblock %}
+
+		</div>
+		<script src="js/main.js"></script>
+		<script src="{{ asset('css/bootstrap-5.3.3/dist/js/bootstrap.js') }}"></script>
+
+	</body>
+</html>

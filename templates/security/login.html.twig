@@ -20,14 +20,15 @@
 				{% endif %}
 
 
-				<h1 class="h3 mb-3 font-weight-normal">Login</h1>
+				<h1 class="">Login</h1>
 
 				<label for="username">Email
-					<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
 				</label>
-				<label for="password">Password
-					<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-				</label>
+				<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+
+				<label for="password">Password</label>
+				<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+
 				<div class="link-forgot-password">
 					<a href="{{ path('app_forgot_password_request')}}">Password Oublié?</a>
 				</div>
