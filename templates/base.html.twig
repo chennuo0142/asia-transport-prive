@@ -118,15 +118,28 @@
 								</ul>
 							</li>
 						{% endif %}
+						<li>
+							<a href="{{ path('app_contact')}}">Contact</a>
+						</li>
 					</ul>
 				</div>
 
 			</nav>
 			{% block body %}{% endblock %}
+			<footer>
+				<div class="footer-wrapper">
+					<div class="footer-right">Right</div>
+					<div class="footer-middle">Middle</div>
+					<div class="footer-left">Left</div>
 
+				</div>
+
+			</footer>
 		</div>
+
+
 		<script src="js/main.js"></script>
-		<script src="{{ asset('css/bootstrap-5.3.3/dist/js/bootstrap.js') }}"></script>
+
 
 	</body>
 </html>
