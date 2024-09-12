@@ -5,7 +5,11 @@
 }
 
 body {
+    width: 100%;
+    min-height: 100%;
     position: relative;
+    padding-bottom: 5em;
+    margin-bottom: -5em;
 }
 
 html {
