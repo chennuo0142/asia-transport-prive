@@ -3075,19 +3075,6 @@ h1 {
   padding: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-.driver-card header {
-  border-bottom: 1px solid yellow;
-  padding: 5px;
-  background-color: rgb(212, 211, 211);
-}
-.driver-card footer {
-  width: 100%;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 5px;
-  background-color: aquamarine;
-}
 
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media screen and (max-width: 800px) {

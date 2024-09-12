@@ -17,30 +17,3 @@ html {
     height: 100%;
 
 }
-
-
-// @mixin wide-screen {
-//     @media screen and (min-width: 1600px) {
-//         .home-driver-wrapper-flex {
-//             display: grid;
-//             grid-template-columns: repeat(4, auto);
-//             // grid-gap: 10px;
-//             // grid-auto-rows: minmax(100px, auto);
-//         }
-
-
-
-//     }
-// }
-
-// @mixin mobile {
-//     @media screen and (max-width: 1200px) {
-//         @content;
-//     }
-// }
-
-// @mixin tablet {
-//     @media screen and (min-width: 400px) and (max-width: 1200px) {
-//         @content;
-//     }
-// }
