@@ -1,0 +1,19 @@
+<div class="home-driver-wrapper-flex">
+    {% for driver in drivers %}
+    <div class="driver-card" style="width: 18rem;">
+
+        <img src="{{ asset('/images/uploads/' ~ driver.photo ) | imagine_filter('my_fixed_filter')}}"
+            class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ driver.name }}
+                {{ driver.firstName}}</h5>
+            <p class="card-text">{{ ux_icon('tabler:building', {height:'18px', width:'18px'}) }}:
+                <i>{{ driver.user.compagny.name}}</i>
+            </p>
+
+            <a href="{{ path('app_public_driver_show',{slug:driver.slug} )}}" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
