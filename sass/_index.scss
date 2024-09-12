@@ -1,9 +1,11 @@
-// @use "pico-css/scss/pico";
-@use "../public/css/bootstrap-5.3.3/scss/bootstrap.scss";
+@use "pico-css/scss/pico";
+// @use "../public/css/bootstrap-5.3.3/scss/bootstrap.scss";
 @use "reset";
 @use "template";
 @use "nav";
+@use "footer";
 @use "reservation_confirmation";
 @use "image";
 @use "login";
+@use "contact_form";
 @forward "variables";

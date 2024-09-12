@@ -78,6 +78,7 @@ h1 {
 
 }
 
+
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media screen and (max-width: 800px) {
     .home-driver-wrapper-flex {
@@ -90,5 +91,13 @@ h1 {
         display: none;
     }
 
+    .footer-wrapper {
+        display: flex;
 
+        height: 100px;
+
+
+        background-color: rgba(127, 255, 212, 0.089);
+        border-top: 1px solid rgb(92, 82, 82);
+    }
 }

@@ -7,10 +7,10 @@
 
 .login-card {
     width: 400px;
-    height: 600px;
     padding: 30px;
     border-radius: 10px;
-    background-color: rgb(129, 231, 242);
+    background-color: rgb(239, 249, 250);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     h1 {
         text-align: center;
@@ -18,7 +18,6 @@
     }
 
     .link-forgot-password {
-        position: relative;
         width: 100%;
         text-align: right;
 
@@ -38,18 +37,25 @@
     }
 
     .reseaux-social-wrapper {
-        height: 100px;
+        margin-top: 50px;
         width: 180px;
         display: flex;
         justify-content: space-around;
         align-items: center;
 
         img {
-
-
             width: 40px;
             height: 40px;
             border-radius: 50%;
         }
+    }
+
+    input {
+        transition: 0.5s;
+        outline: none;
+    }
+
+    input:focus {
+        border: 3px solid rgb(121, 216, 233);
     }
 }

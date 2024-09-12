@@ -34,3 +34,57 @@
     justify-content: space-between;
     margin-bottom: 10px;
 }
+
+.gestion-nav {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.main-nav {
+    .hamburger-icon {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .main-nav {
+        a:not(:first-child) {
+            display: none;
+        }
+    }
+
+    .main-nav {
+        a.hamburger-icon {
+            float: right;
+            display: block;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main-nav {
+        background-color: rebeccapurple;
+    }
+
+    .main-nav.responsive {
+        position: relative;
+    }
+
+    .main-nav.responsive {
+        .hamburger-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .main-nav.responsive {
+        a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+}
