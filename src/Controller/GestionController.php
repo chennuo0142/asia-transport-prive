@@ -14,6 +14,14 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/gestion')]
 class GestionController extends AbstractController
 {
+    #[Route('/', name: 'app_gestion_nav')]
+    public function nav(): Response
+    {
+
+
+
+        return $this->render('gestion/gestion_nav.html.twig', []);
+    }
     #[Route('/{stage}', name: 'app_gestion')]
     public function index($stage, ReservationRepository $reservationRepository): Response
     {

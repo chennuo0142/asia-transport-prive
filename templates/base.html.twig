@@ -10,22 +10,20 @@
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{asset('/css/style.css')}}">
 		{% block javascripts %}
-			{% block importmap %}
+		<script src="{{ asset('/js/main.js')}}"></script>
+		{# {% block importmap %}
 				{{ importmap('app') }}
-			{% endblock %}
-		{% endblock %}
+			{% endblock %} #}{% endblock %}
 	</head>
 
 	<body>
 		<div class="container-fluid">
-			<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<nav class="navbar main-nav navbar-expand-lg bg-body-tertiary" id="main-nav">
 
 				<a class="navbar-brand" href="{{ path('app_home')}}">{{ ux_icon('tabler:aperture', {height:'24px', width:'24px'}) }}<strong>UNION-VTC</strong>
 				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+				<div>
 					<ul class="navbar-nav">
 
 
@@ -51,12 +49,13 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Gestion
+									<a class="nav-link item-with-badge" href="{{ path('app_gestion_nav')}}">Gestion
 										{% if nbrReservation.getTotalGestion > 0 %}
 											<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
 										{% endif %}
 									</a>
 								</li>
+
 							{% endif %}
 
 							<li class="nav-item">
@@ -71,7 +70,7 @@
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="{{path('app_logout')}}">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
+								<a class="nav-link" href="{{path('app_logout')}}" onclick="return confirm_logout()">{{ ux_icon('tabler:anchor', {height:'24px', width:'24px'}) }}Logout</a>
 							</li>
 
 						{% else %}
@@ -84,61 +83,74 @@
 								<a class="nav-link" href="{{path('app_register')}}">{{ ux_icon('bi:alipay', {height:'24px', width:'24px'}) }}Register</a>
 							</li>
 						{% endif %}
-						{% if app.user %}
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Gestion
-								</a>
-								<ul class="dropdown-menu">
-
-									<li>
-										<a class="dropdown-item" href="{{ path('app_driver_index')}}">Driver</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('app_client_index')}}">Client</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('app_compagny_index')}}">Societe</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('app_article_index')}}">Article</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{ path('app_car_index')}}">Véhicule</a>
-									</li>
-									<li>
-										<a class="item-with-badge dropdown-item" href="{{ path('app_reservation_workflow')}}">Reservation
-											{% if nbrReservation.getTotalReservationsUser > 0 %}
-												<div class="badge-info-cercle badge-position">
-													{{ nbrReservation.getTotalReservationsUser }}
-												</div>
-											{% endif %}
-										</a>
-									</li>
-								</ul>
-							</li>
-						{% endif %}
 						<li>
-							<a href="{{ path('app_contact')}}">Contact</a>
+							<a href="javascript:void(0);" class="hamburger-icon" onclick="myFunction()">
+
+								{{ ux_icon('ci:hamburger-lg', {height:'24px', width:'24px'}) }}
+							</a>
 						</li>
+
 					</ul>
 				</div>
 
 			</nav>
+			<nav class="gestion-nav">
+				<ul>
+
+					{% if app.user %}
+						<li class="nav-item">
+							<a class="nav-link item-with-badge" href="{{ path('app_gestion',{stage:1})}}">Workflow
+								{% if nbrReservation.getTotalGestion > 0 %}
+									<div class="badge-info-cercle badge-position">{{ nbrReservation.getTotalGestion }}</div>
+								{% endif %}
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('app_driver_index')}}">Driver</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('app_client_index')}}">Client</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('app_compagny_index')}}">Societe</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('app_article_index')}}">Article</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ path('app_car_index')}}">Véhicule</a>
+						</li>
+						<li>
+							<a class="item-with-badge dropdown-item" href="{{ path('app_reservation_workflow')}}">Reservation
+								{% if nbrReservation.getTotalReservationsUser > 0 %}
+									<div class="badge-info-cercle badge-position">
+										{{ nbrReservation.getTotalReservationsUser }}
+									</div>
+								{% endif %}
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>
 			{% block body %}{% endblock %}
 			<footer>
 				<div class="footer-wrapper">
-					<div class="footer-right">Right</div>
-					<div class="footer-middle">Middle</div>
-					<div class="footer-left">Left</div>
+					<div class="footer-left">
+						<h5>Contact</h5>
+
+						<p>Telephone: 0770048767</p>
+						<p>Adresse: 2 Rue des graviers 91300 Massy</p>
+						<li>
+							<a href="{{ path('app_contact')}}">Contact</a>
+						</li>
+					</div>
+					<div class="footer-middle">Navigation</div>
+					<div class="footer-right"></div>
 
 				</div>
 
 			</footer>
 		</div>
-
-
-		<script src="js/main.js"></script>
 
 
 	</body>
