@@ -2871,7 +2871,9 @@ html {
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   height: 200px;
-  background-color: rgb(195, 236, 222);
+  background-image: url("../images/drapeau_fr.svg");
+  background-size: contain;
+  background-position: bottom right;
 }
 
 footer {
@@ -3069,11 +3071,24 @@ h1 {
 }
 
 .driver-card {
+  position: relative;
   width: 300px;
   height: 500px;
   border: 1px solid rgb(247, 229, 229);
   padding: 5px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.driver-card .drapeau_fr {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 50px;
+}
+.driver-card .vip_banderole {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100px;
 }
 
 /* Responsive layout - makes a one column layout instead of a two-column layout */
