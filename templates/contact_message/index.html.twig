@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ContactMessage index
+{% endblock %}
+
+{% block body %}
+	<h1>ContactMessage index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>CreateAt</th>
+				<th>Name</th>
+				<th>Subject</th>
+
+
+				<th>Reponse</th>
+				<th>Read At</th>
+				<th>Traiter</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for contact_message in contact_messages %}
+				<tr>
+					<td>{{ contact_message.id }}</td>
+					<td>{{ contact_message.createAt ? contact_message.createAt|date('Y-m-d H:i') : '' }}</td>
+					<td>{{ contact_message.name }}</td>
+					<td>{{ contact_message.subject }}</td>
+
+
+					<td>{{ contact_message.readAt ? contact_message.readAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ contact_message.answeredAt ? contact_message.answeredAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ contact_message.treatBy ? contact_message.treatBy|json_encode : '' }}</td>
+
+					<td>
+						<a href="{{ path('app_contact_message_show', {'slug': contact_message.slug}) }}">show</a>
+						<a href="{{ path('app_contact_message_edit', {'slug': contact_message.slug}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="12">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

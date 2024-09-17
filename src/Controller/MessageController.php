@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ContactMessage;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Repository\MessageRepository;

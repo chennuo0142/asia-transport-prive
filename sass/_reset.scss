@@ -10,10 +10,19 @@ body {
     position: relative;
     padding-bottom: 5em;
     margin-bottom: -5em;
+
 }
 
 html {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     height: 100%;
 
+}
+
+.container {
+    margin-bottom: 6em;
+}
+
+.container-fluid {
+    margin-bottom: 6em;
 }
