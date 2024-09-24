@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture
+{% endblock %}
+
+{% block body %}
+
+	<div>
+		<h1>Facture</h1>
+		<header>
+			<div class="grid">
+
+				<div class="provider-info">
+					<ul>
+						<li>
+							<strong>{{ userCompagny.status }}
+								{{ userCompagny.name}}</strong>
+						</li>
+						<li>
+							{{ userCompagny.adress }}</li>
+						<li>{{ userCompagny.city }}
+							{{ userCompagny.zipCode }}</li>
+						<li>
+							{{ userCompagny.email }}
+							/
+							{{ userCompagny.telephone }}
+						</li>
+						<li>
+							Code TVA:
+							{{ userCompagny.tvaId }}</li>
+
+					</ul>
+				</div>
+				<div class="client-info">
+					<h5>{{ reservation.name }}
+						{{ reservation.firstName }}</h5>
+					{{ reservation.compagny }}
+					<br>
+					{{ reservation.adress }}
+					<br>
+					{{ reservation.city}}
+					{{ reservation.zipCode }}
+					<br>
+					{{ reservation.country }}
+				</div>
+			</div>
+
+		</header>
+		<body>
+			<table>
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Designation</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Prix</th>
+						<th scope="col">Taux TVA</th>
+						<th scope="col">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr>
+						<th scope="row">1</th>
+						<td>Transfert Paris -> Aeropot</td>
+						<td>1</td>
+						<td>70E</td>
+						<td>10%</td>
+						<td>77E</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th scope="col">#</th>
+						<td scope="col">Total</td>
+						<td scope="col">Total</td>
+						<td scope="col">Total</td>
+						<td scope="col">Total</td>
+						<td scope="col">Total</td>
+					</tr>
+				</tfoot>
+			</table>
+		</body>
+
+	</div>
+{% endblock %}

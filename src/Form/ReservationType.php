@@ -21,6 +21,10 @@ class ReservationType extends AbstractType
             ->add('name')
             ->add('firstName')
             ->add('compagny')
+            ->add('adress')
+            ->add('city')
+            ->add('zipCode')
+            ->add('country')
             ->add('email')
             ->add('telephone')
             ->add('service', EntityType::class, [
@@ -34,7 +38,7 @@ class ReservationType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('departureAdress')
-            ->add('ArrivalAdress')
+            ->add('arrivalAdress')
             ->add('nbPassager')
             ->add('nbBagage')
             ->add('accessory', ChoiceType::class, [

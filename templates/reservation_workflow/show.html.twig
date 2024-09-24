@@ -28,9 +28,11 @@
 			{{reservation.email}}</div>
 		<div>Telephone:
 			{{reservation.telephone}}</div>
-
-
 	</article>
+	{% if reservation.endService == true %}
+		<a role='button' href="{{ path('app_facture_reservation',{slug:reservation.slug}) }}">Facture</a>
+	{% endif %}
+
 	{% if reservation.workflowStage.stage == 5 %}
 
 		<article>

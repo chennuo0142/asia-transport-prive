@@ -34,7 +34,7 @@ class CompagnyController extends AbstractController
         //formule francaise pour calculer la clé TVA à deux chiffre
         $cle_tva = (12 + 3 * ($siret % 97)) % 97;
         // code tva
-        $num_tva = "FR " . $cle_tva . $siret;
+        $num_tva = "FR" . $cle_tva . $siret;
 
         return $num_tva;
     }
@@ -93,6 +93,12 @@ class CompagnyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $request->get('compagny')['compagnyId'];
+
+            $num_tva = $this->calcul_numeros_tva_fr($data);
+            $compagny->setTvaId($num_tva);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_compagny_index', [], Response::HTTP_SEE_OTHER);

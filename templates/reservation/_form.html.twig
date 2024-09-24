@@ -1,4 +1,44 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{# {{ form_widget(form) }} #}
+<div class="grid">
+	{{ form_row(form.name)}}{{ form_row(form.firstName)}}
+</div>
+<div class="facture-info-reservation">
+	<i>Facultative, utile pour etablir une facture</i>
+	{{ form_row(form.compagny)}}
+	{{ form_row(form.adress)}}
+	<div class="grid">{{ form_row(form.city)}}
+		{{ form_row(form.zipCode)}}
+		{{ form_row(form.country)}}
+	</div>
+
+</div>
+<div class="grid">
+	{{ form_row(form.email)}}
+	{{ form_row(form.telephone)}}
+</div>
+
+
+<div class="grid">
+	{{ form_row(form.dateOperation)}}
+	{{ form_row(form.timeOperation)}}
+</div>
+<div class="grid">
+	{{ form_row(form.service)}}
+	{{ form_row(form.car)}}
+</div>
+<div class="grid">
+	{{ form_row(form.numTransport)}}
+	{{ form_row(form.nbPassager)}}
+	{{ form_row(form.nbBagage)}}
+	{{ form_row(form.accessory)}}
+</div>
+
+{{ form_row(form.departureAdress)}}
+{{ form_row(form.arrivalAdress)}}
+
+
+{{ form_row(form.message)}}
+
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

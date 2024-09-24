@@ -84,6 +84,15 @@ h1 {
     background-size: contain;
 }
 
+.facture-info-reservation {
+    border: 1px solid grey;
+    padding: 10px;
+
+    i {
+        color: rgb(104, 72, 43);
+    }
+}
+
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media screen and (max-width: 800px) {
     .home-driver-wrapper-flex {
