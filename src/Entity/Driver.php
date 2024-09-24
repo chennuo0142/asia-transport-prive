@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DriverRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DriverRepository::class)]
 class Driver
@@ -12,6 +13,7 @@ class Driver
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("post:read")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -29,12 +31,15 @@ class Driver
     #[ORM\Column]
     private ?\DateTimeImmutable $updateAt = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $birthDay = null;
 
@@ -50,21 +55,25 @@ class Driver
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column]
     private ?bool $isVisible = false;
 
+    #[Groups("post:read")]
     #[ORM\Column(nullable: true)]
     private ?array $language = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(nullable: true)]
     private ?array $car = null;
 
