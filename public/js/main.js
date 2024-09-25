@@ -1,10 +1,16 @@
+import { Fetching } from "./modules/feching.js"
+
 document.addEventListener('DOMContentLoaded', function () {
 
     console.log("hello word");
 
-
+    const loader = document.getElementById("loader-js-driver");
+    //on cache le loader
+    loader.style.display = "none";
 
 })
+
+
 
 function confirm_logout() {
     return confirm('are you sure?');
@@ -22,8 +28,35 @@ function myFunction() {
     }
 }
 
+// class Fetching {
+//     constructor(url) {
+//         this.url = url;
+//         this.go = async function () {
+
+//             try {
+//                 const response = await fetch(this.url);
+//                 if (!response.ok) {
+//                     throw new Error(`Response status: ${response.status}`);
+//                 }
+
+//                 const data = await response.json();
+//                 console.log(data);
+
+//             } catch (error) {
+//                 console.error(error.message);
+//             }
+
+//         }
+//     }
+// }
+
 async function getData() {
+    const loader = document.getElementById("loader-js-driver");
+    document.querySelector("#bt1").setAttribute("aria-busy", "true");
+    //on affiche le loader
+    loader.style.display = "block";
     const url = "https://127.0.0.1:8000/api/driver";
+    const url2 = "https://jsonplaceholder.typicode.com/posts";
     let showContainer = document.getElementById("showContainer");
     let html = '';
 
@@ -45,9 +78,24 @@ async function getData() {
                             <td>${element.telephone}</td>
                         </tr>`
         });
+        if (html) {
+            //on cache le loader
+            loader.style.display = "none";
+            document.querySelector("#bt1").removeAttribute("aria-busy");
+
+        }
         showContainer.innerHTML = html;
+
 
     } catch (error) {
         console.error(error.message);
     }
 }
+
+function getPost() {
+
+    const fetch1 = new Fetching("https://jsonplaceholder.typicode.com/posts");
+    fetch1.go();
+}
+
+

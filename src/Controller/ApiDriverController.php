@@ -14,7 +14,6 @@ class ApiDriverController extends AbstractController
     {
         $drivers = $driverRepository->findAll();
 
-
         return $this->json($drivers, 200, [], [
             'groups' => ['post:read']
         ]);
