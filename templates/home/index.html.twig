@@ -31,20 +31,24 @@
 		<a role="button" href="{{ path('app_public_all_drivers_show')}}">Tous les drivers</a>
 		{{ include('home/_drivers.html.twig')}}
 	</section>
-	<button class="button" onclick="getData()">test api</button>
+	<section class="driver-api-show">
+		<span id="loader-js-driver" aria-busy="true"></span>
 
-	<table>
-		<thead>
-			<tr>
+		<button class="button" id="bt1" onclick="getData()">test api</button>
 
-				<th scope="col">Name</th>
-				<th scope="col">firstName</th>
-				<th scope="col">email</th>
-				<th scope="col">telephone</th>
+		<button class="button" id="bt2" onclick="getPost()">get post</button>
+		<table>
+			<thead>
+				<tr>
 
-			</tr>
-		</thead>
-		<tbody id="showContainer"></tbody>
-	</table>
+					<th scope="col">Name</th>
+					<th scope="col">firstName</th>
+					<th scope="col">email</th>
+					<th scope="col">telephone</th>
 
+				</tr>
+			</thead>
+			<tbody id="showContainer"></tbody>
+		</table>
+	</section>
 {% endblock %}

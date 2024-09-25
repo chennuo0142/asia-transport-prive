@@ -93,6 +93,17 @@ h1 {
     }
 }
 
+.driver-api-show {
+    position: relative;
+
+    #loader-js-driver {
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+
+    }
+}
+
 /* Responsive layout - makes a one column layout instead of a two-column layout */
 @media screen and (max-width: 800px) {
     .home-driver-wrapper-flex {
