@@ -9,8 +9,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{asset('/css/style.css')}}">
+		<script src="{{ asset('/js/main.js')}}"></script>
 		{% block javascripts %}
-		<script type="module" src="{{ asset('/js/main.js')}}"></script>
+
 		{# {% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %} #}{% endblock %}
@@ -143,6 +144,25 @@
 			{% block body %}{% endblock %}
 
 		</div>
+		<section class="driver-api-show">
+			<span id="loader-js-driver" aria-busy="true"></span>
+
+			<button class="button" id="bt1" onclick="getData()">test api</button>
+
+			<table>
+				<thead>
+					<tr>
+
+						<th scope="col">Name</th>
+						<th scope="col">firstName</th>
+						<th scope="col">email</th>
+						<th scope="col">telephone</th>
+
+					</tr>
+				</thead>
+				<tbody id="showContainer"></tbody>
+			</table>
+		</section>
 		<footer>
 			<div class="footer-wrapper container-fluid">
 				<div class="footer-left">

@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ApiDriverController extends AbstractController
 {
-    #[Route('/api/driver', name: 'app_api_driver')]
+    #[Route('/api/driver', name: 'app_api_driver', methods: 'GET')]
     public function index(DriverRepository $driverRepository): Response
     {
         $drivers = $driverRepository->findAll();
-
+        sleep(2);
         return $this->json($drivers, 200, [], [
             'groups' => ['post:read']
         ]);
