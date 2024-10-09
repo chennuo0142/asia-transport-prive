@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture-new
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ asset('/js/invoice.js') }}" defer></script>
+{% endblock %}
+{% block body %}
+	<h1>Creation de fature</h1>
+	<div class="invoice-wrapper">
+		<section class="provider-info">
+			<ul>
+				<li>
+					{{ company.status }}
+					{{ company.name }}
+				</li>
+				<li>
+					{{ company.adress }}
+				</li>
+				<li>
+					{{ company.city }}
+					{{ company.zipCode }}
+				</li>
+
+				<li>{{ company.country }}</li>
+				<li>{{ company.tvaId }}</li>
+				<li>{{ company.email }}</li>
+				<li>
+					{{ company.telephone }}
+				</li>
+			</ul>
+		</section>
+		<section class="customer-info-facture" id="customer-info-facture"></section>
+	</div>
+	<br>
+	<p>
+		Date de la Facture:
+		<strong>
+			<span id="invoice-date-show"></span>
+		</strong>
+	</p>
+
+
+	{{ include('facture/_form.html.twig') }}
+
+	<div class="pannier" id="panier">
+		<table>
+			<thead>
+				<tr>
+					<th>Designation</th>
+					<th>Price</th>
+					<th>Quantiy</th>
+					<th>Tva</th>
+					<th>TTC</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Transfert aeroport paris</td>
+					<td>70</td>
+					<td>1</td>
+					<td>10</td>
+					<td>77</td>
+					<td>
+						<button>X</button>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total</td>
+					<td>77</td>
+				</tr>
+
+			</tfoot>
+
+		</table>
+
+	</div>
+
+	<a href="{{ path('app_facture_index') }}">back to list</a>
+{% endblock %}

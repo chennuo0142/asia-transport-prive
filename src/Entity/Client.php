@@ -4,21 +4,26 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
 {
+    #[Groups("post:read")]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstName = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $adress = null;
 
@@ -28,6 +33,7 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $compagny = null;
 
@@ -46,6 +52,18 @@ class Client
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[Groups("post:read")]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[Groups("post:read")]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $zipCode = null;
+
+    #[Groups("post:read")]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $country = null;
 
     public function getId(): ?int
     {
@@ -180,6 +198,42 @@ class Client
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getZipCode(): ?string
+    {
+        return $this->zipCode;
+    }
+
+    public function setZipCode(?string $zipCode): static
+    {
+        $this->zipCode = $zipCode;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

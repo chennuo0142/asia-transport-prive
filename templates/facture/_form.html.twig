@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+
+<label for="invoice-date">Date</label>
+
+<input type="date" name="invoice-date" id="invoice-date-js">
+{% if userCustomers %}
+	<select name="customer" id="customer-js">
+		<option value="">--Choisissez un client--</option>
+		{% for customer in userCustomers %}
+			<option value="{{ customer.id }}">{{ customer.name }}
+				{{ customer.firstName }}</option>
+		{% endfor %}
+	</select>
+
+
+{% endif %}
+
+{{ form_row(form.firstName)}}
+{{ form_row(form.lastName)}}
+{{ form_row(form.companyName)}}
+
+{{ form_row(form.adress)}}
+{{ form_row(form.city)}}
+{{ form_row(form.zipCode)}}
+{{ form_row(form.country)}}
+{{ form_row(form.opDate)}}
+<table>
+	<tr>
+		<th>Description</th>
+		<th>Tarif</th>
+		<th>Quantity</th>
+		<th>Taux Tva</th>
+		<th></th>
+
+	</tr>
+	<tr>
+		<td><input type="text" name="" id=""></td>
+		<td><input type="text" name="" id=""></td>
+		<td><input type="text" name="" id=""></td>
+		<td><input type="text" name="" id=""></td>
+		<td>
+			<input type="button" id="addButton" value="Add article">
+		</td>
+
+	</tr>
+
+</table>
+
+
+{{ form_end(form) }}

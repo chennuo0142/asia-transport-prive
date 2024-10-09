@@ -3050,6 +3050,35 @@ button:hover {
     clear: both;
   }
 }
+.provider-info ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.provider-info ul li:hover {
+  background-color: aqua;
+}
+
+.customer-info-facture ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.invoice-wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.panier tr {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 10% 10% 10% 10% 10%;
+}
+
 h1 {
   color: rgb(77, 69, 233);
 }

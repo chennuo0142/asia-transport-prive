@@ -2,15 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Invoice;
+use App\Form\InvoiceType;
 use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[Route('/gestion')]
 class FactureController extends AbstractController
 {
-    #[Route('/facture', name: 'app_facture')]
+    #[Route('/facture', name: 'app_facture_index')]
     public function index(): Response
     {
         return $this->render('facture/index.html.twig', [
@@ -39,6 +44,41 @@ class FactureController extends AbstractController
         return $this->render('facture/reservation.html.twig', [
             'reservation' => $reservation,
             'userCompagny' => $userCompagny
+        ]);
+    }
+
+    #[Route('/facture/new', name: 'app_facture_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $invoice = new Invoice();
+        $user = $this->getUser();
+        dump($user);
+        $userCompany = $user->getCompagny();
+        $userCustomers = $user->getClients();
+        dump($userCustomers[0]);
+
+        if ($userCompany == null) {
+            $this->addFlash('warning', 'Les informatins sur la societe introuvable!');
+            return $this->redirectToRoute('app_facture_index');
+        }
+
+        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($invoice);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('facture/new.html.twig', [
+            'form' => $form,
+            'company' => $userCompany,
+            'userCustomers' => $userCustomers,
+
+
         ]);
     }
 }

@@ -26,6 +26,7 @@ function myFunction() {
 }
 
 async function getData() {
+
     const loader = document.getElementById("loader-js-driver");
     document.querySelector("#bt1").setAttribute("aria-busy", "true");
     //on affiche le loader

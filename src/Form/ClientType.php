@@ -17,6 +17,9 @@ class ClientType extends AbstractType
             ->add('name')
             ->add('firstName')
             ->add('adress')
+            ->add('city')
+            ->add('zipCode')
+            ->add('country')
             ->add('telephone')
             ->add('email')
             ->add('compagny');
