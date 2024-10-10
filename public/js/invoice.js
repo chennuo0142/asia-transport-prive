@@ -2,11 +2,38 @@ console.log('facture js');
 let customerSelected = document.getElementById("customer-js");
 let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
+let pannier_container = document.getElementById("panier-container-js");
 let html = "";
 let pannier = [];
+let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
 let invoice_date = document.getElementById("invoice-date-js");
+let btn_js = '';
 invoice_date.valueAsdate = new Date();
+
+function getBtnDel() {
+    return document.getElementsByClassName("btn-del-js");
+}
+
+function addLinkToBtn(btns_js) {
+    for (let i = 0; i < btns_js.length; i++) {
+        btns_js[i].addEventListener(
+            'click',
+            () => {
+                //supprime element index
+                delItem(i);
+
+            }
+        )
+    }
+}
+//function supprime article avec la array methode splice 
+function delItem(index) {
+    //supprime element index
+    pannier.splice(index, 1);
+    //mettre a jour l'affichage
+    show_pannier();
+}
 
 function getDateFr(date) {
     return date.toLocaleDateString("fr-FR");
@@ -20,10 +47,8 @@ function resetData() {
     document.getElementById('invoice_companyName').value = "";
 
 }
-document.getElementById('')
-let date_fr = getDateFr(new Date());
 
-invoice_date_show.innerHTML = date_fr;
+invoice_date_show.innerHTML = getDateFr(new Date());
 
 invoice_date.addEventListener(
     'change', () => {
@@ -99,19 +124,78 @@ async function getData(id) {
     }
 
 }
+//function verifie si les entree sont bien remplis et les donnees correspondent aux attente
+function checkInputItem(description, price, quantity, tva) {
+    if (description && price && quantity && tva) {
+        if (isNaN(price)) {
+            alert("Tarif doit d'etre numerique");
+            return false
+        }
+        if (isNaN(quantity)) {
+            alert("Quantite doit d'etre numerique");
+            return false
+        }
+        if (isNaN(tva)) {
+            alert("tva doit d'etre numerique");
+            return false
+        }
+
+        return true;
+    } else {
+        alert('Veuillez remplir tous les champs');
+        return false;
+    }
+}
 
 addButton.addEventListener(
     'click', () => {
-
-        console.log('Add button clicked');
         //on recupere l'article 
-        pannier.push({
-            'designation': 'Transfert aeroport de paris',
-            'Prix': 70,
-            'tva': 10,
-            'quantity': 10,
-            'total': 77
-        });
-        console.log(pannier);
+        const description = document.getElementById("item-description").value;
+        const price = document.getElementById("item-price").value;
+        const quantity = document.getElementById("item-quantity").value;
+        const tva = document.getElementById("item-tva").value;
+        //verification les entrees input
+        if (checkInputItem(description, price, quantity, tva)) {
+
+            pannier.push({
+                'designation': description,
+                'Prix': price,
+                'tva': tva,
+                'quantity': quantity,
+                'total': 77
+            });
+            console.log(pannier.length);
+            console.log(pannier);
+            show_pannier();
+        }
+
+
     }
 )
+function show_pannier() {
+
+    for (i = 0; i < pannier.length; i++) {
+        pannier_html += `
+            <tr class="pannier-item">
+                    <td>${i}</td>
+					<td>${pannier[i]['designation']}</td>
+					<td>70</td>
+					<td>1</td>
+					<td>10</td>
+					<td>77</td>
+					<td>
+						<button class="btn-del-js" data-index="${i}">X</button>
+					</td>
+			</tr>
+            `;
+        btn_js = getBtnDel();
+    }
+    console.log(pannier_html);
+    pannier_container.innerHTML = pannier_html;
+    pannier_html = "";
+
+    console.log(btn_js);
+    addLinkToBtn(btn_js);
+}
+
+
