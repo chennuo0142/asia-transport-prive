@@ -3,7 +3,7 @@
 {% block title %}Facture-new
 {% endblock %}
 {% block javascripts %}
-	<script src="{{ asset('/js/invoice.js') }}" defer></script>
+	<script type="module" src="{{ asset('/js/invoice.js') }}" defer></script>
 {% endblock %}
 {% block body %}
 	<h1>Creation de fature</h1>
@@ -43,28 +43,6 @@
 
 	{{ include('facture/_form.html.twig') }}
 
-	<div class="pannier" id="panier">
-		<table>
-			<thead>
-				<tr>
-					<th>index</th>
-					<th>Designation</th>
-					<th>Price</th>
-					<th>Quantiy</th>
-					<th>Tva</th>
-					<th>TTC</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody id='panier-container-js'></tbody>
-			<tfoot>
-				<tr></tr>
-
-			</tfoot>
-
-		</table>
-
-	</div>
 
 	<a href="{{ path('app_facture_index') }}">back to list</a>
 {% endblock %}

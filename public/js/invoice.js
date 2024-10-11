@@ -1,4 +1,4 @@
-console.log('facture js');
+import { resetData, getDateFr, checkInputItem, getBtnDel } from './modules/array.js';
 let customerSelected = document.getElementById("customer-js");
 let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
@@ -10,10 +10,6 @@ let invoice_date_show = document.getElementById("invoice-date-show");
 let invoice_date = document.getElementById("invoice-date-js");
 let btn_js = '';
 invoice_date.valueAsdate = new Date();
-
-function getBtnDel() {
-    return document.getElementsByClassName("btn-del-js");
-}
 
 function addLinkToBtn(btns_js) {
     for (let i = 0; i < btns_js.length; i++) {
@@ -33,19 +29,6 @@ function delItem(index) {
     pannier.splice(index, 1);
     //mettre a jour l'affichage
     show_pannier();
-}
-
-function getDateFr(date) {
-    return date.toLocaleDateString("fr-FR");
-}
-
-function resetData() {
-    //on efface le formulaire
-    document.getElementById('invoice_firstName').value = "";
-    document.getElementById('invoice_lastName').value = "";
-    document.getElementById('invoice_adress').value = "";
-    document.getElementById('invoice_companyName').value = "";
-
 }
 
 invoice_date_show.innerHTML = getDateFr(new Date());
@@ -124,28 +107,6 @@ async function getData(id) {
     }
 
 }
-//function verifie si les entree sont bien remplis et les donnees correspondent aux attente
-function checkInputItem(description, price, quantity, tva) {
-    if (description && price && quantity && tva) {
-        if (isNaN(price)) {
-            alert("Tarif doit d'etre numerique");
-            return false
-        }
-        if (isNaN(quantity)) {
-            alert("Quantite doit d'etre numerique");
-            return false
-        }
-        if (isNaN(tva)) {
-            alert("tva doit d'etre numerique");
-            return false
-        }
-
-        return true;
-    } else {
-        alert('Veuillez remplir tous les champs');
-        return false;
-    }
-}
 
 addButton.addEventListener(
     'click', () => {
@@ -174,7 +135,7 @@ addButton.addEventListener(
 )
 function show_pannier() {
 
-    for (i = 0; i < pannier.length; i++) {
+    for (let i = 0; i < pannier.length; i++) {
         pannier_html += `
             <tr class="pannier-item">
                     <td>${i}</td>

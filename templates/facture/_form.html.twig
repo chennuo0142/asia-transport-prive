@@ -34,7 +34,7 @@
 
 	</tr>
 	<tr>
-		<td><input type="text" name="description" id="item-description" required></td>
+		<td><input type="text" name="description" id="item-description"></td>
 		<td><input type="text" name="price" id="item-price"></td>
 		<td><input type="text" name="quantity" id="item-quantity"></td>
 		<td><input type="text" name="tva" id="item-tva"></td>
@@ -45,6 +45,27 @@
 	</tr>
 
 </table>
+<div class="pannier" id="panier">
+	<table>
+		<thead>
+			<tr>
+				<th>index</th>
+				<th>Designation</th>
+				<th>Price</th>
+				<th>Quantiy</th>
+				<th>Tva</th>
+				<th>TTC</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id='panier-container-js'></tbody>
+		<tfoot>
+			<tr></tr>
 
+		</tfoot>
 
+	</table>
+
+</div>
+<input type="submit" value="Save">
 {{ form_end(form) }}
