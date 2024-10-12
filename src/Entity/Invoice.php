@@ -41,14 +41,19 @@ class Invoice
     #[ORM\Column]
     private ?\DateTimeImmutable $creatAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $opDate = null;
+
 
     #[ORM\Column(nullable: true)]
     private ?bool $showTvaText = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $invoiceDate = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateOperation = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $timeOperation = null;
 
     public function getId(): ?int
     {
@@ -163,18 +168,6 @@ class Invoice
         return $this;
     }
 
-    public function getOpDate(): ?\DateTimeInterface
-    {
-        return $this->opDate;
-    }
-
-    public function setOpDate(?\DateTimeInterface $opDate): static
-    {
-        $this->opDate = $opDate;
-
-        return $this;
-    }
-
     public function isShowTvaText(): ?bool
     {
         return $this->showTvaText;
@@ -195,6 +188,30 @@ class Invoice
     public function setInvoiceDate(?\DateTimeInterface $invoiceDate): static
     {
         $this->invoiceDate = $invoiceDate;
+
+        return $this;
+    }
+
+    public function getDateOperation(): ?\DateTimeInterface
+    {
+        return $this->dateOperation;
+    }
+
+    public function setDateOperation(?\DateTimeInterface $dateOperation): static
+    {
+        $this->dateOperation = $dateOperation;
+
+        return $this;
+    }
+
+    public function getTimeOperation(): ?\DateTimeInterface
+    {
+        return $this->timeOperation;
+    }
+
+    public function setTimeOperation(?\DateTimeInterface $timeOpeation): static
+    {
+        $this->timeOperation = $timeOperation;
 
         return $this;
     }

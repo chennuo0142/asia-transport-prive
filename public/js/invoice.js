@@ -1,37 +1,44 @@
-import { resetData, getDateFr, checkInputItem, getBtnDel, isEmpty } from './modules/array.js';
+import { resetData, getDateFr, checkInputItem, getBtnDel, isEmpty, getFormData } from './modules/array.js';
 let customerSelected = document.getElementById("customer-js");
 let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
 let pannier_container = document.getElementById("panier-container-js");
 let html = "";
 let pannier = [];
+let artcile_json = "";
+let btn_js = '';
 let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
 let invoice_date = document.getElementById("invoice-date-js");
-let btn_js = '';
+
 invoice_date.valueAsdate = new Date();
 const submit_button = document.getElementById("button-submit-js");
-let artcile_json = "";
+
+//mettre la date du jour
+document.getElementById("invoice-date-js").valueAsDate = new Date();
+document.getElementById("invoice_dateOperation").valueAsDate = new Date();
 
 async function postData() {
-    const url = "https://127.0.0.1:8000/api/invoice/post";
+    const formData = getFormData();
+    console.log(formData.adress);
+
+    const url = "/api/invoice/post";
     await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-            ref: "Invoice123",
-            slug: "slug123456",
             user: 1,
             company: { company: "Asia transport prive" },
             customer: {
-                userName: "Liu",
-                firstName: "JING"
+                lastName: formData.lastName,
+                firstName: formData.firstName,
+                company: formData.company,
+                adress: formData.adress,
+                city: formData.city,
+                zipCode: formData.zipCode,
+                country: formData.country
             },
             product: {
-                id: 1,
-                articleName: "Transfert paris cdg",
-                price: 100,
-                tva: 10,
-                quantity: 2
+                pannier
             },
             total: {
                 ht: 100,
@@ -50,12 +57,11 @@ async function postData() {
             if (json.status == 'ok') {
                 console.log('la redirectio0n avec id de la facture');
                 console.log(json[0].slug)
-                const route = `{{ path('app_facture_afficher', {id: ${json[0].id}})|escape('js') }}`;
-                // window.location = `https://127.0.0.1:8000/gestion/facture/${json[0].id}/show`
-                window.location = `{{ path('app_facture_afficher', {id: ${json[0].id}})|escape('js') }}`;
+
+                window.location = `/gestion/facture/${json[0].id}/show`
             }
         })
-    // .then((json) => console.log(json['status']));
+
 
 }
 
@@ -75,6 +81,7 @@ submit_button.addEventListener(
             //je doit passer ici une requette async qui save to base une copie de la facture
             postData();
         } else {
+            e.preventDefault();
             alert('Veuillez remplir tous les champs');
         }
 
@@ -147,7 +154,8 @@ customerSelected.addEventListener(
 
 async function getData(id) {
 
-    const url = "https://127.0.0.1:8000/api/customer/" + id;
+    // const url = "https://127.0.0.1:8000/api/customer/" + id;
+    const url = "/api/customer/" + id;
 
 
 
@@ -211,7 +219,7 @@ addButton.addEventListener(
                 'price': price,
                 'tva': tva,
                 'quantity': quantity,
-                'total': 77
+                'total': (price * quantity) + (price * quantity / 100) * tva
             });
             console.log(pannier.length);
             console.log(pannier);

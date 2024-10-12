@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ApiController extends AbstractController
 {
@@ -39,13 +40,23 @@ class ApiController extends AbstractController
     }
 
     #[Route('/api/invoice/post', name: 'app_api_invoice_post', methods: 'POST')]
-    public function invoice_post(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
+    public function invoice_post(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
     {
+        $user = $this->getUser();
+        //1 user id
+        //2 bank infos
+
+
         $jsonRecu = $request->getContent();
         $invoice = $serializer->deserialize($jsonRecu, Invoice::class, 'json');
+
+        $slug = strtolower($sluggerInterface->slug("Facture-" . uniqid()));
+        $reference = strtoupper($sluggerInterface->slug($invoice->getCustomer()['firstName'] . uniqid()));
         $invoice
+            ->setSlug($slug)
+            ->setRef($reference)
             ->setCreatAt(new \DateTimeImmutable())
-            ->setOpDate(new \DateTime())
+            ->setDateOperation(new \DateTime())
             ->setInvoiceDate(new \DateTime())
             ->setShowTvaText(true);
 

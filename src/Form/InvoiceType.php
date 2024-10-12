@@ -13,7 +13,10 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('opDate', null, [
+            ->add('dateOperation', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('timeOperation', null, [
                 'widget' => 'single_text',
             ])
             ->add('firstName', TextType::class, [
