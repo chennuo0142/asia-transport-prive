@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
+use App\Repository\InvoiceRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,7 +67,16 @@ class FactureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($request);
+            $articles = $request->request->get("articles");
 
+            $articles_decode = json_decode($articles);
+
+            dump($articles_decode);
+            foreach ($articles_decode as $article) {
+                dump($article);
+            }
+            dd(json_decode($articles));
             $entityManager->persist($invoice);
             $entityManager->flush();
 
@@ -79,6 +89,29 @@ class FactureController extends AbstractController
             'userCustomers' => $userCustomers,
 
 
+        ]);
+    }
+
+    #[Route('/facture/show/{slug}', name: 'app_facture_show')]
+    public function show($slug, InvoiceRepository $invoiceRepository): Response
+    {
+        $invoice = $invoiceRepository->findBy([
+            'slug' => $slug
+        ]);
+        dd($invoice);
+        return $this->render('facture/show.html.twig', [
+            'invoice' => $invoice,
+        ]);
+    }
+
+
+    #[Route('/facture/{id}/show', name: 'app_facture_afficher')]
+    public function afficher(Invoice $invoice): Response
+    {
+
+        dd($invoice);
+        return $this->render('facture/show.html.twig', [
+            'invoice' => $invoice,
         ]);
     }
 }

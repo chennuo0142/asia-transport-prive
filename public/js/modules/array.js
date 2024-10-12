@@ -14,6 +14,21 @@ export function resetData() {
 export function getDateFr(date) {
     return date.toLocaleDateString("fr-FR");
 }
+export function isEmpty() {
+    if (
+        document.getElementById('invoice_firstName').value != "" &&
+        document.getElementById('invoice_lastName').value != "" &&
+        document.getElementById('invoice_adress').value != "" &&
+        document.getElementById('invoice_city').value != "" &&
+        document.getElementById('invoice_zipCode').value != "" &&
+        document.getElementById('invoice_country').value != "" &&
+        document.getElementById('invoice_companyName').value != ""
+    ) {
+        return true
+    }
+
+    return false;
+}
 
 //function verifie si les entree sont bien remplis et les donnees correspondent aux attente
 export function checkInputItem(description, price, quantity, tva) {
