@@ -3079,6 +3079,12 @@ button:hover {
   grid-template-columns: auto 10% 10% 10% 10% 10%;
 }
 
+.show_total {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
 h1 {
   color: rgb(77, 69, 233);
 }

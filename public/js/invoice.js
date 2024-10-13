@@ -1,11 +1,12 @@
-import { resetData, getDateFr, checkInputItem, getBtnDel, isEmpty, getFormData } from './modules/array.js';
+import { calculatorTotal, resetData, getDateFr, checkInputItem, getBtnDel, isEmpty, getFormData, articleToJson } from './modules/array.js';
 let customerSelected = document.getElementById("customer-js");
 let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
 let pannier_container = document.getElementById("panier-container-js");
+let show_total = document.getElementById("show_total");
 let html = "";
 let pannier = [];
-let artcile_json = "";
+
 let btn_js = '';
 let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
@@ -17,6 +18,30 @@ const submit_button = document.getElementById("button-submit-js");
 //mettre la date du jour
 document.getElementById("invoice-date-js").valueAsDate = new Date();
 document.getElementById("invoice_dateOperation").valueAsDate = new Date();
+
+invoice_date_show.innerHTML = getDateFr(new Date());
+
+invoice_date.addEventListener(
+    'change', () => {
+
+        const date = new Date(document.getElementById("invoice-date-js").value);
+
+        invoice_date_show.innerHTML = getDateFr(date);
+    }
+)
+function shwo_total() {
+    //on cree la structure du total
+    let view = `<tr>
+					<td>Total</td>
+					<td>122</td>
+				</tr>
+				<tr>
+					<td>Total HT</td>
+					<td>100</td>
+				</tr>
+    
+    `
+}
 
 async function postData() {
     const formData = getFormData();
@@ -40,11 +65,7 @@ async function postData() {
             product: {
                 pannier
             },
-            total: {
-                ht: 100,
-                tva: 23,
-                ttc: 120
-            },
+            total: calculatorTotal(pannier),
             bank: {
                 rib: "FR76 1234 5678 1234 5678"
             },
@@ -87,24 +108,6 @@ submit_button.addEventListener(
 
     }
 )
-//function cree une chaine string json article
-function articleToJson(pannier) {
-    console.log(pannier);
-    artcile_json = "";
-    for (let i = 0; i < pannier.length; i++) {
-
-        artcile_json += JSON.stringify({
-            'designation': pannier[i].designation,
-            'price': pannier[i].price,
-            'quantity': pannier[i].quantity,
-            'tva': pannier[i].tva
-        })
-
-    }
-    console.log(artcile_json);
-    //injection dans dom
-    document.getElementById("article-container").value = artcile_json;
-}
 
 function addLinkToBtn(btns_js) {
     for (let i = 0; i < btns_js.length; i++) {
@@ -124,25 +127,17 @@ function delItem(index) {
     pannier.splice(index, 1);
     //mettre a jour l'affichage
     show_pannier();
+    //maj total container show
+    calculatorTotal(pannier);
 }
 
-invoice_date_show.innerHTML = getDateFr(new Date());
 
-invoice_date.addEventListener(
-    'change', () => {
-
-        const date = new Date(document.getElementById("invoice-date-js").value);
-
-        invoice_date_show.innerHTML = getDateFr(date);
-    }
-)
 
 customerSelected.addEventListener(
     'change',
     () => {
         const customerId = document.getElementById("customer-js").value
-        console.log("selction change");
-        console.log(customerId);
+
         if (customerId) {
             getData(customerId)
         } else {
@@ -154,10 +149,7 @@ customerSelected.addEventListener(
 
 async function getData(id) {
 
-    // const url = "https://127.0.0.1:8000/api/customer/" + id;
     const url = "/api/customer/" + id;
-
-
 
     try {
         const response = await fetch(url);
@@ -223,7 +215,8 @@ addButton.addEventListener(
             });
             console.log(pannier.length);
             console.log(pannier);
-
+            //maj Total Array
+            calculatorTotal(pannier);
             show_pannier();
         }
 
@@ -252,7 +245,6 @@ function show_pannier() {
     pannier_container.innerHTML = pannier_html;
     pannier_html = "";
 
-    console.log(btn_js);
     addLinkToBtn(btn_js);
 }
 

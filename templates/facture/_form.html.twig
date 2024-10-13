@@ -60,13 +60,28 @@
 			</tr>
 		</thead>
 		<tbody id='panier-container-js'></tbody>
-		<tfoot>
-			<tr></tr>
-
-		</tfoot>
+		<tfoot></tfoot>
 
 	</table>
+	<div class="show_total" id="show_total">
+		<div class="total_container">
+			<table>
+				<tr>
+					<td>Total HT</td>
+					<td id="total-ht-js">0</td>
+				</tr>
+				<tr>
+					<td>Total TVA</td>
+					<td id="total-tva-js">0</td>
+				</tr>
+				<tr>
+					<td>Total TTC</td>
+					<td id="total-ttc-js">0</td>
+				</tr>
+			</table>
+		</div>
 
+	</div>
 </div>
 <input type="hidden" id="article-container" name="articles">
 <input type="submit" id="button-submit-js" value="Save">
