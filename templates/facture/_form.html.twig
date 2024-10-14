@@ -25,6 +25,17 @@
 {{ form_row(form.country)}}
 {{ form_row(form.dateOperation)}}
 {{ form_row(form.timeOperation)}}
+<select name="userArticles" id="userArticles-js">
+	<option value="">--- Selectionnez un article ---</option>
+	{% for article in userArticles %}
+		<option value="{{ article.id }}">
+			{{ article.name }}
+			--
+			{{ article.price }}</option>
+	{% endfor %}
+
+</select>
+
 <table>
 	<tr>
 		<th>Description</th>

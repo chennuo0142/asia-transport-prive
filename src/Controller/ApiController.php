@@ -45,6 +45,7 @@ class ApiController extends AbstractController
         $user = $this->getUser();
         //1 user id
         //2 bank infos
+        //3 numeros de tva
 
 
         $jsonRecu = $request->getContent();

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Invoice;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,6 +40,8 @@ class InvoiceType extends AbstractType
             ])
             ->add('companyName', TextType::class, [
                 "mapped" => false,
+            ])->add('article', ChoiceType::class, [
+                'mapped' => false
             ])
 
         ;

@@ -56,6 +56,8 @@ class FactureController extends AbstractController
         dump($user);
         $userCompany = $user->getCompagny();
         $userCustomers = $user->getClients();
+        $userArticles = $user->getArticles();
+        dump($userArticles);
         dump($userCustomers[0]);
 
         if ($userCompany == null) {
@@ -87,6 +89,7 @@ class FactureController extends AbstractController
             'form' => $form,
             'company' => $userCompany,
             'userCustomers' => $userCustomers,
+            'userArticles' => $userArticles
 
 
         ]);
