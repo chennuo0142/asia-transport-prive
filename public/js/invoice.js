@@ -8,7 +8,7 @@ let userArticle = document.getElementById("userArticles-js");
 let article_price_ttc = document.getElementById("invoice_articlePriceTtc");
 let html = "";
 let pannier = [];
-
+//new version
 let btn_js = '';
 let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
