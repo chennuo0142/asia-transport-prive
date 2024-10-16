@@ -56,7 +56,7 @@ class Invoice
     private ?\DateTimeInterface $timeOperation = null;
 
     #[ORM\Column]
-    private ?bool $articlePriceTtc = null;
+    private ?bool $articlePriceTtc = false;
 
     public function getId(): ?int
     {

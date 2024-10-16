@@ -48,8 +48,6 @@ class ApiController extends AbstractController
         //1 user id
         //2 bank infos
         //3 numeros de tva
-
-        dd('stop');
         $jsonRecu = $request->getContent();
         $invoice = $serializer->deserialize($jsonRecu, Invoice::class, 'json');
 
