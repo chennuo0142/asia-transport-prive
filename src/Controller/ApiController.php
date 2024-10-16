@@ -5,7 +5,9 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\Client;
 use DateTimeImmutable;
+use App\Entity\Article;
 use App\Entity\Invoice;
+use App\Repository\ArticleRepository;
 use App\Repository\ClientRepository;
 use App\Repository\DriverRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,8 +17,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiController extends AbstractController
 {
@@ -47,7 +49,7 @@ class ApiController extends AbstractController
         //2 bank infos
         //3 numeros de tva
 
-
+        dd('stop');
         $jsonRecu = $request->getContent();
         $invoice = $serializer->deserialize($jsonRecu, Invoice::class, 'json');
 
@@ -69,6 +71,15 @@ class ApiController extends AbstractController
             201,
             'status' => "ok",
             []
+        ]);
+    }
+
+    #[Route('/api/article/{id}', name: 'app_api_article', methods: 'GET')]
+    public function getArticle(Article $article): Response
+    {
+
+        return $this->json($article, 200, [], [
+            'groups' => ['post:read']
         ]);
     }
 }

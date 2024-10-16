@@ -4,6 +4,8 @@ let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
 let pannier_container = document.getElementById("panier-container-js");
 let show_total = document.getElementById("show_total");
+let userArticle = document.getElementById("userArticles-js");
+let article_price_ttc = document.getElementById("invoice_articlePriceTtc");
 let html = "";
 let pannier = [];
 
@@ -15,6 +17,26 @@ let invoice_date = document.getElementById("invoice-date-js");
 invoice_date.valueAsdate = new Date();
 const submit_button = document.getElementById("button-submit-js");
 
+console.log('article est en ttc:' + article_price_ttc);
+article_price_ttc.addEventListener('change', () => {
+    if (document.getElementById("invoice_articlePriceTtc").value == 1) {
+        article_price_ttc.value = 0;
+    } else {
+        article_price_ttc.value = 1
+    }
+    console.log(document.getElementById("invoice_articlePriceTtc").value);
+})
+//article selectionner, remplir les champs articles
+userArticle.addEventListener(
+    'change', () => {
+
+        console.log(userArticle.value);
+
+        getArticle(userArticle.value);
+
+        //on recupere l'article via getArticle api
+    }
+)
 //mettre la date du jour
 document.getElementById("invoice-date-js").valueAsDate = new Date();
 document.getElementById("invoice_dateOperation").valueAsDate = new Date();
@@ -29,6 +51,32 @@ invoice_date.addEventListener(
         invoice_date_show.innerHTML = getDateFr(date);
     }
 )
+async function getArticle(id) {
+    const url = '/api/article/' + id;
+
+    await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        }
+    }).then((response) => {
+        return response.json()
+    }).then((data) => {
+        //insertion dans le formulaire
+        document.getElementById("item-description").value = data.name
+        document.getElementById("item-price").value = data.price
+        document.getElementById("item-tva").value = data.tva
+        document.getElementById("item-quantity").value = 1
+        // set focus sur quantity
+        document.getElementById("item-quantity").focus();
+
+
+
+    })
+
+
+}
+
 function shwo_total() {
     //on cree la structure du total
     let view = `<tr>
@@ -247,5 +295,4 @@ function show_pannier() {
 
     addLinkToBtn(btn_js);
 }
-
 

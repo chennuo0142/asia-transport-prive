@@ -40,9 +40,7 @@ class InvoiceType extends AbstractType
             ])
             ->add('companyName', TextType::class, [
                 "mapped" => false,
-            ])->add('article', ChoiceType::class, [
-                'mapped' => false
-            ])
+            ])->add('articlePriceTtc')
 
         ;
     }

@@ -55,6 +55,9 @@ class Invoice
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $timeOperation = null;
 
+    #[ORM\Column]
+    private ?bool $articlePriceTtc = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -212,6 +215,18 @@ class Invoice
     public function setTimeOperation(?\DateTimeInterface $timeOpeation): static
     {
         $this->timeOperation = $timeOperation;
+
+        return $this;
+    }
+
+    public function isArticlePriceTtc(): ?bool
+    {
+        return $this->articlePriceTtc;
+    }
+
+    public function setArticlePriceTtc(bool $articlePriceTtc): static
+    {
+        $this->articlePriceTtc = $articlePriceTtc;
 
         return $this;
     }

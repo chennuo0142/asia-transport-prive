@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
@@ -21,15 +22,18 @@ class Article
     #[ORM\Column]
     private ?int $compagnyId = null;
 
+    #[Groups("post:read")]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups("post:read")]
     #[ORM\Column]
     private ?float $price = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[Groups("post:read")]
     #[ORM\Column]
     private ?float $tva = null;
 
