@@ -1,7 +1,3 @@
-export function getBtnDel() {
-    return document.getElementsByClassName("btn-del-js");
-}
-
 export function resetData() {
     //on efface le formulaire
     document.getElementById('invoice_firstName').value = "";
@@ -30,7 +26,7 @@ export function isEmpty() {
         return true
     }
 
-    return false;
+    return alert('Veuillez remplir tous les champs');
 }
 //function recupere les donnees du formulaire
 export function getFormData() {
@@ -76,40 +72,106 @@ export function checkInputItem(description, price, quantity, tva) {
 //function cree une chaine string json article
 export function articleToJson(pannier) {
     console.log(pannier);
-    let artcile_json = "";
+    let article_json = "";
     for (let i = 0; i < pannier.length; i++) {
 
-        artcile_json += JSON.stringify({
+        article_json += JSON.stringify({
             'designation': pannier[i].designation,
             'price': pannier[i].price,
             'quantity': pannier[i].quantity,
-            'tva': pannier[i].tva
+            'tva': pannier[i].tva,
+            'total': pannier[i].total
         })
 
     }
-    console.log(artcile_json);
-    //injection dans dom
-    document.getElementById("article-container").value = artcile_json;
+    console.log(article_json);
+    //injection dans dom, input hidden?? pk faire?
+    document.getElementById("article-container").value = article_json;
 }
-export function calculatorTotal(pannier) {
+
+export function calculatorTotal(pannier, priceIsTtc) {
     //initialise array total
-    let total = { total: 0, total_ht: 0, total_ttc: 0, total_tva: 0 }
+    let total = { total: 0, total_ht: 0, total_ttc: 0, total_tva: 0, totalOnTtc: 0, htOneTtc: 0, tvaOnTtc: 0 }
+
     //on parcour le pannier
     for (let i = 0; i < pannier.length; i++) {
         let tva = (pannier[i].price * pannier[i].quantity) / 100 * pannier[i].tva;
         let ht = pannier[i].price * pannier[i].quantity;
         let ttc = tva + ht;
+        // on calcule le total sur tarif en ttc
+        let total_sur_tarif_ttc = pannier[i].price * pannier[i].quantity;
+        console.log(total_sur_tarif_ttc);
+        //tva sur total_sur_tarif_ttc: total / (1+taux%)
+        let total_ht_sur_tarif_ttc = total_sur_tarif_ttc / (1 + (pannier[i].tva / 100));
+        console.log(total_ht_sur_tarif_ttc);
+        //montant tva: total_sur_tarif_ttc - total_ht_sur_tarif_ttc?
+        let total_tva_sur_tarif_ttc = total_sur_tarif_ttc - total_ht_sur_tarif_ttc;
+        console.log(total_tva_sur_tarif_ttc);
+
         total.total_ht += ht;
         total.total_tva += tva;
         total.total_ttc += ttc;
-    }
-    console.log('function calcul total')
-    console.log(pannier);
-    console.log(total);
-    //maj show total container
-    document.getElementById("total-ht-js").innerHTML = total.total_ht;
-    document.getElementById("total-tva-js").innerHTML = total.total_tva;
-    document.getElementById("total-ttc-js").innerHTML = total.total_ttc;
 
+        total.totalOnTtc += total_sur_tarif_ttc;
+        total.htOneTtc += total_ht_sur_tarif_ttc;
+        total.tvaOnTtc += total_tva_sur_tarif_ttc;
+
+    }
+
+    //maj show total container
+    if (priceIsTtc) {
+        document.getElementById("total-ht-js").innerHTML = total.htOneTtc.toFixed(2);
+        document.getElementById("total-tva-js").innerHTML = total.tvaOnTtc.toFixed(2);
+        document.getElementById("total-ttc-js").innerHTML = total.totalOnTtc.toFixed(2);
+    } else {
+        document.getElementById("total-ht-js").innerHTML = total.total_ht.toFixed(2);
+        document.getElementById("total-tva-js").innerHTML = total.total_tva.toFixed(2);
+        document.getElementById("total-ttc-js").innerHTML = total.total_ttc.toFixed(2);
+    }
+
+
+    console.log(total);
     return total
+}
+
+export async function getData(id) {
+    let html = "";
+    let customer_info_facture = document.getElementById("customer-info-facture");
+    const url = "/api/customer/" + id;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status} `);
+        }
+
+        const customer = await response.json();
+
+        document.getElementById('invoice_firstName').value = customer.name;
+        document.getElementById('invoice_lastName').value = customer.firstName;
+        document.getElementById('invoice_adress').value = customer.adress;
+        document.getElementById('invoice_city').value = customer.city;
+        document.getElementById('invoice_zipCode').value = customer.zipCode;
+        document.getElementById('invoice_country').value = customer.country;
+        document.getElementById('invoice_companyName').value = customer.compagny;
+
+
+        html += `Client:
+    <ul>
+        <li>${customer.name} ${customer.firstName}</li>
+        <li>${customer.compagny}</li>
+        <li>${customer.adress}</li>
+        <li>${customer.zipCode} ${customer.city}</li>
+        <li>${customer.country}</li>
+    </ul>`
+
+
+        customer_info_facture.innerHTML = html;
+        html = "";
+
+
+    } catch (error) {
+        console.error(error.message);
+    }
+
 }

@@ -26,6 +26,8 @@
 {{ form_row(form.dateOperation)}}
 {{ form_row(form.timeOperation)}}
 {{ form_row(form.articlePriceTtc)}}
+<button id="switchTTC-js">Change</button>
+<span id="show-isTtc-js">Le tarif est en HT</span>
 <select name="userArticles" id="userArticles-js">
 	<option value="">--- Selectionnez un article ---</option>
 	{% for article in userArticles %}

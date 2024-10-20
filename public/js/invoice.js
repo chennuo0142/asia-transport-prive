@@ -1,14 +1,16 @@
-import { calculatorTotal, resetData, getDateFr, checkInputItem, getBtnDel, isEmpty, getFormData, articleToJson } from './modules/array.js';
+import { calculatorTotal, resetData, getDateFr, checkInputItem, isEmpty, getFormData, articleToJson, getData } from './modules/array.js';
 let customerSelected = document.getElementById("customer-js");
-let customer_info_facture = document.getElementById("customer-info-facture");
+// let customer_info_facture = document.getElementById("customer-info-facture");
 let addButton = document.getElementById("addButton");
 let pannier_container = document.getElementById("panier-container-js");
 let show_total = document.getElementById("show_total");
 let userArticle = document.getElementById("userArticles-js");
 let article_price_ttc = document.getElementById("invoice_articlePriceTtc");
-let html = "";
+
+let priceIsTtc = false;
+// let html = "";
 let pannier = [];
-//new version
+
 let btn_js = '';
 let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
@@ -17,24 +19,36 @@ let invoice_date = document.getElementById("invoice-date-js");
 invoice_date.valueAsdate = new Date();
 const submit_button = document.getElementById("button-submit-js");
 
-console.log('article est en ttc:' + article_price_ttc);
-article_price_ttc.addEventListener('change', () => {
-    if (document.getElementById("invoice_articlePriceTtc").value == 1) {
-        article_price_ttc.value = 0;
-    } else {
-        article_price_ttc.value = 1
+// changement sur le prix en ttc ou ht
+document.getElementById("switchTTC-js").addEventListener(
+    'click', (e) => {
+        e.preventDefault();
+        if (priceIsTtc == false) {
+            priceIsTtc = true;
+            document.getElementById('show-isTtc-js').innerHTML = ` Le tarif est en TTC`;
+            show_pannier();
+            calculatorTotal(pannier, priceIsTtc)
+        } else {
+            priceIsTtc = false;
+            document.getElementById('show-isTtc-js').innerHTML = ` Le tarif est en HT`;
+            show_pannier();
+            calculatorTotal(pannier, priceIsTtc)
+        }
     }
-    console.log(document.getElementById("invoice_articlePriceTtc").value);
-})
+)
+// article_price_ttc.addEventListener('change', () => {
+//     if (article_price_ttc.value == 0) {
+//         article_price_ttc.value = 1;
+//     } else {
+//         article_price_ttc.value = 0
+//     }
+//     console.log(article_price_ttc.value);
+// })
+
 //article selectionner, remplir les champs articles
 userArticle.addEventListener(
     'change', () => {
-
-        console.log(userArticle.value);
-
         getArticle(userArticle.value);
-
-        //on recupere l'article via getArticle api
     }
 )
 //mettre la date du jour
@@ -51,6 +65,7 @@ invoice_date.addEventListener(
         invoice_date_show.innerHTML = getDateFr(date);
     }
 )
+
 async function getArticle(id) {
     const url = '/api/article/' + id;
 
@@ -69,31 +84,14 @@ async function getArticle(id) {
         document.getElementById("item-quantity").value = 1
         // set focus sur quantity
         document.getElementById("item-quantity").focus();
-
-
-
     })
-
-
-}
-
-function shwo_total() {
-    //on cree la structure du total
-    let view = `<tr>
-					<td>Total</td>
-					<td>122</td>
-				</tr>
-				<tr>
-					<td>Total HT</td>
-					<td>100</td>
-				</tr>
-    
-    `
 }
 
 async function postData() {
     const formData = getFormData();
     console.log(formData.adress);
+    console.log(formData);
+    console.log(formData.articlePriceTtc);
 
     const url = "/api/invoice/post";
     await fetch(url, {
@@ -113,10 +111,11 @@ async function postData() {
             product: {
                 pannier
             },
-            total: calculatorTotal(pannier),
+            total: calculatorTotal(pannier, priceIsTtc),
             bank: {
                 rib: "FR76 1234 5678 1234 5678"
             },
+            articlePriceTtc: formData.articlePriceTtc
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -127,32 +126,31 @@ async function postData() {
                 console.log('la redirectio0n avec id de la facture');
                 console.log(json[0].slug)
 
-                window.location = `/gestion/facture/${json[0].id}/show`
+                //  window.location = `/gestion/facture/${json[0].id}/show`
             }
         })
-
-
 }
-
-
 
 //verifie si au moin un article est present
 submit_button.addEventListener(
     'click',
     (e) => {
-        if (pannier_container.innerHTML == "") {
+
+        if (pannier.length == 0) {
             e.preventDefault();
-            alert('Veuillez ajouter un article!');
+            //stop execution
+            return alert('Veuillez ajouter un article!');
         }
         //on verifie si tous les champs sont remplie
         if (isEmpty()) {
             e.preventDefault();
             //je doit passer ici une requette async qui save to base une copie de la facture
             postData();
-        } else {
-            e.preventDefault();
-            alert('Veuillez remplir tous les champs');
         }
+        // else {
+        //     e.preventDefault();
+        //     alert('Veuillez remplir tous les champs');
+        // }
 
     }
 )
@@ -176,10 +174,8 @@ function delItem(index) {
     //mettre a jour l'affichage
     show_pannier();
     //maj total container show
-    calculatorTotal(pannier);
+    calculatorTotal(pannier, priceIsTtc);
 }
-
-
 
 customerSelected.addEventListener(
     'change',
@@ -194,55 +190,6 @@ customerSelected.addEventListener(
 
     }
 )
-
-async function getData(id) {
-
-    const url = "/api/customer/" + id;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status} `);
-        }
-
-        const customer = await response.json();
-        console.log(customer);
-
-        // invoice_firstName
-        // invoice_lastName
-        // invoice_adress
-        //invoice_companyName
-        // invoice_city
-        // invoice_zipCode
-        // invoice_country
-        document.getElementById('invoice_firstName').value = customer.name;
-        document.getElementById('invoice_lastName').value = customer.firstName;
-        document.getElementById('invoice_adress').value = customer.adress;
-        document.getElementById('invoice_city').value = customer.city;
-        document.getElementById('invoice_zipCode').value = customer.zipCode;
-        document.getElementById('invoice_country').value = customer.country;
-        document.getElementById('invoice_companyName').value = customer.compagny;
-
-
-        html += `Client:
-    <ul>
-        <li>${customer.name} ${customer.firstName}</li>
-        <li>${customer.compagny}</li>
-        <li>${customer.adress}</li>
-        <li>${customer.zipCode} ${customer.city}</li>
-        <li>${customer.country}</li>
-    </ul>`
-
-
-        customer_info_facture.innerHTML = html;
-        html = "";
-
-
-    } catch (error) {
-        console.error(error.message);
-    }
-
-}
 
 addButton.addEventListener(
     'click', () => {
@@ -259,40 +206,65 @@ addButton.addEventListener(
                 'price': price,
                 'tva': tva,
                 'quantity': quantity,
-                'total': (price * quantity) + (price * quantity / 100) * tva
+                // //total sur prix en ht
+                'total': (price * quantity) + (price * quantity / 100) * tva,
+                // //total sur prix en ttc, donc deduire la tva
+                'totalOnTtc': price * quantity
             });
             console.log(pannier.length);
             console.log(pannier);
             //maj Total Array
-            calculatorTotal(pannier);
+            calculatorTotal(pannier, priceIsTtc);
             show_pannier();
         }
 
 
     }
 )
+
 function show_pannier() {
+    //verifier si le tarif est en ttc ou ht
+    //check la variable article price ttc
+    console.log(priceIsTtc);
     articleToJson(pannier);
     for (let i = 0; i < pannier.length; i++) {
-        pannier_html += `
-        <tr class="pannier-item">
-                    <td>${i}</td>
-					<td>${pannier[i]['designation']}</td>
-					<td>${pannier[i]['price']}</td>
-					<td>${pannier[i]['quantity']}</td>
-					<td>${pannier[i]['tva']}</td>
-					<td>77</td>
-					<td>
-						<button class="btn-del-js" data-index="${i}">X</button>
-					</td>
-			</tr >
-        `;
-        btn_js = getBtnDel();
+        if (priceIsTtc) {
+            //affichage si price est ttc
+            pannier_html += `
+            <tr class="pannier-item">
+                        <td>${i}</td>
+                        <td>${pannier[i]['designation']}</td>
+                        <td>${pannier[i]['price']}</td>
+                        <td>${pannier[i]['quantity']}</td>
+                        <td>${pannier[i]['tva']}</td>
+                        <td>${pannier[i]['totalOnTtc']}</td>
+                        <td>
+                            <button class="btn-del-js" data-index="${i}">X</button>
+                        </td>
+                </tr >
+            `;
+        } else {
+            pannier_html += `
+            <tr class="pannier-item">
+                        <td>${i}</td>
+                        <td>${pannier[i]['designation']}</td>
+                        <td>${pannier[i]['price']}</td>
+                        <td>${pannier[i]['quantity']}</td>
+                        <td>${pannier[i]['tva']}</td>
+                        <td>${pannier[i]['total']}</td>
+                        <td>
+                            <button class="btn-del-js" data-index="${i}">X</button>
+                        </td>
+                </tr >
+            `;
+        }
+
+
     }
-    console.log(pannier_html);
+
     pannier_container.innerHTML = pannier_html;
     pannier_html = "";
 
-    addLinkToBtn(btn_js);
+    addLinkToBtn(document.getElementsByClassName("btn-del-js"));
 }
 
