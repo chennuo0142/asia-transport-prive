@@ -119,6 +119,7 @@ export function calculatorTotal(pannier, priceIsTtc) {
     }
 
     //maj show total container
+    // .toFixed() permet de arrondir le nombre a deux chiffre apres le virgule
     if (priceIsTtc) {
         document.getElementById("total-ht-js").innerHTML = total.htOneTtc.toFixed(2);
         document.getElementById("total-tva-js").innerHTML = total.tvaOnTtc.toFixed(2);
