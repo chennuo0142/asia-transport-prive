@@ -95,18 +95,22 @@ export function calculatorTotal(pannier, priceIsTtc) {
 
     //on parcour le pannier
     for (let i = 0; i < pannier.length; i++) {
+        let taux_tva = pannier[i].tva;
+        let quantity = pannier[i].quantity;
+        let price = pannier[i].price;
+
         let tva = (pannier[i].price * pannier[i].quantity) / 100 * pannier[i].tva;
         let ht = pannier[i].price * pannier[i].quantity;
         let ttc = tva + ht;
+
         // on calcule le total sur tarif en ttc
         let total_sur_tarif_ttc = pannier[i].price * pannier[i].quantity;
-        console.log(total_sur_tarif_ttc);
+
         //tva sur total_sur_tarif_ttc: total / (1+taux%)
         let total_ht_sur_tarif_ttc = total_sur_tarif_ttc / (1 + (pannier[i].tva / 100));
-        console.log(total_ht_sur_tarif_ttc);
+
         //montant tva: total_sur_tarif_ttc - total_ht_sur_tarif_ttc?
         let total_tva_sur_tarif_ttc = total_sur_tarif_ttc - total_ht_sur_tarif_ttc;
-        console.log(total_tva_sur_tarif_ttc);
 
         total.total_ht += ht;
         total.total_tva += tva;

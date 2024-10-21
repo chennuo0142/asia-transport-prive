@@ -214,7 +214,7 @@ class Invoice
 
     public function setTimeOperation(?\DateTimeInterface $timeOpeation): static
     {
-        $this->timeOperation = $timeOperation;
+        $this->timeOperation = $timeOpeation;
 
         return $this;
     }

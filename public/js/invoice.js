@@ -5,7 +5,6 @@ let addButton = document.getElementById("addButton");
 let pannier_container = document.getElementById("panier-container-js");
 let show_total = document.getElementById("show_total");
 let userArticle = document.getElementById("userArticles-js");
-let article_price_ttc = document.getElementById("invoice_articlePriceTtc");
 
 let priceIsTtc = false;
 // let html = "";
@@ -89,9 +88,6 @@ async function getArticle(id) {
 
 async function postData() {
     const formData = getFormData();
-    console.log(formData.adress);
-    console.log(formData);
-    console.log(formData.articlePriceTtc);
 
     const url = "/api/invoice/post";
     await fetch(url, {
@@ -108,14 +104,16 @@ async function postData() {
                 zipCode: formData.zipCode,
                 country: formData.country
             },
-            product: {
-                pannier
-            },
+            timeOperation: document.getElementById("invoice_timeOperation").value,
+            dateOperation: document.getElementById("invoice_dateOperation").value,
+            invoiceDate: document.getElementById("invoice-date-js").value,
+            product: pannier,
             total: calculatorTotal(pannier, priceIsTtc),
             bank: {
                 rib: "FR76 1234 5678 1234 5678"
             },
-            articlePriceTtc: formData.articlePriceTtc
+
+            articlePriceTtc: priceIsTtc
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -124,9 +122,9 @@ async function postData() {
         .then((json) => {
             if (json.status == 'ok') {
                 console.log('la redirectio0n avec id de la facture');
-                console.log(json[0].slug)
+                console.log(json)
 
-                //  window.location = `/gestion/facture/${json[0].id}/show`
+                window.location = `/gestion/facture/${json[0].id}/show`
             }
         })
 }

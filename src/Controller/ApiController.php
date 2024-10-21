@@ -44,12 +44,17 @@ class ApiController extends AbstractController
     #[Route('/api/invoice/post', name: 'app_api_invoice_post', methods: 'POST')]
     public function invoice_post(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface): Response
     {
+        //fuseau horaire europe paris
+        date_default_timezone_set('Europe/Paris');
+
         $user = $this->getUser();
         //1 user id
         //2 bank infos
         //3 numeros de tva
         $jsonRecu = $request->getContent();
         $invoice = $serializer->deserialize($jsonRecu, Invoice::class, 'json');
+        //dd($invoice);
+        // $time = new DateTime($invoice['timeOperation']);
 
         $slug = strtolower($sluggerInterface->slug("Facture-" . uniqid()));
         $reference = strtoupper($sluggerInterface->slug($invoice->getCustomer()['firstName'] . uniqid()));
@@ -57,8 +62,6 @@ class ApiController extends AbstractController
             ->setSlug($slug)
             ->setRef($reference)
             ->setCreatAt(new \DateTimeImmutable())
-            ->setDateOperation(new \DateTime())
-            ->setInvoiceDate(new \DateTime())
             ->setShowTvaText(true);
 
         $entityManager->persist($invoice);

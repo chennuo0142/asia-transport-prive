@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Compagny;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
@@ -111,10 +112,13 @@ class FactureController extends AbstractController
     #[Route('/facture/{id}/show', name: 'app_facture_afficher')]
     public function afficher(Invoice $invoice): Response
     {
+        $company = $this->getUser()->getCompagny();
 
-        dd($invoice);
+        dump($company);
+        dump($invoice);
         return $this->render('facture/show.html.twig', [
             'invoice' => $invoice,
+            'company' => $company
         ]);
     }
 }

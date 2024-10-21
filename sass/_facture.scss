@@ -47,3 +47,17 @@
 .total_value {
     float: right;
 }
+
+.facture-container {
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+}
