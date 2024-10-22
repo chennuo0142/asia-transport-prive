@@ -58,6 +58,8 @@ class ApiController extends AbstractController
 
         $slug = strtolower($sluggerInterface->slug("Facture-" . uniqid()));
         $reference = strtoupper($sluggerInterface->slug($invoice->getCustomer()['firstName'] . uniqid()));
+
+
         $invoice
             ->setSlug($slug)
             ->setRef($reference)

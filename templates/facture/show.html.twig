@@ -6,7 +6,13 @@
 {% block body %}
 
 	<div class="facture-container">
-		<h1>Facture N:1233456789</h1>
+		<section class="facture-header">
+			<div class="logo">LOGO</div>
+			<div>
+				<h1>FACTURE</h1>
+			</div>
+		</section>
+
 		<section class="info-header">
 			<div class="company-info">
 				Asia transport prive
@@ -15,6 +21,9 @@
 				<br>
 				27300 Massy
 				<br>
+				tel: 07 70 04 87 66  / asiatransportprive@gmail.com
+				<br>
+				No TVA : FR765879348759
 			</div>
 			<div class="customer-info">
 				<h6>Client:</h6>
@@ -27,72 +36,76 @@
 				France
 			</div>
 		</section>
-		Date: 12/12/2024 a Massy
+		<section class="facture-reference">
+
+			<div>
+				{{ company.city }}, le
+				{{ invoice.invoiceDate|date('d/m/Y') }}
+			</div>
+			<div>Ref: 123456789</div>
+		</section>
+
 
 		<section class="facture-content">
 
-			<table>
+			<table class="facture-table">
 				<thead>
-					<tr>
+					<tr class='facture-table-grid'>
 						<th scope="col">#</th>
-						<th scope="col">Heading</th>
-						<th scope="col">Heading</th>
-						<th scope="col">Heading</th>
-						<th scope="col">Heading</th>
-						<th scope="col">Heading</th>
+						<th scope="col">Designation</th>
+						<th scope="col">price</th>
+						<th scope="col">Taux Tva</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Total</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-					</tr>
-					<tr>
-						<th scope="row">1</th>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-					</tr>
-					<tr>
-						<th scope="row">1</th>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
-						<td>Cell</td>
+
+					{% for article in invoice.product %}
+						<tr class='facture-table-grid'>
+							<th scope="row">1</th>
+							<td>{{ article.designation }}</td>
+							<td>{{ article.price }}</td>
+							<td>{{ article.tva }}</td>
+							<td>{{ article.quantity }}</td>
+							<td>{{ article.total }}</td>
+						</tr>
+					{% endfor %}
+
+					<tr class='facture-table-grid'>
+						<th scope="row">#</th>
+						<td>{{ invoice.dateOperation|date('d/m/Y') }}
+							{% if invoice.timeOperation %}
+								-
+								{{ invoice.timeOperation}}
+							{% endif %}
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<th scope="col"></th>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col">Total Ht</td>
-						<td scope="col">200</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td scope="col" class="total-zone">
+							<div class="facture-total">
+								<span class="title">HT:</span>
+								<span class="value">{{ invoice.total.total_ht }}</span>
+								<span class="title">TVA:</span>
+								<span class="value">{{ invoice.total.total_tva }}</span>
+								<span class="title">TTC:</span>
+								<span class="value">{{ invoice.total.total_ttc }}</span>
+							</div>
+						</td>
+
 					</tr>
-					<tr>
-						<th scope="col"></th>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col">Total tva</td>
-						<td scope="col">200</td>
-					</tr>
-					<tr>
-						<th scope="col"></th>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col"></td>
-						<td scope="col">Total TTC</td>
-						<td scope="col">200</td>
-					</tr>
+
 				</tfoot>
 			</table>
 		</section>

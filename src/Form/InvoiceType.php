@@ -17,9 +17,7 @@ class InvoiceType extends AbstractType
             ->add('dateOperation', null, [
                 'widget' => 'single_text',
             ])
-            ->add('timeOperation', null, [
-                'widget' => 'single_text',
-            ])
+
             ->add('firstName', TextType::class, [
                 "mapped" => false,
             ])

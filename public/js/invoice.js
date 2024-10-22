@@ -10,7 +10,7 @@ let priceIsTtc = false;
 // let html = "";
 let pannier = [];
 
-let btn_js = '';
+// let btn_js = '';
 let pannier_html = "";
 let invoice_date_show = document.getElementById("invoice-date-show");
 let invoice_date = document.getElementById("invoice-date-js");
@@ -35,14 +35,6 @@ document.getElementById("switchTTC-js").addEventListener(
         }
     }
 )
-// article_price_ttc.addEventListener('change', () => {
-//     if (article_price_ttc.value == 0) {
-//         article_price_ttc.value = 1;
-//     } else {
-//         article_price_ttc.value = 0
-//     }
-//     console.log(article_price_ttc.value);
-// })
 
 //article selectionner, remplir les champs articles
 userArticle.addEventListener(
@@ -89,6 +81,9 @@ async function getArticle(id) {
 async function postData() {
     const formData = getFormData();
 
+    const timeOperation = document.getElementById("invoice_timeOperation").value;
+    console.log(timeOperation);
+
     const url = "/api/invoice/post";
     await fetch(url, {
         method: 'POST',
@@ -104,7 +99,7 @@ async function postData() {
                 zipCode: formData.zipCode,
                 country: formData.country
             },
-            timeOperation: document.getElementById("invoice_timeOperation").value,
+            timeOperation: timeOperation,
             dateOperation: document.getElementById("invoice_dateOperation").value,
             invoiceDate: document.getElementById("invoice-date-js").value,
             product: pannier,

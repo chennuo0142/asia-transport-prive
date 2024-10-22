@@ -41,8 +41,6 @@ class Invoice
     #[ORM\Column]
     private ?\DateTimeImmutable $creatAt = null;
 
-
-
     #[ORM\Column(nullable: true)]
     private ?bool $showTvaText = null;
 
@@ -52,11 +50,11 @@ class Invoice
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateOperation = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $timeOperation = null;
-
     #[ORM\Column]
     private ?bool $articlePriceTtc = false;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $timeOperation = null;
 
     public function getId(): ?int
     {
@@ -207,18 +205,6 @@ class Invoice
         return $this;
     }
 
-    public function getTimeOperation(): ?\DateTimeInterface
-    {
-        return $this->timeOperation;
-    }
-
-    public function setTimeOperation(?\DateTimeInterface $timeOpeation): static
-    {
-        $this->timeOperation = $timeOpeation;
-
-        return $this;
-    }
-
     public function isArticlePriceTtc(): ?bool
     {
         return $this->articlePriceTtc;
@@ -227,6 +213,18 @@ class Invoice
     public function setArticlePriceTtc(bool $articlePriceTtc): static
     {
         $this->articlePriceTtc = $articlePriceTtc;
+
+        return $this;
+    }
+
+    public function getTimeOperation(): ?string
+    {
+        return $this->timeOperation;
+    }
+
+    public function setTimeOperation(?string $timeOperation): static
+    {
+        $this->timeOperation = $timeOperation;
 
         return $this;
     }

@@ -61,3 +61,58 @@
     justify-content: space-between;
     padding-right: 30px;
 }
+
+.facture-header {
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+        background-color: red;
+    }
+}
+
+.facture-reference {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.customer-info {
+    border: 1px solid grey;
+    padding: 10px;
+
+}
+
+.facture-table {
+    width: 100%;
+    background-color: antiquewhite;
+}
+
+.facture-table-grid {
+
+
+    background-color: blueviolet;
+}
+
+.facture-total {
+    width: 150px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    float: right;
+    border: 1px solid gray;
+    border-radius: 15px;
+
+    .title {
+        text-align: right;
+
+    }
+
+    .value {
+        text-align: right;
+    }
+}

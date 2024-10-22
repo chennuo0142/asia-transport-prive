@@ -24,7 +24,8 @@
 {{ form_row(form.zipCode)}}
 {{ form_row(form.country)}}
 {{ form_row(form.dateOperation)}}
-{{ form_row(form.timeOperation)}}
+
+<input type="time" name="invoice[timeOperation]" id="invoice_timeOperation">
 
 <button id="switchTTC-js">Change</button>
 <span id="show-isTtc-js">Le tarif est en HT</span>
