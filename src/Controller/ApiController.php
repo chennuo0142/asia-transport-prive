@@ -57,7 +57,10 @@ class ApiController extends AbstractController
         // $time = new DateTime($invoice['timeOperation']);
 
         $slug = strtolower($sluggerInterface->slug("Facture-" . uniqid()));
-        $reference = strtoupper($sluggerInterface->slug($invoice->getCustomer()['firstName'] . uniqid()));
+        //creation de reference unique avec la date et un numeros hasard
+        $dateForReference = new DateTime();
+        $referenceId = $dateForReference->format('YmdHi');
+        $reference = strtoupper($sluggerInterface->slug('FR-' . $referenceId . '-' . rand(1, 9)));
 
 
         $invoice
