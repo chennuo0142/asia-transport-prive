@@ -1,54 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BankAccount{% endblock %}
+{% block title %}BankAccount
+{% endblock %}
 
 {% block body %}
-    <h1>BankAccount</h1>
+	<h1>BankAccount</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ bank_account.id }}</td>
-            </tr>
-            <tr>
-                <th>CodeBank</th>
-                <td>{{ bank_account.codeBank }}</td>
-            </tr>
-            <tr>
-                <th>Guichet</th>
-                <td>{{ bank_account.guichet }}</td>
-            </tr>
-            <tr>
-                <th>Account</th>
-                <td>{{ bank_account.account }}</td>
-            </tr>
-            <tr>
-                <th>Cle</th>
-                <td>{{ bank_account.cle }}</td>
-            </tr>
-            <tr>
-                <th>Devise</th>
-                <td>{{ bank_account.devise }}</td>
-            </tr>
-            <tr>
-                <th>Domiciliation</th>
-                <td>{{ bank_account.domiciliation }}</td>
-            </tr>
-            <tr>
-                <th>Iban</th>
-                <td>{{ bank_account.iban }}</td>
-            </tr>
-            <tr>
-                <th>Bic</th>
-                <td>{{ bank_account.bic }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ bank_account.id }}</td>
+			</tr>
+			<tr>
+				<th>CodeBank</th>
+				<td>{{ bank_account.codeBank }}</td>
+			</tr>
+			<tr>
+				<th>Guichet</th>
+				<td>{{ bank_account.guichet }}</td>
+			</tr>
+			<tr>
+				<th>Account</th>
+				<td>{{ bank_account.account }}</td>
+			</tr>
+			<tr>
+				<th>Cle</th>
+				<td>{{ bank_account.cle }}</td>
+			</tr>
+			<tr>
+				<th>Devise</th>
+				<td>{{ bank_account.devise }}</td>
+			</tr>
+			<tr>
+				<th>Domiciliation</th>
+				<td>{{ bank_account.domiciliation }}</td>
+			</tr>
+			<tr>
+				<th>Iban</th>
+				<td>{{ bank_account.iban }}</td>
+			</tr>
+			<tr>
+				<th>Bic</th>
+				<td>{{ bank_account.bic }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_bank_account_index') }}">back to list</a>
+	<a href="{{ path('app_bank_account_index') }}">back</a>
 
-    <a href="{{ path('app_bank_account_edit', {'id': bank_account.id}) }}">edit</a>
+	<a href="{{ path('app_bank_account_edit', {'id': bank_account.id}) }}">edit</a>
 
-    {{ include('bank_account/_delete_form.html.twig') }}
+	{{ include('bank_account/_delete_form.html.twig') }}
 {% endblock %}

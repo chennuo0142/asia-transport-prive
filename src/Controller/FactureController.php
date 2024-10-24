@@ -18,10 +18,14 @@ use Symfony\Component\Validator\Constraints\Date;
 class FactureController extends AbstractController
 {
     #[Route('/facture', name: 'app_facture_index')]
-    public function index(): Response
+    public function index(InvoiceRepository $invoiceRepository): Response
     {
+        $invoices = $invoiceRepository->findBy([
+            'user' => $this->getUser()
+        ]);
+        dump($invoices);
         return $this->render('facture/index.html.twig', [
-            'controller_name' => 'FactureController',
+            'invoices' => $invoices
         ]);
     }
 
@@ -99,26 +103,34 @@ class FactureController extends AbstractController
     #[Route('/facture/show/{slug}', name: 'app_facture_show')]
     public function show($slug, InvoiceRepository $invoiceRepository): Response
     {
-        $invoice = $invoiceRepository->findBy([
+        $invoice = $invoiceRepository->findOneBy([
             'slug' => $slug
         ]);
-        dd($invoice);
+
+        $setting = $this->getUser()->getSetting();
+
+        dump($setting);
+
         return $this->render('facture/show.html.twig', [
             'invoice' => $invoice,
+            'company' => $this->getUser()->getCompagny(),
+            'setting' => $this->getUser()->getSetting()
+
         ]);
     }
 
 
-    #[Route('/facture/{id}/show', name: 'app_facture_afficher')]
-    public function afficher(Invoice $invoice): Response
-    {
-        $company = $this->getUser()->getCompagny();
+    // #[Route('/facture/{id}/show', name: 'app_facture_afficher')]
+    // public function afficher(Invoice $invoice): Response
+    // {
+    //     $company = $this->getUser()->getCompagny();
 
-        dump($company);
-        dump($invoice);
-        return $this->render('facture/show.html.twig', [
-            'invoice' => $invoice,
-            'company' => $company
-        ]);
-    }
+    //     dump($company);
+    //     dump($invoice);
+    //     return $this->render('facture/show.html.twig', [
+    //         'invoice' => $invoice,
+    //         'company' => $company,
+    //         'setting' => $this->getUser()->getSetting()
+    //     ]);
+    // }
 }

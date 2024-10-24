@@ -22,10 +22,7 @@ class BankAccountType extends AbstractType
             ->add('domiciliation')
             ->add('iban')
             ->add('bic')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+
         ;
     }
 

@@ -119,7 +119,7 @@ async function postData() {
                 console.log('la redirectio0n avec id de la facture');
                 console.log(json)
 
-                window.location = `/gestion/facture/${json[0].id}/show`
+                window.location = `/gestion/facture/show/${json[0].slug}`
             }
         })
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SettingController!
+{% endblock %}
+
+{% block body %}
+	<h1>Setting</h1>
+	{{ form_start(form) }}
+	<div class="setting-facture-area">
+		<h5>Facture</h5>
+		<i>Affiche les information de votre rib sur la facture</i>
+		{{ form_row(form.showBank)}}
+
+		{{ form_row(form.showNoTvaText)}}
+		{{ form_row(form.noTvaText)}}
+		{{ form_row(form.showLatePaymentText)}}
+		{{ form_row(form.latePaymentText)}}
+		{{ form_row(form.showDateOperation)}}
+	</div>
+
+	<button class="btn">{{ button_label|default('Save') }}</button>
+	{{ form_end(form) }}
+
+{% endblock %}

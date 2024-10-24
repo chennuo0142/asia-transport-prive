@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use DateTimeImmutable;
 use App\Entity\Compagny;
+use App\Entity\Setting;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -96,6 +97,14 @@ class RegistrationController extends AbstractController
 
     public function data_init($user)
     {
+        $setting = new Setting();
+        $setting->setUser($user)
+            ->setShowBank(false)
+            ->setShowDateOperation(false)
+            ->setNoTvaText(false)
+            ->setShowLatePaymentText(false);
+        $this->entityManager->persist($setting);
+        $this->entityManager->flush();
 
         $compagny = new Compagny();
         $compagny->setStatus("SARL")

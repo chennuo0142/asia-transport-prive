@@ -35,8 +35,14 @@ class DriverController extends AbstractController
     }
 
     #[Route('/new', name: 'app_driver_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PictureService $pictureService, EntityManagerInterface $entityManager, SluggerInterface $sluggerInterface, CarRepository $carRepository, CompagnyRepository $compagnyRepository): Response
-    {
+    public function new(
+        Request $request,
+        PictureService $pictureService,
+        EntityManagerInterface $entityManager,
+        SluggerInterface $sluggerInterface,
+        CarRepository $carRepository,
+        CompagnyRepository $compagnyRepository
+    ): Response {
         $compagny = $compagnyRepository->findBy(['user' => $this->getUser()]);
 
         $cars = $carRepository->findBy(['user' => $this->getUser()]);

@@ -1,49 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}BankAccount index{% endblock %}
+{% block title %}BankAccount index
+{% endblock %}
 
 {% block body %}
-    <h1>BankAccount index</h1>
+	<h1>BankAccount index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CodeBank</th>
-                <th>Guichet</th>
-                <th>Account</th>
-                <th>Cle</th>
-                <th>Devise</th>
-                <th>Domiciliation</th>
-                <th>Iban</th>
-                <th>Bic</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for bank_account in bank_accounts %}
-            <tr>
-                <td>{{ bank_account.id }}</td>
-                <td>{{ bank_account.codeBank }}</td>
-                <td>{{ bank_account.guichet }}</td>
-                <td>{{ bank_account.account }}</td>
-                <td>{{ bank_account.cle }}</td>
-                <td>{{ bank_account.devise }}</td>
-                <td>{{ bank_account.domiciliation }}</td>
-                <td>{{ bank_account.iban }}</td>
-                <td>{{ bank_account.bic }}</td>
-                <td>
-                    <a href="{{ path('app_bank_account_show', {'id': bank_account.id}) }}">show</a>
-                    <a href="{{ path('app_bank_account_edit', {'id': bank_account.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>CodeBank</th>
+				<th>Guichet</th>
+				<th>Account</th>
+				<th>Cle</th>
+				<th>Devise</th>
+				<th>Domiciliation</th>
+				<th>Iban</th>
+				<th>Bic</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for bank_account in bank_accounts %}
+				<tr>
+					<td>{{ bank_account.id }}</td>
+					<td>{{ bank_account.codeBank }}</td>
+					<td>{{ bank_account.guichet }}</td>
+					<td>{{ bank_account.account }}</td>
+					<td>{{ bank_account.cle }}</td>
+					<td>{{ bank_account.devise }}</td>
+					<td>{{ bank_account.domiciliation }}</td>
+					<td>{{ bank_account.iban }}</td>
+					<td>{{ bank_account.bic }}</td>
+					<td>
+						<a href="{{ path('app_bank_account_show', {'id': bank_account.id}) }}">show</a>
+						<a href="{{ path('app_bank_account_edit', {'id': bank_account.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="10">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_bank_account_new') }}">Create new</a>
+	<a href="{{ path('app_bank_account_new') }}">Create new</a>
 {% endblock %}

@@ -15,4 +15,37 @@
 		</ul>
 
 	</nav>
+	<section class="facture-list">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Date</th>
+					<th scope="col">Nom client</th>
+
+					<th scope="col">Action</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				{% for facture in invoices %}
+
+
+					<tr>
+						<th scope="row">1</th>
+						<td>{{ facture.invoiceDate|date('d/m/Y') }}</td>
+						<td>{{ facture.customer.firstName }}</td>
+
+						<td>
+							<a href="{{ path('app_facture_show', {slug: facture.slug}) }}">Voir</a>
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+
+		</table>
+
+
+	</section>
 {% endblock %}

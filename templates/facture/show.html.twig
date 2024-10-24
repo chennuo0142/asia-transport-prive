@@ -87,20 +87,21 @@
 							<td>{{ article.total|number_format(2, '.', ',') }}</td>
 						</tr>
 					{% endfor %}
-
-					<tr class='facture-table-grid'>
-						<th scope="row">#</th>
-						<td>{{ invoice.dateOperation|date('d/m/Y') }}
-							{% if invoice.timeOperation %}
-								-
-								{{ invoice.timeOperation}}
-							{% endif %}
-						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+					{% if setting.showDateOperation %}
+						<tr class='facture-table-grid'>
+							<th scope="row">#</th>
+							<td>{{ invoice.dateOperation|date('d/m/Y') }}
+								{% if invoice.timeOperation %}
+									-
+									{{ invoice.timeOperation}}
+								{% endif %}
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endif %}
 				</tbody>
 				<tfoot>
 					<tr>
@@ -125,34 +126,38 @@
 				</tfoot>
 			</table>
 		</section>
-		<p class="text-show-tva">TVA non applicable selon l'article 293 B du Code Général des Impôts » en bas de la facture de l'entreprise non-assujettie. Total hors taxes de la transaction, à mentionner par la dénomination « Total net de TVA</p>
+		{% if setting.showNoTvaText %}
+			<p>{{  setting.noTvaText}}</p>
+		{% endif %}
+		{% if setting.showbank %}
+			<section class="bank-info">
+				<table class='bank-table'>
 
-		<section class="bank-info">
-			<table class='bank-table'>
+					<tr>
+						<th scope="row">RIB</th>
+						<td>FR123456789</td>
 
-				<tr>
-					<th scope="row">RIB</th>
-					<td>FR123456789</td>
+					</tr>
+					<tr>
+						<th scope="row">Code banque</th>
+						<td>2034</td>
 
-				</tr>
-				<tr>
-					<th scope="row">Code banque</th>
-					<td>2034</td>
+					</tr>
+					<tr>
+						<th scope="row">Adresse</th>
+						<td>56 Rue du general de gaulle</td>
 
-				</tr>
-				<tr>
-					<th scope="row">Adresse</th>
-					<td>56 Rue du general de gaulle</td>
+					</tr>
 
-				</tr>
+				</table>
 
-			</table>
+			</section>
+		{% endif %}
+		{% if setting.showLatePaymentText %}
 
-		</section>
-
-		<p>
-			Le taux des pénalités ne peut pas être inférieur à 14,76 %. Les pénalités de retard peuvent être appliquées sans avoir à faire un rappel de paiement. Une indemnité forfaitaire pour frais de recouvrement est également appliquée. Son montant est égal à 40 €
-		</p>
-
+			<p>
+				{{ setting.latePaymentText}}
+			</p>
+		{% endif %}
 	</div>
 {% endblock %}

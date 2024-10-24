@@ -68,6 +68,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?ProfileUser $profileUser = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: BankAccount::class)]
+    private Collection $bankAccounts;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Setting $setting = null;
 
     public function __construct()
     {
@@ -319,6 +324,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->profileUser = $profileUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BankAccount>
+     */
+    public function getBankAccounts(): Collection
+    {
+        return $this->bankAccounts;
+    }
+
+    public function addBankAccount(BankAccount $bankAccount): self
+    {
+        if (!$this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts->add($bankAccount);
+            $bankAccount->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccount(BankAccount $bankAccount): self
+    {
+        if ($this->bankAccounts->removeElement($bankAccount)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccount->getUser() === $this) {
+                $bankAccount->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSetting(): ?Setting
+    {
+        return $this->setting;
+    }
+
+    public function setSetting(?Setting $setting): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($setting === null && $this->setting !== null) {
+            $this->setting->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($setting !== null && $setting->getUser() !== $this) {
+            $setting->setUser($this);
+        }
+
+        $this->setting = $setting;
 
         return $this;
     }
