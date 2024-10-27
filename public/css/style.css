@@ -3099,6 +3099,10 @@ button:hover {
   padding-left: 10px;
 }
 
+.detail-info::before {
+  content: "-";
+}
+
 .invoice-wrapper {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -3159,11 +3163,6 @@ button:hover {
 
 .facture-table {
   width: 100%;
-  background-color: antiquewhite;
-}
-
-.facture-table-grid {
-  background-color: blueviolet;
 }
 
 .facture-total {

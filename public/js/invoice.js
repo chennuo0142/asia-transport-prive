@@ -245,7 +245,7 @@ function show_pannier() {
             <span>${pannier[i]['quantity']}</span>
             <span>${pannier[i]['tva']}</span>
             <span>${pannier[i]['totalOnTtc']}</span>
-            <span><button class="btn-del-js" data-index="${i}">X</button></span>
+            <span><button class="btn-del-article-js" data-index="${i}">X</button></span>
     
         </div> 
             `;

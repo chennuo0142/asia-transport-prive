@@ -79,8 +79,12 @@
 					{# number_format($number, 2, ',', ' ') #}
 					{% for article in invoice.product %}
 						<tr class='facture-table-grid'>
-							<th scope="row">1</th>
-							<td>{{ article.designation }}</td>
+							<th scope="row" class="invoice-article-index">1</th>
+							<td>{{ article.designation }}
+								{% if article.detail %}
+									<i class="detail-info">{{ article.detail|raw }}</i>
+								{% endif %}
+							</td>
 							<td>{{ article.price|number_format(2, '.', ',') }}</td>
 							<td>{{ article.tva|number_format(2, '.', ',') }}</td>
 							<td>{{ article.quantity|number_format(2, '.', ',') }}</td>

@@ -55,6 +55,10 @@
     padding-left: 10px;
 }
 
+.detail-info::before {
+    content: '-';
+}
+
 .invoice-wrapper {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -123,14 +127,10 @@
 
 .facture-table {
     width: 100%;
-    background-color: antiquewhite;
+
 }
 
-.facture-table-grid {
-
-
-    background-color: blueviolet;
-}
+.facture-table-grid {}
 
 .facture-total {
     width: 150px;
