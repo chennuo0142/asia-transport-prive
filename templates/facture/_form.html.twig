@@ -40,44 +40,39 @@
 
 </select>
 
-<table>
-	<tr>
-		<th>Description</th>
-		<th>Tarif</th>
-		<th>Quantity</th>
-		<th>Taux Tva</th>
-		<th></th>
+<div class="table-invoice-article-select">
+	<div class="table-invoice-header">
+		<span>Description</span>
+		<span>Tarif</span>
+		<span>Quantity</span>
+		<span>TVA</span>
+		<span></span>
+	</div>
+	<div class="table-invoice-body">
+		<span><input type="text" name="description" id="item-description"></span>
+		<span><input type="text" name="price" id="item-price"></span>
+		<span><input type="text" name="quantity" id="item-quantity"></span>
+		<span><input type="text" name="tva" id="item-tva"></span>
+		<span><input type="button" id="addButton" value="Add article"></span>
+	</div>
+	<div class="detail-article">
+		<textarea id="detail-article-js" name="detail-article" rows="5" placeholder="Detail de l'article(facultatif)"></textarea>
+	</div>
+</div>
 
-	</tr>
-	<tr>
-		<td><input type="text" name="description" id="item-description"></td>
-		<td><input type="text" name="price" id="item-price"></td>
-		<td><input type="text" name="quantity" id="item-quantity"></td>
-		<td><input type="text" name="tva" id="item-tva"></td>
-		<td>
-			<input type="button" id="addButton" value="Add article">
-		</td>
+<div class="invoice-table-js"></div>
 
-	</tr>
+<div class="pannier-wrapper">
+	<div class="pannier-show-header">
+		<span>index</span>
+		<span>Designation</span>
+		<span>Tarif</span>
+		<span>Quantity</span>
+		<span>Tva</span>
+		<span>TTC</span>
+	</div>
+	<div id='panier-container-js'></div>
 
-</table>
-<div class="pannier" id="panier">
-	<table>
-		<thead>
-			<tr>
-				<th>index</th>
-				<th>Designation</th>
-				<th>Price</th>
-				<th>Quantiy</th>
-				<th>Tva</th>
-				<th>TTC</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody id='panier-container-js'></tbody>
-		<tfoot></tfoot>
-
-	</table>
 	<div class="show_total" id="show_total">
 		<div class="total_container">
 			<table>
@@ -97,6 +92,7 @@
 		</div>
 
 	</div>
+
 </div>
 <input type="hidden" id="article-container" name="articles">
 <input type="submit" id="button-submit-js" value="Save">

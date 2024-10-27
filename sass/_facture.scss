@@ -20,6 +20,41 @@
     }
 }
 
+.table-invoice-header {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.table-invoice-body {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.pannier-show-header {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid grey;
+    font-weight: bold;
+}
+
+.pannier-show-body-js {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr 1fr 1fr 1fr 1fr;
+    padding-bottom: 10px;
+}
+
+.article-designation {
+    padding-right: 20px;
+
+}
+
+.detail-info {
+    display: block;
+    padding-left: 10px;
+}
+
 .invoice-wrapper {
     display: grid;
     grid-template-columns: 50% 50%;

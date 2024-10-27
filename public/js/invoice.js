@@ -73,6 +73,8 @@ async function getArticle(id) {
         document.getElementById("item-price").value = data.price
         document.getElementById("item-tva").value = data.tva
         document.getElementById("item-quantity").value = 1
+        //clear textArea
+        document.getElementById("detail-article-js").value = "";
         // set focus sur quantity
         document.getElementById("item-quantity").focus();
     })
@@ -183,7 +185,7 @@ customerSelected.addEventListener(
 
     }
 )
-
+//ajouter l'article dans pannier puis affichier
 addButton.addEventListener(
     'click', () => {
         //on recupere l'article 
@@ -191,6 +193,14 @@ addButton.addEventListener(
         const price = document.getElementById("item-price").value;
         const quantity = document.getElementById("item-quantity").value;
         const tva = document.getElementById("item-tva").value;
+        var detail = document.getElementById("detail-article-js").value;
+        //verification longueur detail article
+        if (detail.length > 300) {
+            alert("text trop long");
+            return false
+        }
+        //prendre en compte les sauts de ligne dans textarea
+        detail = detail.replace(/\r?\n/g, '<br />');
         //verification les entrees input
         if (checkInputItem(description, price, quantity, tva)) {
 
@@ -202,7 +212,8 @@ addButton.addEventListener(
                 // //total sur prix en ht
                 'total': (price * quantity) + (price * quantity / 100) * tva,
                 // //total sur prix en ttc, donc deduire la tva
-                'totalOnTtc': price * quantity
+                'totalOnTtc': price * quantity,
+                'detail': detail
             });
             console.log(pannier.length);
             console.log(pannier);
@@ -223,36 +234,38 @@ function show_pannier() {
     for (let i = 0; i < pannier.length; i++) {
         if (priceIsTtc) {
             //affichage si price est ttc
-            pannier_html += `
-            <tr class="pannier-item">
-                        <td>${i}</td>
-                        <td>${pannier[i]['designation']}</td>
-                        <td>${pannier[i]['price']}</td>
-                        <td>${pannier[i]['quantity']}</td>
-                        <td>${pannier[i]['tva']}</td>
-                        <td>${pannier[i]['totalOnTtc']}</td>
-                        <td>
-                            <button class="btn-del-js" data-index="${i}">X</button>
-                        </td>
-                </tr >
+            pannier_html +=
+                `
+        <div class="pannier-show-body-js">
+            <span>${i + 1}</span>
+            <span class="article-designation">${pannier[i]['designation']}
+             <i class="detail-info">${pannier[i]['detail']}</i>
+            </span>
+            <span>${pannier[i]['price']}</span>
+            <span>${pannier[i]['quantity']}</span>
+            <span>${pannier[i]['tva']}</span>
+            <span>${pannier[i]['totalOnTtc']}</span>
+            <span><button class="btn-del-js" data-index="${i}">X</button></span>
+    
+        </div> 
             `;
         } else {
-            pannier_html += `
-            <tr class="pannier-item">
-                        <td>${i}</td>
-                        <td>${pannier[i]['designation']}</td>
-                        <td>${pannier[i]['price']}</td>
-                        <td>${pannier[i]['quantity']}</td>
-                        <td>${pannier[i]['tva']}</td>
-                        <td>${pannier[i]['total']}</td>
-                        <td>
-                            <button class="btn-del-js" data-index="${i}">X</button>
-                        </td>
-                </tr >
-            `;
+            pannier_html +=
+                `
+        <div class="pannier-show-body-js">
+            <span>${i + 1}</span>
+            <span class="article-designation">${pannier[i]['designation']}
+            <i class="detail-info">${pannier[i]['detail']}</i>
+            </span>
+            <span>${pannier[i]['price']}</span>
+            <span>${pannier[i]['quantity']}</span>
+            <span>${pannier[i]['tva']}</span>
+            <span>${pannier[i]['total']}</span>
+            <span><button class="btn-del-js" data-index="${i}">X</button></span>
+    
+        </div>
+     `;
         }
-
-
     }
 
     pannier_container.innerHTML = pannier_html;
