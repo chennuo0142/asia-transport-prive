@@ -67,12 +67,13 @@ class BankAccountController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_bank_account_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, BankAccount $bankAccount, EntityManagerInterface $entityManager): Response
+    #[Route('/{slug}/edit', name: 'app_bank_account_edit', methods: ['GET', 'POST'])]
+    public function edit($slug, Request $request, BankAccountRepository $bankAccountRepository, EntityManagerInterface $entityManager): Response
     {
         //fuseau horaire europe paris
         date_default_timezone_set('Europe/Paris');
 
+        $bankAccount = $bankAccountRepository->findOneBy(['slug' => $slug]);
         $form = $this->createForm(BankAccountType::class, $bankAccount);
         $form->handleRequest($request);
 

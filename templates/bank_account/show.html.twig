@@ -5,7 +5,10 @@
 
 {% block body %}
 	<h1>BankAccount</h1>
-
+	{% if bank_account.updateAt %}
+		<span>Derniere modification:
+			{{ bank_account.updateAt|date('d/m/Y') }}</span>
+	{% endif %}
 	<table class="table">
 		<tbody>
 			<tr>
@@ -49,7 +52,7 @@
 
 	<a href="{{ path('app_bank_account_index') }}">back</a>
 
-	<a href="{{ path('app_bank_account_edit', {'id': bank_account.id}) }}">edit</a>
+	<a href="{{ path('app_bank_account_edit', {'slug': bank_account.slug}) }}">edit</a>
 
 	{{ include('bank_account/_delete_form.html.twig') }}
 {% endblock %}

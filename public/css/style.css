@@ -3094,6 +3094,15 @@ button:hover {
   padding-right: 20px;
 }
 
+.invoice-article-index {
+  display: flex;
+  align-items: baseline;
+}
+
+.invoice-show-align-right {
+  text-align: end;
+}
+
 .detail-info {
   display: block;
   padding-left: 10px;
@@ -3111,6 +3120,16 @@ button:hover {
   border-radius: 10px;
 }
 
+.bank-info {
+  width: 300px;
+  font-size: 0.8em;
+  border: 1px solid gray;
+  padding: 5px;
+}
+.bank-info span {
+  font-weight: bold;
+}
+
 .panier tr {
   width: 100%;
   display: grid;
@@ -3125,6 +3144,11 @@ button:hover {
 
 .total_value {
   float: right;
+}
+
+.invoice-footer {
+  border-top: 1px solid gray;
+  padding-top: 10px;
 }
 
 .facture-container {

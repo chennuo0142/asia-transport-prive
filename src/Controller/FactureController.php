@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Compagny;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
+use App\Repository\BankAccountRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -101,36 +102,29 @@ class FactureController extends AbstractController
     }
 
     #[Route('/facture/show/{slug}', name: 'app_facture_show')]
-    public function show($slug, InvoiceRepository $invoiceRepository): Response
+    public function show($slug, InvoiceRepository $invoiceRepository, BankAccountRepository $bankAccountRepository): Response
     {
+        $user = $this->getUser();
         $invoice = $invoiceRepository->findOneBy([
             'slug' => $slug
         ]);
-
-        $setting = $this->getUser()->getSetting();
+        $bankAccount = $bankAccountRepository->findOneBy(['user' => $user]);
+        if ($bankAccount == null) {
+            return false;
+        }
+        dump($bankAccount);
+        dump($invoice);
+        $setting = $user->getSetting();
 
         dump($setting);
 
+
         return $this->render('facture/show.html.twig', [
             'invoice' => $invoice,
-            'company' => $this->getUser()->getCompagny(),
-            'setting' => $this->getUser()->getSetting()
+            'company' => $user->getCompagny(),
+            'setting' => $user->getSetting(),
+            'bankAccount' => $bankAccount
 
         ]);
     }
-
-
-    // #[Route('/facture/{id}/show', name: 'app_facture_afficher')]
-    // public function afficher(Invoice $invoice): Response
-    // {
-    //     $company = $this->getUser()->getCompagny();
-
-    //     dump($company);
-    //     dump($invoice);
-    //     return $this->render('facture/show.html.twig', [
-    //         'invoice' => $invoice,
-    //         'company' => $company,
-    //         'setting' => $this->getUser()->getSetting()
-    //     ]);
-    // }
 }
