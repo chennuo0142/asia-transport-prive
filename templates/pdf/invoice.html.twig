@@ -1,12 +1,434 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 	<head>
 		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<style>
+			body {
+				font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+			}
+			.align-right {
+				text-align: right;
+			}
+
+			.texte-center {
+				width: 100%;
+				text-align: center;
+
+			}
+
+			.no-tva {
+				position: fixed;
+				width: 18cm;
+				bottom: 1.5cm;
+
+			}
+
+			.companie-name {
+				font-size: 1.2rem;
+				font-weight: bold;
+			}
+
+			.facture-pos {
+				text-align: right;
+				font-weight: bold;
+				font-size: 1.5rem;
+				font-family: Verdana, Geneva, Tahoma, sans-serif;
+			}
+
+			.info-client {
+				float: right;
+				width: 40%;
+				border: 0.5px solid gray;
+				border-radius: 5px;
+				padding: 2mm;
+				margin-top: 5mm;
+
+			}
+
+			.company-pos {
+				float: left;
+				top: 0;
+			}
+
+			.reference-wrapper {
+				margin-top: 6cm;
+				width: 100%;
+
+			}
+
+			.reference {
+				float: right;
+				text-align: right;
+			}
+
+			footer {
+				width: 18cm;
+				position: fixed;
+				bottom: 0.5cm;
+				text-align: center;
+				border-top: gray 2px solid;
+			}
+
+			.tab-facture {
+				margin-top: 4mm;
+				width: 100%;
+
+			}
+
+			table {
+				width: 100%;
+			}
+			tbody {
+
+				border-top: 2px solid red;
+
+			}
+
+			th {
+
+				text-align: left;
+				border-bottom: 1px solid gray;
+
+			}
+			.price_unite {
+				text-align: right;
+			}
+
+			.designation {
+				width: 50%;
+			}
+
+			.quantite {
+				text-align: center;
+			}
+
+			.total_ht {
+				text-align: right;
+			}
+
+			.total-wrapper {
+				margin-top: 1cm;
+				width: 100%;
+				text-align: right;
+
+
+			}
+
+			.total-cadre {
+				float: right;
+				width: 30%;
+				border: 1px solid;
+				border-radius: 5px;
+				margin-top: 2mm;
+				padding: 2mm;
+			}
+
+			.text {
+				float: left;
+				width: 50%;
+				text-align: right;
+			}
+
+			.prix {
+				padding-right: 2mm;
+			}
+
+			.rib {
+				position: fixed;
+				bottom: 3cm;
+				font-size: 0.8rem;
+			}
+
+			.rib-cadre {
+
+
+				border: 1px solid gray;
+				width: 17.5cm;
+				padding: 5mm;
+
+				border-radius: 5px;
+			}
+
+			.zone-top {
+				position: relative;
+
+			}
+
+
+			.zone-top-left {
+				display: inline-block;
+				width: 10cm;
+				margin-bottom: 0.5cm;
+			}
+
+			.zone-top-right {
+				width: 8cm;
+				right: 1cm;
+				display: inline-block;
+				position: fixed;
+				text-align: center;
+			}
+
+			.zone-bottom-left {
+				width: auto;
+				display: inline-block;
+
+			}
+
+			.zone-bottom-right {
+				width: 8cm;
+				right: 1cm;
+				display: inline-block;
+				position: fixed;
+				float: right;
+				text-align: center;
+			}
+
+			.tvaText {
+				position: fixed;
+				bottom: 2cm;
+				width: 100%;
+				text-align: center;
+			}
+		</style>
+		<title>Pdf Template</title>
 	</head>
+
 	<body>
-		<h1>Facture</h1>
+
+		<div class="company-pos">
+
+			<span class="companie-name">
+				{{ invoice.company.name}}</span>
+			<div>{{ invoice.company.adress}}</div>
+			<div>{{ invoice.company.city}}
+				{{ invoice.company.zipCode}}</div>
+			<div>{{ invoice.company.country}}</div>
+			<div>{{ invoice.company.tvaId}}</div>
+			<div>{{ invoice.company.email}}</div>
+			<div>{{ invoice.company.telephone}}</div>
+
+		</div>
+		<div class="facture-pos">
+			<span>FACTURE</span>
+		</div>
+
+		<div class="info-client">
+			Client:
+			<br>
+			<strong>
+				{{ invoice.customer.lastName}}
+				{{ invoice.customer.firstName}}</strong>
+			<br>
+			<strong>{{ invoice.customer.company}}</strong>
+			<div>{{ invoice.customer.adress}}</div>
+			<div>{{ invoice.customer.city}}
+				{{ invoice.customer.zipCode}}</div>
+			<div>{{ invoice.customer.country}}</div>
+
+
+		</div>
+
+		<section class="reference-wrapper">
+			<span class="date">{{ invoice.company.city}}
+				le
+				{{ invoice.invoiceDate|date('d/m/Y')}}</span>
+			<span class="reference">Ref:
+				{{ invoice.ref}}</span>
+		</section>
+
+		<section class="tab-facture">
+			<table>
+				<thead>
+
+					<tr class="tr-thead">
+						<th class="designation">Description</th>
+						<th class="align-right">Tarif</th>
+
+						<th class="align-right">TVA</th>
+
+
+						<th class="align-right">Quantité</th>
+						{% if invoice.articlePriceTtc %}
+							<th class="align-right">Total TTC</th>
+						{% else %}
+							<th class="align-right">Total HT</th>
+						{% endif %}
+
+
+					</tr>
+
+				</thead>
+				<tbody>
+
+
+					{% for article in invoice.product %}
+						<tr>
+
+							<td class="decription_produit">{{ article.designation}}</td>
+
+							<!-- prix U -->
+							<td class="price_unite">{{ article.price|number_format(2, '.', ',')}}€</td>
+
+							<td class="tva align-right">{{ article.tva}}%</td>
+
+
+							<td class="quantite">{{ article.quantity}}</td>
+							{% if invoice.articlePriceTtc %}
+								<td class="total_ht">{{ article.totalOnTtc|number_format(2, '.', ',')}}€</td>
+							{% else %}
+								<td class="total_ht">{{ article.total|number_format(2, '.', ',')}}€</td>
+							{% endif %}
+
+
+						</tr>
+					{% endfor %}
+
+
+				</tbody>
+
+
+			</table>
+
+			<div class="total-wrapper">
+				<div class="total-cadre">
+
+					{% if invoice.articlePriceTtc %}
+						<div class="totalTva">
+							<span class="text">Total HT:</span>
+							<span class="prix">{{ invoice.total.htOnTtc|number_format(2, '.', ',')}}€</span>
+						</div>
+						<div class="totalTva">
+							<span class="text">Total TVA:</span>
+							<span class="prix">{{ invoice.total.tvaOnTtc|number_format(2, '.', ',')}}€</span>
+						</div>
+
+
+						<div class="totalTtc">
+							<span class="text">Total TTC:</span>
+							<span class="prix">{{ invoice.total.totalOnTtc|number_format(2, '.', ',')}}€</span>
+						</div>
+					{% else %}
+						<div class="totalTva">
+							<span class="text">Total HT:</span>
+							<span class="prix">{{ invoice.total.total_ht|number_format(2, '.', ',')}}€</span>
+						</div>
+						<div class="totalTva">
+							<span class="text">Total TVA:</span>
+							<span class="prix">{{ invoice.total.total_tva|number_format(2, '.', ',')}}€</span>
+						</div>
+
+
+						<div class="totalTtc">
+							<span class="text">Total TTC:</span>
+							<span class="prix">{{ invoice.total.total_ttc|number_format(2, '.', ',')}}€</span>
+						</div>
+					{% endif %}
+
+
+				</div>
+			</div>
+
+		</section>
+
+
+		{% if setting.showBank %}
+
+			<section class="rib">
+				<div class="rib-cadre">
+					<div class="zone-top">
+						<div class="zone-top-left">
+							<span>Identifiant national de compte bancaire - RIB</span>
+							<table>
+								<thead>
+									<tr>
+										<th>Banque</th>
+										<th>Guichet</th>
+										<th>Compte</th>
+										<th>Cle</th>
+										<th>Devise</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<strong>
+												{{ bankAccount.codeBank }}
+											</strong>
+										</td>
+										<td>
+											<strong>{{ bankAccount.guichet }}
+											</strong>
+										</td>
+										<td>
+											<strong>{{ bankAccount.account }}
+											</strong>
+										</td>
+										<td>
+											<strong>
+												{{ bankAccount.cle }}</strong>
+										</td>
+										<td>
+											<strong>
+												{{ bankAccount.devise }}</strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="zone-top-right">
+							<span>Domiciliation:
+							</span>
+							<span>
+								<strong>{{ bankAccount.domiciliation }}</strong>
+							</span>
+						</div>
+
+					</div>
+					<div class="zone-bottom">
+						<div class="zone-bottom-left">
+							<span>IBAN:
+							</span>
+							<span>
+								<strong>{{ bankAccount.iban }}</strong>
+							</span>
+						</div>
+						<div class="zone-bottom-right">
+							<span>BIC(Bank Identification Code):<strong>{{ bankAccount.bic }}</strong>
+							</span>
+							<span></span>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
+
+		{% endif %}
+
+
+		<!-- si tva non applicable -->
+
+		{% if setting.showNoTvaText %}
+
+			<div class="tvaText">
+				{{ setting.noTvaText }}
+			</div>
+		{% endif %}
+
+
+		<footer>
+			<span class="center">{{ company.name }}
+				/
+																																																																																																																																																																																																																																																																																																																																																																																																																																																            Siret:
+				{{ invoice.company.siret }}
+			</span>
+		</footer>
 
 	</body>
+
 </html>

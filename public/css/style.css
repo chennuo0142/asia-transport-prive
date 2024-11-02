@@ -2794,6 +2794,7 @@ html {
 
 .container {
   margin-bottom: 6em;
+  max-width: 80%;
 }
 
 .container-fluid {
@@ -3069,6 +3070,7 @@ button:hover {
   display: grid;
   grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
   gap: 10px;
+  background-color: rgb(192, 187, 187);
 }
 
 .table-invoice-body {

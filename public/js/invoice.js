@@ -90,8 +90,6 @@ async function postData() {
     await fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-            user: 1,
-            company: { company: "Asia transport prive" },
             customer: {
                 lastName: formData.lastName,
                 firstName: formData.firstName,

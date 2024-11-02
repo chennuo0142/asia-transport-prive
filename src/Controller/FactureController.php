@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Compagny;
 use App\Entity\Invoice;
+use App\Entity\Compagny;
 use App\Form\InvoiceType;
-use App\Repository\BankAccountRepository;
+use App\Service\MakePdfService;
+use Symfony\Component\Mime\Email;
 use App\Repository\InvoiceRepository;
-use App\Repository\ReservationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\BankAccountRepository;
+use App\Repository\ReservationRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/gestion')]
 class FactureController extends AbstractController
@@ -55,7 +58,7 @@ class FactureController extends AbstractController
     }
 
     #[Route('/facture/new', name: 'app_facture_new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $invoice = new Invoice();
         $user = $this->getUser();
@@ -90,6 +93,7 @@ class FactureController extends AbstractController
 
             return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->render('facture/new.html.twig', [
             'form' => $form,
@@ -126,5 +130,24 @@ class FactureController extends AbstractController
             'bankAccount' => $bankAccount
 
         ]);
+    }
+
+    #[Route('/facture/pdf/{slug}', name: 'app_facture_pdf')]
+    public function pdf($slug, InvoiceRepository $invoiceRepository, BankAccountRepository $bankAccountRepository, MakePdfService $makePdfService)
+    {
+        $user = $this->getUser();
+        $invoice = $invoiceRepository->findOneBy([
+            'slug' => $slug
+        ]);
+        $bankAccount = $bankAccountRepository->findOneBy(['user' => $user]);
+        if ($bankAccount == null) {
+            return false;
+        }
+        dump($bankAccount);
+        dump($invoice);
+        $setting = $user->getSetting();
+
+        dump($setting);
+        $makePdfService->makeFacturePdf($invoice, $user, $bankAccount);
     }
 }

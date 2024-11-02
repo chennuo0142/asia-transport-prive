@@ -24,6 +24,7 @@
     display: grid;
     grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
     gap: 10px;
+    background-color: rgb(192, 187, 187);
 }
 
 .table-invoice-body {
@@ -157,8 +158,6 @@
     width: 100%;
 
 }
-
-.facture-table-grid {}
 
 .facture-total {
     width: 150px;

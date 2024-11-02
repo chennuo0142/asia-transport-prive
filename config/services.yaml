@@ -7,6 +7,7 @@ parameters:
     images_directory: '%kernel.project_dir%/public/images/uploads/'
     thumb_images_directory: '%kernel.project_dir%/public/media/cache/my_thumb_filter/images/uploads/'
     fixed_images_directory: '%kernel.project_dir%/public/media/cache/my_fixed_filter/images/uploads/'
+    pdf_directory: '%kernel.project_dir%/public/tempsEmailPdf'
     
 services:
     # default configuration for services in *this* file

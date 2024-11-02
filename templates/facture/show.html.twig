@@ -58,6 +58,11 @@
 					{{ company.city }}, le
 					{{ invoice.invoiceDate|date('d/m/Y') }}
 				</div>
+				<div class="pdf-button">
+					<a href="{{ path('app_facture_pdf', {slug:invoice.slug}) }}">
+						<button>PDF</button>
+					</a>
+				</div>
 				<div>Ref:
 					{{ invoice.ref }}</div>
 			</section>
@@ -65,9 +70,9 @@
 		<body>
 			<section class="facture-content">
 
-				<table class="facture-table">
+				<table class="facture-table" role="grid">
 					<thead>
-						<tr class='facture-table-grid'>
+						<tr class='facture-table-grid '>
 							<th scope="col">#</th>
 							<th scope="col">Designation</th>
 							<th scope="col" class="invoice-show-align-right">price</th>

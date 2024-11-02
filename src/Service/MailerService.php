@@ -21,6 +21,7 @@ class MailerService
         string $template,
         array $context
     ) {
+
         $email = (new TemplatedEmail())
             ->from($this->from)
             ->to($to)

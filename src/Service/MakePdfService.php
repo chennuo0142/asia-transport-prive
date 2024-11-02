@@ -2,12 +2,18 @@
 
 namespace App\Service;
 
+use Exception;
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\File;
 use App\Repository\ReservationRepository;
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class MakePdfService extends AbstractController
 {
@@ -84,14 +90,9 @@ class MakePdfService extends AbstractController
     {
 
         if ($invoice) {
+            $uniqId = md5(uniqid()) . '.pdf';
+            $fileName = $this->getParameter('pdf_directory') . "/FACTURE-" . date_format($invoice->getCreatAt(), "d-m-Y") . "-" . $uniqId;
 
-            // ob_start();
-
-            // require_once '../templates/make_pdf/pdf_facture.html.php';
-
-            // $html = ob_get_contents();
-
-            // ob_end_clean();
             $html = $this->render('pdf/invoice.html.twig', [
                 'invoice' => $invoice,
                 'company' => $user->getCompagny(),
@@ -99,9 +100,11 @@ class MakePdfService extends AbstractController
                 'bankAccount' => $bankAccount
 
             ]);
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
 
             // instantiate and use the dompdf class
-            $dompdf = new Dompdf();
+            $dompdf = new Dompdf($options);
 
             $dompdf->loadHtml($html);
 
@@ -112,26 +115,33 @@ class MakePdfService extends AbstractController
             $dompdf->render();
 
             // on envoi par mail le pdf
-            $output = $dompdf->output();
+            $pdf = $dompdf->output();
 
-            //on enregistre le fichier sur le serveur
-            file_put_contents($fileName, $output);
 
-            // $email = (new Email())
-            //     ->from('booking@paris-prestige-transfert.fr')
-            //     ->to($userEmail)
-            //     ->attachFromPath($fileName)
-            //     ->subject('Facture')
-            //     ->text('Sending emails is fun again!')
-            //     ->html('<p>Voici la facture que vous avez demander</p>');
+            //on enregistre le fichier sur le serveur,fileName:path
+            file_put_contents($fileName, $pdf);
 
-            // $this->mailer->send($email);
-            // //on supprime le fichier du serveur
+            $email = (new TemplatedEmail())
+                ->from('hello@example.com')
+                ->to('you@example.com')
+                //add file
+                ->addPart(new DataPart(new File($fileName)))
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('Time for Symfony Mailer!')
+                ->text('Sending emails is fun again!')
+                ->html('<p>See Twig integration for better HTML integration!</p>');
+
+            //on envoi email
+            $this->mailer->send($email);
+            //on del pdf, ne fonctionne pas en async
             // unlink($fileName);
 
 
             // Output the generated PDF to Browser with document name("RESERVATION-01-12-1979")
-            $dompdf->stream("FACTURE-" . $client->getName() . "-" . date_format($reservation->getCreatAt(), "d-m-Y"));
+            $dompdf->stream("FACTURE-" . 'test' . "-" . date_format($invoice->getCreatAt(), "d-m-Y"));
         }
     }
 

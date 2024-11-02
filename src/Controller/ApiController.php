@@ -49,8 +49,25 @@ class ApiController extends AbstractController
 
         $user = $this->getUser();
         //1 user id
+        $userId = $user->getId();
         //2 bank infos
-        //3 numeros de tva
+        //3 company info
+        $companyInfo = $user->getCompagny();
+        $company = array(
+            'name' => $companyInfo->getName(),
+            'adress' => $companyInfo->getAdress(),
+            'city' => $companyInfo->getCity(),
+            'zipCode' => $companyInfo->getZipCode(),
+            'country' => $companyInfo->getCountry(),
+            'siret' => $companyInfo->getCompagnyId(),
+            'tvaId' => $companyInfo->getTvaId(),
+            'email' => $companyInfo->getEmail(),
+            'telephone' => $companyInfo->getTelephone(),
+
+
+        );
+
+
         $jsonRecu = $request->getContent();
         $invoice = $serializer->deserialize($jsonRecu, Invoice::class, 'json');
         //dd($invoice);
@@ -64,9 +81,11 @@ class ApiController extends AbstractController
 
 
         $invoice
+            ->setUser($userId)
             ->setSlug($slug)
             ->setRef($reference)
             ->setCreatAt(new \DateTimeImmutable())
+            ->setCompany($company)
             ->setShowTvaText(true);
 
         $entityManager->persist($invoice);

@@ -91,7 +91,7 @@ export function articleToJson(pannier) {
 
 export function calculatorTotal(pannier, priceIsTtc) {
     //initialise array total
-    let total = { total: 0, total_ht: 0, total_ttc: 0, total_tva: 0, totalOnTtc: 0, htOneTtc: 0, tvaOnTtc: 0 }
+    let total = { total: 0, total_ht: 0, total_ttc: 0, total_tva: 0, totalOnTtc: 0, htOnTtc: 0, tvaOnTtc: 0 }
 
     //on parcour le pannier
     for (let i = 0; i < pannier.length; i++) {
@@ -117,7 +117,7 @@ export function calculatorTotal(pannier, priceIsTtc) {
         total.total_ttc += ttc;
 
         total.totalOnTtc += total_sur_tarif_ttc;
-        total.htOneTtc += total_ht_sur_tarif_ttc;
+        total.htOnTtc += total_ht_sur_tarif_ttc;
         total.tvaOnTtc += total_tva_sur_tarif_ttc;
 
     }
@@ -125,7 +125,7 @@ export function calculatorTotal(pannier, priceIsTtc) {
     //maj show total container
     // .toFixed() permet de arrondir le nombre a deux chiffre apres le virgule
     if (priceIsTtc) {
-        document.getElementById("total-ht-js").innerHTML = total.htOneTtc.toFixed(2);
+        document.getElementById("total-ht-js").innerHTML = total.htOnTtc.toFixed(2);
         document.getElementById("total-tva-js").innerHTML = total.tvaOnTtc.toFixed(2);
         document.getElementById("total-ttc-js").innerHTML = total.totalOnTtc.toFixed(2);
     } else {
