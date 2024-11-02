@@ -91,10 +91,16 @@
 										<i class="detail-info">{{ article.detail|raw }}</i>
 									{% endif %}
 								</td>
-								<td class="invoice-show-align-right">{{ article.price|number_format(2, '.', ',') }}</td>
-								<td class="invoice-show-align-right">{{ article.tva|number_format(2, '.', ',') }}</td>
+								<td class="invoice-show-align-right article-price">{{ article.price|number_format(2, '.', ',') }}</td>
+								<td class="invoice-show-align-right article-price">{{ article.tva|number_format(2, '.', ',') }}</td>
 								<td class="invoice-show-align-right">{{ article.quantity|number_format(2, '.', ',') }}</td>
-								<td class="invoice-show-align-right">{{ article.total|number_format(2, '.', ',') }}</td>
+								{% if invoice.articlePriceTtc %}
+									<td class="invoice-show-align-right article-price">{{ article.totalOnTtc|number_format(2, '.', ',') }}</td>
+								{% else %}
+									<td class="invoice-show-align-right article-price">{{ article.total|number_format(2, '.', ',') }}</td>
+								{% endif %}
+
+
 							</tr>
 						{% endfor %}
 						{% if setting.showDateOperation %}
@@ -121,65 +127,66 @@
 							<td></td>
 							<td></td>
 							<td scope="col" class="total-zone">
-								<div class="facture-total">
-									<span class="title">HT:</span>
-									<span class="value">{{ invoice.total.total_ht|number_format(2, '.', ',') }}</span>
-									<span class="title">TVA:</span>
-									<span class="value">{{ invoice.total.total_tva|number_format(2, '.', ',') }}</span>
-									<span class="title">TTC:</span>
-									<span class="value">{{ invoice.total.total_ttc|number_format(2, '.', ',') }}</span>
-								</div>
+								{% if invoice.articlePriceTtc %}
+									<div class="facture-total">
+										<span class="title-total">HT:</span>
+										<span class="value-total">{{ invoice.total.htOnTtc|number_format(2, '.', ',') }}</span>
+										<span class="title-total">TVA:</span>
+										<span class="value-total">{{ invoice.total.tvaOnTtc|number_format(2, '.', ',') }}</span>
+										<span class="title-total">TTC:</span>
+										<span class="value-total">{{ invoice.total.totalOnTtc|number_format(2, '.', ',') }}</span>
+									</div>
+								{% else %}
+									<div class="facture-total">
+										<span class="title-total">HT:</span>
+										<span class="value-total">{{ invoice.total.total_ht|number_format(2, '.', ',') }}</span>
+										<span class="title-total">TVA:</span>
+										<span class="value-total">{{ invoice.total.total_tva|number_format(2, '.', ',') }}</span>
+										<span class="title-total">TTC:</span>
+										<span class="value-total">{{ invoice.total.total_ttc|number_format(2, '.', ',') }}</span>
+									</div>
+								{% endif %}
 							</td>
-
 						</tr>
-
 					</tfoot>
-				</table>
-			</section>
-
-			{% if setting.showbank %}
-				<section class="bank-info">
-					<h6>RIB</h6>
-					<div class="bank-info-zone-left">
-						Banque:<span class="bank-value">{{ bankAccount.codeBank }}</span>
-						<br>
-						Guichet:
-						<span class="bank-value">{{ bankAccount.guichet }}</span>
-						<br>
-						Compte:
-						<span class="bank-value">{{ bankAccount.account }}</span>
-						<br>
-						Cle:
-						<span class="bank-value">{{ bankAccount.cle }}</span>
-					</div>
-					<div class="bank-info-zone-right">Devise:
-						<span class="bank-value">{{ bankAccount.devise }}</span>
-						<br>
-						Domiciliation:
-						<span class="bank-value">{{ bankAccount.domiciliation }}</span>
-						<br>
-						Iban:
-						<span class="bank-value">{{ bankAccount.iban }}</span>
-						<br>
-						Bic:
-						<span class="bank-value">{{ bankAccount.bic }}</span>
-					</div>
-
-
-				</section>
-				{% if setting.showNoTvaText %}
-					<p>{{  setting.noTvaText}}</p>
-				{% endif %}
-			{% endif %}
+				</td>
+			</tr>
 		</body>
-		<div class="invoice-footer">
-			{% if setting.showLatePaymentText %}
-
-				<p>
-					{{ setting.latePaymentText}}
-				</p>
-			{% endif %}
-		</div>
-
+	</tfoot>
+</table></section>{% if setting.showbank %}
+<section class="bank-info">
+	<h6>RIB</h6>
+	<div class="bank-info-zone-left">
+		Banque:<span class="bank-value">{{ bankAccount.codeBank }}</span>
+		<br>
+		Guichet:
+		<span class="bank-value">{{ bankAccount.guichet }}</span>
+		<br>
+		Compte:
+		<span class="bank-value">{{ bankAccount.account }}</span>
+		<br>
+		Cle:
+		<span class="bank-value">{{ bankAccount.cle }}</span>
 	</div>
-{% endblock %}
+	<div class="bank-info-zone-right">Devise:
+		<span class="bank-value">{{ bankAccount.devise }}</span>
+		<br>
+		Domiciliation:
+		<span class="bank-value">{{ bankAccount.domiciliation }}</span>
+		<br>
+		Iban:
+		<span class="bank-value">{{ bankAccount.iban }}</span>
+		<br>
+		Bic:
+		<span class="bank-value">{{ bankAccount.bic }}</span>
+	</div>
+
+
+</section>
+{% if setting.showNoTvaText %}
+	<p>{{  setting.noTvaText}}</p>
+{% endif %}{% endif %}</body><div class="invoice-footer">{% if setting.showLatePaymentText %}
+
+<p>
+	{{ setting.latePaymentText}}
+</p>{% endif %}</div></div>{% endblock %}
