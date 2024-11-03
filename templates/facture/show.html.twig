@@ -67,126 +67,133 @@
 					{{ invoice.ref }}</div>
 			</section>
 		</header>
-		<body>
-			<section class="facture-content">
 
-				<table class="facture-table" role="grid">
-					<thead>
-						<tr class='facture-table-grid '>
-							<th scope="col">#</th>
-							<th scope="col">Designation</th>
-							<th scope="col" class="invoice-show-align-right">price</th>
-							<th scope="col" class="invoice-show-align-right">Taux Tva</th>
-							<th scope="col" class="invoice-show-align-right">Quantity</th>
-							<th scope="col" class="invoice-show-align-right">Total</th>
-						</tr>
-					</thead>
-					<tbody>
-						{# number_format($number, 2, ',', ' ') #}
-						{% for index, article in invoice.product %}
-							<tr class='facture-table-grid'>
-								<th scope="row" class="invoice-article-index">{{ index + 1}}</th>
-								<td>{{ article.designation }}
-									{% if article.detail %}
-										<i class="detail-info">{{ article.detail|raw }}</i>
-									{% endif %}
-								</td>
-								<td class="invoice-show-align-right article-price">{{ article.price|number_format(2, '.', ',') }}</td>
-								<td class="invoice-show-align-right article-price">{{ article.tva|number_format(2, '.', ',') }}</td>
-								<td class="invoice-show-align-right">{{ article.quantity|number_format(2, '.', ',') }}</td>
-								{% if invoice.articlePriceTtc %}
-									<td class="invoice-show-align-right article-price">{{ article.totalOnTtc|number_format(2, '.', ',') }}</td>
-								{% else %}
-									<td class="invoice-show-align-right article-price">{{ article.total|number_format(2, '.', ',') }}</td>
-								{% endif %}
+		<section class="facture-content">
 
-
-							</tr>
-						{% endfor %}
-						{% if setting.showDateOperation %}
-							<tr class='facture-table-grid'>
-								<th scope="row">#</th>
-								<td>{{ invoice.dateOperation|date('d/m/Y') }}
-									{% if invoice.timeOperation %}
-										-
-										{{ invoice.timeOperation}}
-									{% endif %}
-								</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						{% endif %}
-					</tbody>
-					<tfoot>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td scope="col" class="total-zone">
-								{% if invoice.articlePriceTtc %}
-									<div class="facture-total">
-										<span class="title-total">HT:</span>
-										<span class="value-total">{{ invoice.total.htOnTtc|number_format(2, '.', ',') }}</span>
-										<span class="title-total">TVA:</span>
-										<span class="value-total">{{ invoice.total.tvaOnTtc|number_format(2, '.', ',') }}</span>
-										<span class="title-total">TTC:</span>
-										<span class="value-total">{{ invoice.total.totalOnTtc|number_format(2, '.', ',') }}</span>
-									</div>
-								{% else %}
-									<div class="facture-total">
-										<span class="title-total">HT:</span>
-										<span class="value-total">{{ invoice.total.total_ht|number_format(2, '.', ',') }}</span>
-										<span class="title-total">TVA:</span>
-										<span class="value-total">{{ invoice.total.total_tva|number_format(2, '.', ',') }}</span>
-										<span class="title-total">TTC:</span>
-										<span class="value-total">{{ invoice.total.total_ttc|number_format(2, '.', ',') }}</span>
-									</div>
+			<table class="facture-table" role="grid">
+				<thead>
+					<tr class='facture-table-grid '>
+						<th scope="col">#</th>
+						<th scope="col">Designation</th>
+						<th scope="col" class="align-right">price</th>
+						<th scope="col" class="align-right">Taux Tva</th>
+						<th scope="col" class="align-right">Quantity</th>
+						<th scope="col" class="align-right">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{# number_format($number, 2, ',', ' ') #}
+					{% for index, article in invoice.product %}
+						<tr class='facture-table-grid'>
+							<th scope="row" class="vertical-align-top">{{ index + 1}}</th>
+							<td>{{ article.designation }}
+								{% if article.detail %}
+									<i class="detail-info">{{ article.detail|raw }}</i>
 								{% endif %}
 							</td>
+							<td class="align-right vertical-align-top">{{ article.price|number_format(2, '.', ',') }}</td>
+							<td class="align-right vertical-align-top">{{ article.tva|number_format(2, '.', ',') }}</td>
+							<td class="align-right vertical-align-top">{{ article.quantity|number_format(2, '.', ',') }}</td>
+							{% if invoice.articlePriceTtc %}
+								<td class="align-right vertical-align-top">{{ article.totalOnTtc|number_format(2, '.', ',') }}</td>
+							{% else %}
+								<td class="align-right vertical-align-top">{{ article.total|number_format(2, '.', ',') }}</td>
+							{% endif %}
+
+
 						</tr>
-					</tfoot>
-				</td>
-			</tr>
-		</body>
-	</tfoot>
-</table></section>{% if setting.showbank %}
-<section class="bank-info">
-	<h6>RIB</h6>
-	<div class="bank-info-zone-left">
-		Banque:<span class="bank-value">{{ bankAccount.codeBank }}</span>
-		<br>
-		Guichet:
-		<span class="bank-value">{{ bankAccount.guichet }}</span>
-		<br>
-		Compte:
-		<span class="bank-value">{{ bankAccount.account }}</span>
-		<br>
-		Cle:
-		<span class="bank-value">{{ bankAccount.cle }}</span>
+					{% endfor %}
+					{% if setting.showDateOperation %}
+						<tr class='facture-table-grid'>
+							<th scope="row">#</th>
+							<td>{{ invoice.dateOperation|date('d/m/Y') }}
+								{% if invoice.timeOperation %}
+									-
+									{{ invoice.timeOperation}}
+								{% endif %}
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					{% endif %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td scope="col" class="total-zone">
+							{% if invoice.articlePriceTtc %}
+								<div class="facture-total">
+									<span class="title-total">HT:</span>
+									<span class="value-total">{{ invoice.total.htOnTtc|number_format(2, '.', ',') }}</span>
+									<span class="title-total">TVA:</span>
+									<span class="value-total">{{ invoice.total.tvaOnTtc|number_format(2, '.', ',') }}</span>
+									<span class="title-total">TTC:</span>
+									<span class="value-total">{{ invoice.total.totalOnTtc|number_format(2, '.', ',') }}</span>
+								</div>
+							{% else %}
+								<div class="facture-total">
+									<span class="title-total">HT:</span>
+									<span class="value-total">{{ invoice.total.total_ht|number_format(2, '.', ',') }}</span>
+									<span class="title-total">TVA:</span>
+									<span class="value-total">{{ invoice.total.total_tva|number_format(2, '.', ',') }}</span>
+									<span class="title-total">TTC:</span>
+									<span class="value-total">{{ invoice.total.total_ttc|number_format(2, '.', ',') }}</span>
+								</div>
+							{% endif %}
+						</td>
+					</tr>
+				</tfoot>
+
+			</table>
+		</section>
+		{% if setting.showbank %}
+			<section class="bank-info">
+				<h6>RIB</h6>
+				<div class="bank-info-zone-left">
+					Banque:<span class="bank-value">{{ bankAccount.codeBank }}</span>
+					<br>
+					Guichet:
+					<span class="bank-value">{{ bankAccount.guichet }}</span>
+					<br>
+					Compte:
+					<span class="bank-value">{{ bankAccount.account }}</span>
+					<br>
+					Cle:
+					<span class="bank-value">{{ bankAccount.cle }}</span>
+				</div>
+				<div class="bank-info-zone-right">Devise:
+					<span class="bank-value">{{ bankAccount.devise }}</span>
+					<br>
+					Domiciliation:
+					<span class="bank-value">{{ bankAccount.domiciliation }}</span>
+					<br>
+					Iban:
+					<span class="bank-value">{{ bankAccount.iban }}</span>
+					<br>
+					Bic:
+					<span class="bank-value">{{ bankAccount.bic }}</span>
+				</div>
+
+
+			</section>
+			{% if setting.showNoTvaText %}
+				<p>{{  setting.noTvaText}}</p>
+			{% endif %}
+		{% endif %}
+
+		<div class="invoice-footer">
+			{% if setting.showLatePaymentText %}
+
+				<p>
+					{{ setting.latePaymentText}}
+				</p>
+			{% endif %}
+		</div>
 	</div>
-	<div class="bank-info-zone-right">Devise:
-		<span class="bank-value">{{ bankAccount.devise }}</span>
-		<br>
-		Domiciliation:
-		<span class="bank-value">{{ bankAccount.domiciliation }}</span>
-		<br>
-		Iban:
-		<span class="bank-value">{{ bankAccount.iban }}</span>
-		<br>
-		Bic:
-		<span class="bank-value">{{ bankAccount.bic }}</span>
-	</div>
-
-
-</section>
-{% if setting.showNoTvaText %}
-	<p>{{  setting.noTvaText}}</p>
-{% endif %}{% endif %}</body><div class="invoice-footer">{% if setting.showLatePaymentText %}
-
-<p>
-	{{ setting.latePaymentText}}
-</p>{% endif %}</div></div>{% endblock %}
+{% endblock %}

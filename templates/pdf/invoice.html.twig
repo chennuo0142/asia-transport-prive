@@ -194,6 +194,11 @@
 				width: 100%;
 				text-align: center;
 			}
+			.invoice-article-detail {
+				display: block;
+				margin-left: 4mm;
+				font-size: 0.8rem;
+			}
 		</style>
 		<title>Pdf Template</title>
 	</head>
@@ -246,6 +251,7 @@
 				<thead>
 
 					<tr class="tr-thead">
+						<th>#</th>
 						<th class="designation">Description</th>
 						<th class="align-right">Tarif</th>
 
@@ -266,8 +272,9 @@
 				<tbody>
 
 
-					{% for article in invoice.product %}
+					{% for index, article in invoice.product %}
 						<tr>
+							<td>{{ index + 1 }}</td>
 
 							<td class="decription_produit">{{ article.designation}}</td>
 
@@ -286,6 +293,15 @@
 
 
 						</tr>
+						{% if article.detail %}
+							<tr>
+								<td></td>
+								<td>
+									<i class="invoice-article-detail">{{ article.detail|raw }}</i>
+								</td>
+
+							</tr>
+						{% endif %}
 					{% endfor %}
 
 
@@ -424,7 +440,7 @@
 		<footer>
 			<span class="center">{{ company.name }}
 				/
-																																																																																																																																																																																																																																																																																																																																																																																																																																																            Siret:
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																            Siret:
 				{{ invoice.company.siret }}
 			</span>
 		</footer>

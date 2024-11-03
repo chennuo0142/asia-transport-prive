@@ -46,18 +46,27 @@
 
 }
 
-// .invoice-article-index {
-//     display: flex;
+.invoice-article-index {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 
-// }
+}
 
-.invoice-show-align-right {
+.vertical-align-top {
+    height: auto;
+    vertical-align: top;
+}
+
+.align-right {
 
     text-align: right;
 
 }
 
 .detail-info {
+    position: relative;
+
     display: block;
     padding-left: 10px;
 }
@@ -112,11 +121,11 @@
 }
 
 .value-total::after {
-    content: '€ ';
+    content: '€';
 }
 
 .article-price::after {
-    content: '€ ';
+    content: '€';
 }
 
 .total_value {
